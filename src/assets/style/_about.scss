@@ -1,0 +1,25 @@
+.about-chou-content {
+  width: 80%;
+  padding-right: 25%;
+}
+
+.about-profilePic {
+  max-width: 40%;
+  display: block;
+  margin-top: 32px;
+  top: 10px;
+  right: 10px;
+}
+.about-profilePic-deco {
+  top: 32px;
+  width: 15%;
+  height: 40%;
+}
+.about-experience {
+  margin-top: 40px;
+  margin-bottom: 40px;
+  @include lg {
+    margin-top: 80px;
+    margin-bottom: 80px;
+  }
+}

@@ -10,61 +10,103 @@ const router = createRouter({
       children: [
         {
           path: '',
-          component: () => import('../views/front/HomeView.vue')
+          component: () => import('../views/front/HomeView.vue'),
+          meta: {
+            title: '舟舟療心室'
+          } 
         },
         {
           path: 'about',
-          component: () => import('../views/front/AboutView.vue')
+          component: () => import('../views/front/AboutView.vue'),
+          meta: {
+            title: '舟舟療心室'
+          } 
         },
         {
           path: 'services',
-          component: () => import('../views/front/ServicesView.vue')
+          component: () => import('../views/front/ServicesView.vue'),
+          meta: {
+            title: '舟舟療心室'
+          } 
         },
         {
-          path: 'service/:id',
-          component: () => import('../views/front/ServiceView.vue')
+          path: 'service',
+          // path: 'service/:id',
+          component: () => import('../views/front/ServiceView.vue'),
+          meta: {
+            title: '舟舟療心室'
+          } 
         },
         {
           path: 'courses',
-          component: () => import('../views/front/CoursesView.vue')
+          component: () => import('../views/front/CoursesView.vue'),
+          meta: {
+            title: '舟舟療心室'
+          } 
         },
         {
-          path: 'course/:id',
-          component: () => import('../views/front/CourseView.vue')
+          path: 'course',
+          // path: 'course/:id',
+          component: () => import('../views/front/CourseView.vue'),
+          meta: {
+            title: '舟舟療心室'
+          } 
         },
         {
           path: 'appointment-success',
-          component: () => import('../views/front/AppointmentSuccessView.vue')
+          component: () => import('../views/front/AppointmentSuccessView.vue'),
+          meta: {
+            title: '舟舟療心室'
+          } 
         },
         {
           path: 'news',
-          component: () => import('../views/front/NewsView.vue')
+          component: () => import('../views/front/NewsView.vue'),
+          meta: {
+            title: '舟舟療心室'
+          } 
         },
         {
           path: 'news/:id',
-          component: () => import('../views/front/NewsArticleView.vue')
+          component: () => import('../views/front/NewsArticleView.vue'),
+          meta: {
+            title: '舟舟療心室'
+          } 
         },
         {
           path: 'blog',
-          component: () => import('../views/front/BlogView.vue')
+          component: () => import('../views/front/BlogView.vue'),
+          meta: {
+            title: '舟舟療心室'
+          } 
         },
         {
-          path: 'blog/:id',
-          component: () => import('../views/front/BlogArticleView.vue')
+          path: 'blog_article',
+          // path: 'blog/:id',
+          component: () => import('../views/front/BlogArticleView.vue'),
+          meta: {
+            title: '舟舟療心室'
+          } 
         },
         {
           path: 'login',
-          component: () => import('../views/front/LoginView.vue')
+          component: () => import('../views/front/LoginView.vue'),
+          meta: {
+            title: '舟舟療心室'
+          } 
         }
       ]
     },
     {
       path: '/admin',
       component: () => import('../views/DashboardView.vue'),
+      meta: {
+        title: '舟舟療心室 後台'
+      },
       children: [
         {
           path: 'products',
-          component: () => import('../views/admin/AdminProducts.vue')
+          component: () => import('../views/admin/AdminProducts.vue'),
         },
         {
           path: 'orders',

@@ -5,3 +5,13 @@
     <router-link to="/">回首頁</router-link>
   </div>
 </template>
+
+<script>
+import { RouterLink } from 'vue-router'
+
+export default {
+  components: {
+    RouterLink
+  }
+}
+</script>

@@ -1,0 +1,14 @@
+@import "bootstrap/scss/functions";
+@import "./variables";
+@import "./utilities";
+@import "./mixin";
+
+@import "bootstrap/scss/bootstrap";
+
+@import "./base";
+@import "./components";
+
+@import "./layout";
+@import "./index";
+@import "./about";
+@import "./healing";

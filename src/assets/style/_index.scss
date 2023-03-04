@@ -1,0 +1,107 @@
+.index-banner {
+  // height: 682px;
+  height: 100vh;
+  background-image: url(../images/index_banner.jpg);
+  background-size: cover;
+  background-position: center;
+  margin-top: -56px;
+}
+.index-theta {
+  background-image: url(../images/index_theta.jpg);
+  &-image {
+    height: 400px;
+    &:hover {
+      border-color: $light;
+    }
+  }
+  .index-theta-image {
+    box-sizing: border-box;
+    background-clip: border-box;
+    border: 2px solid $primary;
+
+    .index-theta-screen{
+      background-color: #0000;
+      transition: .3s;
+    }
+
+    &:hover .index-theta-screen{
+      background-color: #0003;
+    }
+  }
+  .index-healing .index-theta-image {
+    background-image: url(../images/meditation.jpg);
+  }
+  .index-courses .index-theta-image {
+    background-image: url(../images/tarot-card-on-hand.jpg);
+  }
+   .btn {
+    color:$primary;
+    &:hover {
+      background-color: $primary;
+      color:white;
+      svg {
+        fill: #FFF
+      }
+    }
+    &:active {
+      background-color: $secondary;
+    }
+   }
+}
+
+.index-about {
+  padding-top: 80px;
+  padding-bottom: 80px;
+  ul {
+    margin-top: 54px;
+    margin-bottom: 54px;
+  }
+  li {
+    line-height: 40px;
+  }
+  .btn {
+    background-color: #fff;
+    &:hover {
+      background-color: $light;
+    }
+    &:active {
+      background-color: $primary;
+      color:white;
+      svg {
+        fill: #FFF
+      }
+    }
+  }
+  .index-about-image {
+    height: 436px;
+    background-image: url(../images/index_about.jpg);
+    background-size: cover;
+    background-position: center;
+    @include md {
+      position:absolute;
+      top: 54px;
+      bottom: 0;
+      left: 0;
+      right: 72px;
+    }
+  }
+
+  
+  .index-about-shadow{
+
+    @include md {
+      position:absolute;
+      top: 0;
+      bottom: 54px;
+      left: 72px;
+      right: 0;
+    }
+  }
+  .index-about-title {
+
+    font-size: 80px;
+    font-weight: 700;
+    font-family: 'Cormorant', serif;
+
+  }
+}
