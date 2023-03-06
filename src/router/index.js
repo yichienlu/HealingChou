@@ -157,7 +157,8 @@ const router = createRouter({
 
 // router 命名
 router.beforeEach((to, from, next) => {
-  window.document.title = to.meta.title
+  window.document.title = to.meta.title;
+  window.scrollTo(0,0);
   next()
 })
 
