@@ -36,14 +36,14 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="orderModalLabel">Modal title</h1>
+        <h1 class="modal-title fs-5" id="orderModalLabel">新增預約/關閉時段</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <div class="mb-3 row">
-          <label for="userEmail" class="col-sm-2 col-form-label">Email</label>
+          <label for="orderTime" class="col-sm-2 col-form-label">時段</label>
           <div class="col-sm-10">
-            <input type="email" class="form-control" id="userEmail">
+            <input type="text" class="form-control-plaintext" readonly id="orderTime" value="2023/03/18 20:00">
           </div>
         </div>
         <div class="mb-3 row">
@@ -59,36 +59,34 @@
           </div>
         </div>
         <div class="mb-3 row">
-          <label for="orderTime" class="col-sm-2 col-form-label">時段</label>
+          <label for="userEmail" class="col-sm-2 col-form-label">Email</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control-plaintext" id="orderTime">
+            <input type="email" class="form-control" id="userEmail">
           </div>
         </div>
-        <div class="calendar">
-          <div class="month">
-            <button class="btn btn-outline-primary prev" @click="changeMonth(-1)">
-              <i class="fas fa-angle-left"></i>
-            </button>
-            <div class="date">
-              <h1></h1>
-              <h2></h2>
-            </div>
-            <div class="btn btn-outline-primary next" @click="changeMonth(1)">
-              <i class="fas fa-angle-right"></i>
-            </div>
+        <div class="mb-3 row">
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="closed">
+            <label class="form-check-label" for="inlineCheckbox1">關閉時段</label>
           </div>
-          <div class="weekdays">
-            <div class="">日</div>
-            <div class="">一</div>
-            <div class="">二</div>
-            <div class="">三</div>
-            <div class="">四</div>
-            <div class="">五</div>
-            <div class="">六</div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="service">
+            <label class="form-check-label" for="inlineCheckbox2">服務</label>
           </div>
-          
-          <div class="days"></div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="course">
+            <label class="form-check-label" for="inlineCheckbox3">課程</label>
+          </div>
         </div>
+        <div class="mb-3 row">
+          <label for="" class="col-sm-2 col-form-label"></label>
+          <div class="col-sm-10">
+            <select class="form-select" aria-label="Default select example">
+              <!-- <option value="1">One</option> -->
+            </select>
+          </div>
+        </div>
+        
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-outline-danger me-auto" data-bs-dismiss="modal">刪除預約</button>
@@ -110,7 +108,7 @@ export default {
     return {
       orders:[],
       date:{},
-      tempOrder:{}
+      tempOrder:{},
     }
   },
   components: {
@@ -178,11 +176,6 @@ export default {
       .catch((err) => {
         console.log(err)
       })
-      // booked.forEach(function(item){
-      //   if(document.querySelector(`[data-session='${item}']`) != undefined){
-      //     document.querySelector(`[data-session='${item}']`).classList.add('d-none')
-      //   }
-      // })
     },
     renderSession(){
       const sessionDays = document.querySelectorAll("[data-date]")
@@ -214,7 +207,6 @@ export default {
         if(document.querySelector(`[data-session='${item.user.address}']`) != undefined){
           document.querySelector(`[data-session='${item.user.address}']`).classList.add('d-none')
         }
-        // console.log(item.user.address)
       })
     },
 
