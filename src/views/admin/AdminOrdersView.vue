@@ -47,9 +47,9 @@
           </div>
         </div>
         <div class="mb-3 row">
-          <label for="userName" class="col-sm-2 col-form-label">名字</label>
+          <label for="userName" class="col-sm-2 col-form-label">名字{{ this.tempOrder.name }}</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="userName">
+            <input type="text" class="form-control" id="userName" v-model="this.tempOrder.name">
           </div>
         </div>
         <div class="mb-3 row">
@@ -99,7 +99,7 @@
 </template>
 
 <script>
-import { RouterLink } from 'vue-router'
+// import { RouterLink } from 'vue-router'
 
 const { VITE_URL, VITE_PATH } = import.meta.env;
 
@@ -108,11 +108,21 @@ export default {
     return {
       orders:[],
       date:{},
-      tempOrder:{},
+      tempOrder:{
+        name:'',
+        phone:'',
+        email:'',
+        message:'',
+        time:0,
+        product:{
+          title:'',
+          category:'',
+        }
+      },
     }
   },
   components: {
-    RouterLink
+    // RouterLink
   },
   methods:{
     renderCalendar(){
@@ -169,7 +179,9 @@ export default {
     getBooked(){
       this.$http.get(`${VITE_URL}/api/${VITE_PATH}/admin/orders`)
       .then((res) => {
+        // console.log(res.data.orders)
         this.orders = res.data.orders.sort((a,b) => a.user.address - b.user.address)
+        // console.log(this.orders)
         this.renderSession()
         this.renderOrders()
       })
@@ -186,15 +198,15 @@ export default {
           if(day==6){
             sessionDays[index].innerHTML = `
               <p>${index+1}</p>
-              <button class="btn btn-sm btn-outline-primary" data-session="${new Date(Number(item.dataset.date)).setHours(10, 0, 0, 0)}">10:00</button>
-              <button class="btn btn-sm btn-outline-primary" data-session="${new Date(Number(item.dataset.date)).setHours(14, 0, 0, 0)}">14:00</button>
-              <button class="btn btn-sm btn-outline-primary" data-session="${new Date(Number(item.dataset.date)).setHours(16, 0, 0, 0)}">16:00</button>
-              <button class="btn btn-sm btn-outline-primary" data-session="${new Date(Number(item.dataset.date)).setHours(20, 0, 0, 0)}">20:00</button>
+              <button class="btn btn-sm btn-outline-primary" data-session="${new Date(Number(item.dataset.date)).setHours(10, 0, 0, 0)}" onclick="selectTempOrder">10:00</button>
+              <button class="btn btn-sm btn-outline-primary" data-session="${new Date(Number(item.dataset.date)).setHours(14, 0, 0, 0)}" onclick="selectTempOrder">14:00</button>
+              <button class="btn btn-sm btn-outline-primary" data-session="${new Date(Number(item.dataset.date)).setHours(16, 0, 0, 0)}" onclick="selectTempOrder">16:00</button>
+              <button class="btn btn-sm btn-outline-primary" data-session="${new Date(Number(item.dataset.date)).setHours(20, 0, 0, 0)}" onclick="selectTempOrder">20:00</button>
             `
           } else if (day==1 || day == 2 || day==4 || day==5){
             sessionDays[index].innerHTML = `
               <p>${index+1}</p>
-              <button class="btn btn-sm btn-outline-primary" data-session="${new Date(Number(item.dataset.date)).setHours(20, 0, 0, 0)}">20:00</button>
+              <button class="btn btn-sm btn-outline-primary" data-session="${new Date(Number(item.dataset.date)).setHours(20, 0, 0, 0)}" onclick="console.log('??')">20:00</button>
             `
           }
         }
@@ -212,14 +224,22 @@ export default {
 
     renderOrders(){
       this.orders.forEach(function(item){
+        // console.log(item)
         let time =  new Date(Number(item.user.address)).getHours() 
         let key = Object.keys(item.products)[0]
         let product = item.products[key].product
         let day = new Date(Number(item.user.address)).setHours(0, 0, 0, 0)
-        document.querySelector(`[data-date='${day}']`).innerHTML += `<p>${time}:00 ${item.user.name} ${product.title}</p>`
+        document.querySelector(`[data-date='${day}']`).innerHTML += `
+        <p class="booked" data-session="${item.user.address}" @click="selectTempOrder(item)">${time}:00 ${item.user.name} ${product.title}</p>
+        `
         
       })
+
     },
+    selectTempOrder(){
+      console.log('!!')
+      // console.log(item)
+    }
   },
   mounted(){
     this.getBooked()
@@ -242,8 +262,6 @@ export default {
 .month i {
   cursor: pointer;
 }
-
-
 .weekdays {
   display: flex;
   align-items: center;
@@ -260,6 +278,8 @@ export default {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
+  font-size: 0.3rem;
+
 }
 
 .days div {
@@ -268,9 +288,14 @@ export default {
   border: 1px solid;
 }
 .days button {
-  font-size: 0.3rem;
   padding: 2px;
   margin-bottom: 5px;
+}
+.days .booked {
+  cursor: pointer;
+  // &:hover {
+    // color: $secondary
+  // }
 }
 
 .prev-date, .next-date {

@@ -40,8 +40,8 @@ export default {
           this.$router.push('/admin')
         })
         .catch((err) => {
-          console.dir(err.data)
-          alert(`${err.data.message}：${err.data.error.message}`)
+          console.log(err)
+          // alert(`${err.data.message}：${err.data.error.message}`)
         })
     }
   }
