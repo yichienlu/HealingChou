@@ -109,8 +109,8 @@ export default {
       orders:[],
       date:{},
       tempOrder:{
-        name:'',
-        phone:'',
+        name:'name',
+        phone:'0987654321',
         email:'',
         message:'',
         time:0,
@@ -230,15 +230,15 @@ export default {
         let product = item.products[key].product
         let day = new Date(Number(item.user.address)).setHours(0, 0, 0, 0)
         document.querySelector(`[data-date='${day}']`).innerHTML += `
-        <p class="booked" data-session="${item.user.address}" @click="selectTempOrder(item)">${time}:00 ${item.user.name} ${product.title}</p>
+        <p class="booked" data-session="${item.user.address}" onclick="selectTempOrder(${item})">${time}:00 ${item.user.name} ${product.title}</p>
         `
         
       })
 
     },
-    selectTempOrder(){
+    selectTempOrder(item){
       console.log('!!')
-      // console.log(item)
+      console.log(item)
     }
   },
   mounted(){
