@@ -5,65 +5,12 @@
     </h1>
   <section class="healing_content bg-beige">
     <div class="container py-40 py-lg-80 position-relative">
-      <h2>希塔療癒師培訓班</h2>
-      <ul style="list-style-type: '☼ '">
-        <li class="mb-3">
-          什麼是希塔療癒呢？
-          <p>
-            ThetaHealingⓇ 希塔療癒是在冥想的過程中，透過對造物主專注地祈求，來啟發身、心、靈的療癒。 <br>
-            當我們連結萬有的造物主，我們的腦波會自動轉換成希塔波的狀態 <br>
-            在這個狀態下，您可以立即創造和改變事實。 <br>
-            您將會接受到造物主毫無保留傳遞下來令人大開眼界的訊息。 <br>
-            它改變了靜靜老師和舟舟老師的生命，也改變了其他許多人的生命。 <br>
-            若你想要顯化生命中的豐盛，無論是金錢、人際、情感，或是想要成為助人者，找靜靜和舟舟上希塔療癒師培訓課程是很棒的選擇。            
-          </p>
-        </li>
-        <li class="mb-3">
-          希塔療癒基礎DNA課程內容
-          <ul>
-            <li>學習與造物主連結</li>
-            <li>學習解讀及療癒</li>
-            <li>認識感覺以及信念系統運作</li>
-            <li>與造物主共同創造實相</li>
-            <li>學習處理人生恐懼課題</li>
-            <li>認識存有界、有關靈魂的事務</li>
-            <li>顯化及未來解讀</li>
-            <li>改變DNA</li>
-          </ul>
-        </li>
-        <li class="mb-3">
-          希塔療癒進階DNA課程內容
-          <ul>
-            <li>下載更全面正面信念系統</li>
-            <li>詳細七界介紹</li>
-            <li>植物、晶礦、動物解讀</li>
-            <li>淨化無生命物質</li>
-            <li>與祖先、高我對話</li>
-            <li>處理被拒絕、後悔、挖掘怨恨課題</li>
-            <li>豐盛顯化/願望清單</li>
-          </ul>
-        </li>
-        <li class="mb-3">
-          希塔療癒深度挖掘課程內容
-          <ul>
-            <li>更多元的挖掘技巧，學習用更高更好的方式挖掘到底層信念</li>
-            <li>基本八種挖掘技巧，保證學生們學到會(*´∀`)~♥</li>
-          </ul>
-        </li>
-      </ul>
-      <ul class="mt-5">
-        <li>希塔療癒基礎DNA療癒師培訓 三日16.5小時</li>
-        <li>希塔療癒進階DNA療癒師培訓 三日16.5小時</li>
-        <li>希塔療癒深度挖掘療癒師培訓 二日12.5小時</li>
-      </ul>
-      <p>每階16800元，三階全報另有優惠</p>
-
-      <!-- <img src="./assets/images/tarot-card-sketch.png" class="healing-content-image position-absolute"> -->
-
+      <h2>{{ course.title }}</h2>
+      <div v-html="course.content"></div>
     </div>
   </section>
 
-  <section class=" py-40 py-lg-80 bg-image bg-fixed" style="background-image: url(./assets/images/index_theta.jpg);">
+  <section class=" py-40 py-lg-80 bg-image bg-fixed d-none" style="background-image: url(/src/assets/images/index_theta.jpg);">
     <div class="container text-white">
       <div class="row justify-content-center">
         <div class="col-md-9">
@@ -137,7 +84,7 @@
                       <li class="text-center">產業分析師</li>
                     </ul>
                     
-                    <ul style="list-style-type: '☪ '">
+                    <ul>
                       <li>
                         國際認證希塔療癒師
                         <ul>
@@ -289,13 +236,35 @@
 </template>
 
 <script>
-// import { RouterLink } from 'vue-router'
+import { RouterLink } from 'vue-router'
+const { VITE_URL, VITE_PATH } = import.meta.env
 
-// export default {
-//   components: {
-//     RouterLink
-//   }
-// }
+export default {
+  data(){
+    return {
+      course: {}
+    }
+  },
+  components: {
+    RouterLink
+  },
+  methods: {
+    getCourse(){
+      const { id } = this.$route.params
+      this.$http.get(`${VITE_URL}/api/${VITE_PATH}/product/${id}`)
+      .then((res) => {
+        console.log(res.data.product)
+        this.course = res.data.product
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    }
+  },
+  mounted(){
+    this.getCourse()
+  }
+}
 </script>
 
 <style lang="scss">

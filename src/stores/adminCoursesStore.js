@@ -12,7 +12,7 @@ export default defineStore('adminCoursesStore', {
   }),
   actions: {
     getAdminCourses(page = 1){
-      axios.get(`${VITE_URL}/api/${VITE_PATH}/admin/products?page=${page}?&category=course`)
+      axios.get(`${VITE_URL}/api/${VITE_PATH}/admin/products?page=${page}`)
       .then((res)=>{
         console.log(res.data)
         this.pagination = res.data.pagination

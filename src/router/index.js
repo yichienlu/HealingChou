@@ -30,8 +30,8 @@ const router = createRouter({
           } 
         },
         {
-          path: 'service',
-          // path: 'service/:id',
+          // path: 'service',
+          path: 'service/:id',
           component: () => import('../views/front/ServiceView.vue'),
           meta: {
             title: '舟舟療心室 | 療癒服務'
@@ -45,8 +45,8 @@ const router = createRouter({
           } 
         },
         {
-          path: 'course',
-          // path: 'course/:id',
+          // path: 'course',
+          path: 'course/:id',
           component: () => import('../views/front/CourseView.vue'),
           meta: {
             title: '舟舟療心室 | 療癒課程'

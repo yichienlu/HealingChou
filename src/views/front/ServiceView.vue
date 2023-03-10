@@ -2,30 +2,13 @@
 <div class="healing_Theta">
     <h1 class="text-center fs-1 pt-40 pt-lg-80 pb-40 pb-lg-80 lh-1 mb-0 bg-image text-white" style="background-image: url(src/assets/images/meditation-banner.jpg); background-position: center 70%;">
       療癒服務 <br>
-      <span class="fs-3 fw-normal">希塔療癒</span>
+      <span class="fs-3 fw-normal">{{ service.title }}</span>
     </h1>
 
 <section class="healing_content bg-beige">
   <div class="container pt-5 pb-5 position-relative">
-    <h2>希塔療癒</h2>
-    <h3 class="fs-5 fw-normal mb-5">連結自己的好工具，信念創造實相</h3>
-    <p>透過療癒師的帶領，連結內在神性，將腦波帶領到希塔波</p>
-    <ul>
-      <li>釋放限制性信念</li>
-      <li>療癒內在小孩、過去創傷</li>
-      <li>清理祖先業力</li>
-      <li>豐盛顯化</li>
-      <li>未來解讀</li>
-    </ul>
-    <p>收費：1800元 / 1-1.5小時</p>
-
-    <h3 class="fs-5 mt-5 mb-4">希塔療癒介紹：</h3>
-    <p>ThetaHealingⓇ 希塔療癒是在冥想的過程中，透過對造物主專注地祈求，來啟發身、心、靈的療癒。</p>
-    <p>當我們連結萬有的造物主，我們的腦波會自動轉換成希塔波的狀態，在這個狀態下，您可以立即創造和改變事實。</p>
-    <p>您將會接受到造物主毫無保留傳遞下來令人大開眼界的訊息。</p>
-
-    <!-- <img src="./assets/images/tarot-card-sketch.png" class="position-absolute"> -->
-
+    <h2>{{ service.title }}</h2>
+    <div v-html="service.content"></div>
   </div>
 </section>
 
@@ -96,13 +79,36 @@
 </template>
 
 <script>
-// import { RouterLink } from 'vue-router'
+import { RouterLink } from 'vue-router'
+const { VITE_URL, VITE_PATH } = import.meta.env
 
-// export default {
-//   components: {
-//     RouterLink
-//   }
-// }
+
+export default {
+  data(){
+    return {
+      service: {}
+    }
+  },
+  components: {
+    RouterLink
+  },
+  methods: {
+    getService(){
+      const { id } = this.$route.params
+      this.$http.get(`${VITE_URL}/api/${VITE_PATH}/product/${id}`)
+      .then((res) => {
+        console.log(res.data.product)
+        this.service = res.data.product
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    }
+  },
+  mounted(){
+    this.getService()
+  }
+}
 </script>
 
 <style lang="scss">
