@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="text-end mt-4">
-      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#adminCourseModal" @click="selectTempCourse({imagesUrl:[''], description:'', content:''})">
+      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#adminCourseModal" @click="selectTempCourse({imagesUrl:[''], category:'service', description:'', content:'', origin_price: 0, })">
         建立新的服務
       </button>
     </div>
@@ -22,20 +22,20 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="course in courses" :key="course.id">
-          <td>{{ course.title }}</td>
-          <td>{{ course.description }}</td>
-          <td class="text-end">{{ course.price }}</td>
+        <tr v-for="service in services" :key="service.id">
+          <td>{{ service.title }}</td>
+          <td>{{ service.description }}</td>
+          <td class="text-end">{{ service.price }}</td>
           <td>
-            <span class="text-success" v-if="course.is_enabled == 1">啟用</span>
+            <span class="text-success" v-if="service.is_enabled == 1">啟用</span>
             <span v-else>未啟用</span>
           </td>
           <td>
             <div class="btn-group">
-              <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#adminCourseModal" @click="selectTempCourse(JSON.parse(JSON.stringify(course)))">
+              <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#adminCourseModal" @click="selectTempCourse(JSON.parse(JSON.stringify(service)))">
                 編輯
               </button>
-              <button type="button" class="btn btn-outline-danger btn-sm" @click="selectTempCourse(course)">
+              <button type="button" class="btn btn-outline-danger btn-sm" @click="selectTempCourse(service)">
                 刪除
               </button>
             </div>
@@ -43,12 +43,12 @@
         </tr>
       </tbody>
     </table>
-    <!-- <pagination :pages="pagination"  @change-page="getAdminCourses"></pagination> -->
+    <pagination :pages="service_pagination"  @change-page="getAdminServices"></pagination>
   </div>
 
   <div class="container">
     <div class="text-end mt-4">
-      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#adminCourseModal" @click="selectTempCourse({imagesUrl:[''], description:'', content:''})">
+      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#adminCourseModal" @click="selectTempCourse({imagesUrl:[''], category:'course', description:'', content:'', origin_price: 0})">
         建立新的課程
       </button>
     </div>
@@ -90,7 +90,7 @@
         </tr>
       </tbody>
     </table>
-    <!-- <pagination :pages="pagination"  @change-page="getAdminCourses"></pagination> -->
+    <pagination :pages="course_pagination"  @change-page="getAdminCourses"></pagination>
   </div>
 
 
@@ -101,7 +101,7 @@
 </template>
 
 <script>
-// import Pagination from '@/components/PaginationComponent.vue';
+import Pagination from '@/components/PaginationComponent.vue';
 import AdminCourseModal from '@/components/AdminCourseModal.vue';
 import adminCoursesStore from '@/stores/adminCoursesStore.js'
 import { mapState, mapActions } from "pinia";
@@ -114,16 +114,17 @@ export default {
     }
   },
   computed:{
-    ...mapState(adminCoursesStore, ['tempCourse','courses', 'pagination'])
+    ...mapState(adminCoursesStore, ['tempCourse','courses', 'services', 'service_pagination', 'course_pagination'])
   },
   components: {
-    // Pagination, 
+    Pagination, 
     AdminCourseModal
   },
   methods:{
-    ...mapActions(adminCoursesStore, ['getAdminCourses', 'selectTempCourse'])
+    ...mapActions(adminCoursesStore, ['getAdminCourses', 'getAdminServices', 'selectTempCourse'])
   },
   mounted(){
+    this.getAdminServices();
     this.getAdminCourses();
     this.adminCourseModal = new Modal('#adminCourseModal')
   }

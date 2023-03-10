@@ -236,7 +236,7 @@
 </template>
 
 <script>
-import { RouterLink } from 'vue-router'
+// import { RouterLink } from 'vue-router'
 const { VITE_URL, VITE_PATH } = import.meta.env
 
 export default {
@@ -245,9 +245,9 @@ export default {
       course: {}
     }
   },
-  components: {
-    RouterLink
-  },
+  // components: {
+  //   RouterLink
+  // },
   methods: {
     getCourse(){
       const { id } = this.$route.params

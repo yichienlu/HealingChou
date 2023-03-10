@@ -3,7 +3,9 @@
     <div class="modal-content border-0">
       <div class="modal-header bg-dark text-white">
         <h5 id="courseModalLabel" class="modal-title">
-          <span v-if="tempCourse.id">編輯課程</span>
+          <span v-if="tempCourse.id&&tempCourse.category=='service'">編輯服務</span>
+          <span v-else-if="tempCourse.id&&tempCourse.category=='course'">編輯課程</span>
+          <span v-else-if="!tempCourse.id&&tempCourse.category=='service'">新增服務</span>
           <span v-else>新增課程</span>
         </h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="clearInputs()"></button>
@@ -13,7 +15,7 @@
           <div class="col-sm-4">
               <div class="mb-2">
                 <div class="mb-3">
-                  <h5>主要圖片</h5>
+                  <h5>列表圖片</h5>
                   <label for="imageUrl" class="form-label">圖片網址</label>
                 <input id="imageUrl" v-model="tempCourse.imageUrl" type="text" class="form-control form-control-sm mb-2" placeholder="請輸入圖片連結">
                   <form enctype="multipart/form-data"  method="post">
@@ -24,7 +26,7 @@
                 <img class="img-fluid" :src="tempCourse.imageUrl" alt="">
               </div>
               <div class="mb-2">
-                <h5>次要圖片</h5>
+                <h5>內容圖片</h5>
                   <div v-for="(image, index) in tempCourse.imagesUrl" :key="index">
                     <div class="mb-3">
                         <!-- <label for="imageUrl" class="form-label">輸入次要圖片網址</label>
@@ -51,20 +53,10 @@
           <div class="col-sm-8">
             <div class="row">
               <div class="mb-3 col-md-6">
-                <label for="title" class="form-label">課程標題</label>
+                <label for="title" class="form-label">標題</label>
                 <input id="title" type="text" class="form-control" placeholder="請輸入標題" v-model="tempCourse.title">
               </div>
-              <div class="mb-3 col-md-6 d-none">
-                <label for="category" class="form-label">分類</label>
-                <input id="category" type="text" class="form-control" placeholder="請輸入分類" v-model="tempCourse.category">
-              </div>
-            </div>
 
-            <div class="row">
-              <div class="mb-3 col-md-6">
-                <label for="num" class="form-label">數量</label>
-                <input id="num" type="number" class="form-control" placeholder="請輸入數量" v-model="tempCourse.num">
-              </div>
               <div class="mb-3 col-md-6">
                 <label for="price" class="form-label">小圖示</label> (<a href="https://fonts.google.com/icons?icon.platform=android" target="_blank" class="text-decoration-underline">圖示庫</a>)
                 <input id="unit" type="text" class="form-control" placeholder="請輸入圖示名稱" v-model="tempCourse.unit">
@@ -73,25 +65,18 @@
             </div>
 
             <div class="row">
+
               <div class="mb-3 col-md-6">
-                <label for="origin_price" class="form-label">原價</label>
-                <input id="origin_price" type="number" min="0" class="form-control" placeholder="請輸入原價" v-model="tempCourse.origin_price">
-              </div>
-              <div class="mb-3 col-md-6">
-                <label for="price" class="form-label">售價</label>
+                <label for="price" class="form-label">價格</label>
                 <input id="price" type="number" min="0" class="form-control"
-                        placeholder="請輸入售價" v-model="tempCourse.price">
+                        placeholder="請輸入價格" v-model="tempCourse.price">
               </div>
             </div>
             <hr>
 
             <div class="mb-3">
-              <label for="description" class="form-label">課程描述</label>
-              <!-- <textarea id="description" type="text" class="form-control"
-                        placeholder="請輸入產品描述" v-model="tempCourse.description">
-              </textarea> -->
+              <label for="description" class="form-label">簡述</label>
               <editor v-model="tempCourse.description" :init="init"></editor>
-
             </div>
             <div class="mb-3">
               <label for="content" class="form-label">說明內容</label>

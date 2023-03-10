@@ -1,5 +1,5 @@
 <template>
-  <nav aria-label="Page navigation">
+  <!-- <nav aria-label="Page navigation">
       <ul class="pagination justify-content-center">
         <li class="page-item">
           <a class="page-link" href="#" aria-label="Previous">
@@ -19,10 +19,10 @@
           </a>
         </li>
       </ul>
-    </nav>
+    </nav> -->
 
-    <!-- 
-    <nav aria-label="Page navigation example">
+    
+    <nav aria-label="Page navigation">
       <ul class="pagination">
         <li class="page-item"  :class="{ disabled: !pages.has_pre }">
           <a class="page-link" href="#" aria-label="Previous" @click.prevent="$emit('change-page', pages.current_page - 1)">
@@ -41,7 +41,7 @@
         </li>
       </ul>
     </nav>
-     -->
+    
 </template>
 
 <script>

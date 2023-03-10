@@ -122,7 +122,8 @@
         <p class="fw-thin"><small>
           本網站所提及「療癒」一詞，不等同「治癒」、「治療」，課程所教授的療癒方式、探討方式和技巧無意用來做為診斷、處方或取代醫生或治療。
         </small></p>
-        <p>Copyright © 2022 舟舟療心室. All rights reserved.</p>        
+        <p>Copyright © 2022 舟舟療心室. All rights reserved.</p>       
+        <RouterLink to="/admin" class="">admin</RouterLink>
       </div>
     </footer>
   </div>

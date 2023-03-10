@@ -13,8 +13,8 @@
               <span class="material-symbols-outlined fs-48">{{ course.unit }}</span> <br>
               {{ course.title }}</h2>
               <div class=" mb-0 p-4 pt-3 mt-auto flex healing-item-description">
-              <!-- <div v-html="course.description"></div> -->
-              {{ course.description }}
+              <div v-html="course.description"></div>
+              <!-- {{ course.description }} -->
               </div>
           </RouterLink>
         </div>

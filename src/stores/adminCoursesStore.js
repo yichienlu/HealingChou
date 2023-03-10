@@ -6,17 +6,31 @@ export default defineStore('adminCoursesStore', {
   state: () => ({
     tempCourse:{imagesUrl:['']},
     courses:[],
-    pagination: {},
-
+    services:[],
+    service_pagination: {},
+    course_pagination: {},
     
   }),
   actions: {
-    getAdminCourses(page = 1){
-      axios.get(`${VITE_URL}/api/${VITE_PATH}/admin/products?page=${page}`)
+    getAdminServices(page = 1){
+      axios.get(`${VITE_URL}/api/${VITE_PATH}/admin/products?page=${page}&category=service`)
       .then((res)=>{
         console.log(res.data)
-        this.pagination = res.data.pagination
+        this.services = res.data.products
+
+        this.service_pagination = res.data.pagination
+        console.log(this.service_pagination)
+      })
+    },
+    getAdminCourses(page = 1){
+      axios.get(`${VITE_URL}/api/${VITE_PATH}/admin/products?page=${page}&category=course`)
+      .then((res)=>{
+        console.log(res.data)
         this.courses = res.data.products
+
+        this.course_pagination = res.data.pagination
+        console.log(this.course_pagination)
+
       })
     },
     addCourse(tempCourse, modal){
@@ -25,9 +39,14 @@ export default defineStore('adminCoursesStore', {
         // console.log(res.data)
         this.clearInputs()
         modal.hide();
-        alert(res.data);
-        this.getAdminCourses()
+        alert(res.data.message);
         this.tempCourse = {imagesUrl:['']}
+        if(tempCourse.category=='service'){
+          this.getAdminServices()
+        }else{
+          this.getAdminCourses()
+        }
+
       })
       .catch((err)=>{
         // console.log(err)
@@ -37,11 +56,16 @@ export default defineStore('adminCoursesStore', {
     editCourse(tempCourse, modal){
       axios.put(`${VITE_URL}/api/${VITE_PATH}/admin/product/${tempCourse.id}`,{"data":tempCourse})
       .then((res)=>{
-        // console.log(res.data)
+        console.log(res.data)
         this.clearInputs()
         modal.hide();
         alert(res.data.message);
-        this.getAdminCourses()
+        this.tempCourse = {imagesUrl:['']}
+        if(tempCourse.category=='service'){
+          this.getAdminServices()
+        }else{
+          this.getAdminCourses()
+        }
       })
       .catch((err)=>{
         console.dir(err)
@@ -49,10 +73,10 @@ export default defineStore('adminCoursesStore', {
       })
     },
     deleteCourse(id, modal){
-      console.log(id)
+      // console.log(id)
       axios.delete(`${VITE_URL}/api/${VITE_PATH}/admin/product/${id}`)
       .then((res)=>{
-        // console.log(res.data.message)
+        console.log(res.data)
         modal.hide()
         alert(res.data.message)
         this.getAdminCourses()
