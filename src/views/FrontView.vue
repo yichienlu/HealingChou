@@ -28,9 +28,9 @@
         </button>
         <div class="collapse navbar-collapse " id="navbarSupportedContent">
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0 text-center">
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <RouterLink to="/news" class="nav-link py-1 px-2 rounded-4">最新消息</RouterLink>
-            </li>
+            </li> -->
             <li class="nav-item ms-lg-4">
               <RouterLink to="/about" class="nav-link py-1 px-2 rounded-4">關於舟舟</RouterLink>
             </li>

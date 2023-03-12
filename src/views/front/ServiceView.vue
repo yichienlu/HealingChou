@@ -79,7 +79,7 @@
 </template>
 
 <script>
-import { RouterLink } from 'vue-router'
+// import { RouterLink } from 'vue-router'
 const { VITE_URL, VITE_PATH } = import.meta.env
 
 
@@ -90,7 +90,7 @@ export default {
     }
   },
   components: {
-    RouterLink
+    // RouterLink
   },
   methods: {
     getService(){

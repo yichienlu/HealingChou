@@ -132,15 +132,13 @@
   <section class="healing_reserve bg-image" style="background-image: url(src/assets/images/tarot-stack.jpg);">
     <div class="container pt-5 pb-5">
       <h2 class="text-center text-white mb-4">
-        <!-- <img src="@/assets/images/tarot-card-icon.png" alt=""> -->
         報名課程
       </h2>
       <div class="row justify-content-center">
         <div class="col-lg-8">
+          
 
-          <!-- https://docs.google.com/forms/d/e/1FAIpQLSfVCkkZan8oBQUvEvrUufWhHtLzj8dLWu2384t-qx14sIqkTg/formResponse -->
-
-            <form class="row p-4 needs-validation" novalidate>
+            <form class="row p-4 needs-validation " novalidate>
             <div class="col-12 mb-3">
               <label for="inputTime" class="form-label text-white">Email<span class="text-danger">*</span></label>
               <input type="email" class="form-control" id="inputEmail" required>
