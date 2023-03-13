@@ -44,7 +44,8 @@
           <!-- 日期數字 -->
           <p>
             {{ calendarMonth[(i - 1) * 7 + j - 1].date }}
-            {{ 
+           <span class="d-sm-none">
+           {{ 
               calendarMonth[(i - 1) * 7 + j - 1].day == 0 ? '(日)' : 
               calendarMonth[(i - 1) * 7 + j - 1].day == 1 ? '(一)' : 
               calendarMonth[(i - 1) * 7 + j - 1].day == 2 ? '(二)' : 
@@ -53,7 +54,7 @@
               calendarMonth[(i - 1) * 7 + j - 1].day == 5 ? '(五)' : 
               '(六)'
             }}
-          
+          </span>
           </p>
           
           <!-- 週六時段 -->
@@ -78,7 +79,8 @@
                   product: {
                     category: 'closed',
                     title: 'closed'
-                  }
+                  },
+                  time: calculateDate(i,j).setHours(10, 0, 0, 0)
                 })"
             >
               10:00
@@ -99,7 +101,8 @@
                   product: {
                     category: 'closed',
                     title: 'closed'
-                  }
+                  },
+                  time: calculateDate(i,j).setHours(14, 0, 0, 0)
                 })"
             >
               14:00
@@ -121,7 +124,8 @@
                   product: {
                     category: 'closed',
                     title: 'closed'
-                  }
+                  },
+                  time: calculateDate(i,j).setHours(16, 0, 0, 0)
                 })"
             >
               16:00
@@ -141,7 +145,8 @@
                   product: {
                     category: 'closed',
                     title: 'closed'
-                  }
+                  },
+                  time: calculateDate(i,j).setHours(20, 0, 0, 0)
                 })"
             >
               20:00
@@ -179,7 +184,8 @@
                   product: {
                     category: 'closed',
                     title: 'closed'
-                  }
+                  },
+                  time: calculateDate(i,j).setHours(20, 0, 0, 0)
                 })"
             >
               20:00
@@ -198,8 +204,10 @@
                 data-bs-toggle="modal"
                 data-bs-target="#orderModal"
                 @click.prevent="
-                  this.selectTempOrder(new Date (parseInt(timestamp)).setHours(item.time, 0, 0, 0), {
-                    time: new Date (parseInt(timestamp)).setHours(item.time, 0, 0, 0),
+                  this.selectTempOrder(new Date (parseInt(timestamp)).setHours(item.shownTime, 0, 0, 0), {
+                    shownTime: new Date (parseInt(timestamp)).setHours(item.shownTime, 0, 0, 0),
+                    time: item.user.address,
+                    id: item.id,
                     name: item.user.name,
                     phone: item.user.tel,
                     email: item.user.email,
@@ -214,7 +222,7 @@
 
                 v-if="timestamp == calculateDate(i,j).valueOf()"
               >
-                {{ item.time + ':00' }} <br /> {{ item.user.name }} <br /> {{ item.product.title }}
+                {{ item.shownTime + ':00' }} <br class="d-none d-sm-block"> {{ item.user.name }} <br class="d-none d-sm-block"> {{ item.product.title }}
               </a>
             </template>
           </template>
@@ -229,7 +237,8 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="orderModalLabel">新增預約/關閉時段</h1>
+        <h1 class="modal-title fs-5" id="orderModalLabel" v-if="this.tempOrder.id">修改預約</h1>
+        <h1 class="modal-title fs-5" id="orderModalLabel" v-else>新增預約/關閉時段</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -254,9 +263,9 @@
           <label for="" class="col-sm-2 col-form-label"></label>
           <div class="col-sm-10">
             <select class="form-select" v-if="this.tempOrder.product.category=='closed'" v-model="this.tempOrder.product.id">
-              <option value="closed">closed</option>
+              <option :value="closed[0].id"  :selected="this.tempOrder.product.id==closed[0].id">closed</option>
             </select>
-            <select class="form-select" v-else-if="this.tempOrder.product.category=='service'">
+            <select class="form-select" v-else-if="this.tempOrder.product.category=='service'" v-model="this.tempOrder.product.id">
               <option :value="service.id" v-for="service in services" :key="service.id" :selected="this.tempOrder.product.id==service.id">
                 {{ service.title }}
               </option>
@@ -274,7 +283,7 @@
               class="form-control-plaintext" 
               readonly
               id="orderTime"
-              v-model="this.tempOrder.time"
+              v-model="this.tempOrder.shownTime"
             >
           </div>
         </div>
@@ -297,6 +306,12 @@
           </div>
         </div>
         <div class="mb-3 row">
+          <label for="message" class="col-sm-2 col-form-label">備註</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="message" v-model="this.tempOrder.message">
+          </div>
+        </div>
+        <div class="mb-3 row">
           <div class="form-check col-12">
             <input class="form-check-input" type="checkbox" value="" id="isPaid" v-model="this.tempOrder.is_paid">
             <label class="form-check-label" for="isPaid">
@@ -306,8 +321,9 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-outline-danger me-auto" data-bs-dismiss="modal">刪除預約</button>
-        <button type="button" class="btn btn-primary">儲存編輯</button>
+        <button type="button" class="btn btn-outline-danger me-auto" data-bs-dismiss="modal" v-if="this.tempOrder.id" @click="deleteOrder(this.tempOrder.id)">刪除預約</button>
+        <button type="button" class="btn btn-primary" v-if="this.tempOrder.id" @click="this.editOrder">儲存編輯</button>
+        <button type="button" class="btn btn-primary" v-else @click="this.addToCart">新增預約</button>
       </div>
     </div>
   </div>
@@ -335,11 +351,12 @@ export default {
       ],
       orders: [],
       tempOrder: {
+        id:'',
         name: '',
         phone: '',
         email: '',
         message: '',
-        time: '',
+        time: 0,
         is_paid: false,
         product: {
           title: '',
@@ -360,7 +377,8 @@ export default {
         day: 0
       },
       courses:[],
-      services:[]
+      services:[],
+      closed:[]
     }
   },
   components: {
@@ -375,15 +393,13 @@ export default {
           this.orders = res.data.orders.sort(
             (a, b) => a.user.address - b.user.address
           )
-          // console.log(this.orders)
-          // this.renderSession()
-          // this.renderOrders()
         })
         .catch((err) => {
           console.log(err)
         })
     },
     selectTempOrder(timestamp,order) {
+      console.log(order)
       let day
       switch(new Date(timestamp).getDay()){
         case 1: day='(一)'; break;
@@ -392,10 +408,10 @@ export default {
         case 5: day='(五)'; break;
         case 6: day='(六)'; break;
       }
-      let time = new Date(timestamp).toLocaleDateString()+ day+' '+  new Date(timestamp).toLocaleTimeString("en-GB")
+      let shownTime = new Date(timestamp).toLocaleDateString()+ day+' '+  new Date(timestamp).toLocaleTimeString("en-GB")
       this.tempOrder = {
         ...order,
-        time
+        shownTime
       }
     },
     setToday() {
@@ -432,15 +448,64 @@ export default {
     getProducts(){
       this.$http.get(`${VITE_URL}/api/${VITE_PATH}/products/all`)
       .then((res) => {
-        // console.log(res.data.products)
         res.data.products.forEach((item)=>{
           if(item.category=='course'){
             this.courses.push({title:item.title, id:item.id})
           } else if(item.category=='service'){
             this.services.push({title:item.title, id:item.id})
+          } else {
+            this.closed.push({title:item.title, id:item.id})
           }
         })
-        // console.log(this.courses, this.services)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    },
+    addToCart(){
+      // 加入購物車
+      const data = {
+        product_id: this.tempOrder.product.id,
+        qty: 1
+      }
+      console.log({ data })
+      this.$http.post(`${VITE_URL}/api/${VITE_PATH}/cart`, { data })
+      .then((res) => {
+        console.log(res.data)
+        this.addOrder()
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    },
+    addOrder(){
+      console.log(this.tempOrder)
+      // 送出訂單
+      const data = {
+        user:{
+          name: this.tempOrder.name,
+          email: this.tempOrder.email,
+          tel: this.tempOrder.phone,
+          address: this.tempOrder.time.toString()
+        },
+        message:this.tempOrder.message
+      }
+      console.log({ data })
+      this.$http.post(`${VITE_URL}/api/${VITE_PATH}/order`, { data })
+      .then((res) => {
+        console.log(res.data)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    },
+    editOrder(){
+
+    },
+    deleteOrder(id){
+      this.$http.delete(`${VITE_URL}/api/${VITE_PATH}/admin/order/${id}`)
+      .then((res) => {
+        console.log(res.data)
       })
       .catch((err) => {
         console.log(err)
@@ -495,10 +560,12 @@ export default {
           newOrders[day] = []
         }
         newOrders[day].push({
+          id: item.id,
           product: product,
           user: item.user,
           message: item.message,
-          time: new Date(Number(item.user.address)).getHours(),
+          time: item.user.address,
+          shownTime: new Date(Number(item.user.address)).getHours(),
           is_paid: item.is_paid
         })
       }
@@ -530,17 +597,13 @@ export default {
 }
 
 .day {
-  // width: calc(100% / 7);
   font-size: 0.3rem;
 }
 @media (min-width>=576px){
   .day {
   width: calc(100% / 7);
-  // font-size: 0.3rem;
 }
 }
-// 768
-
 .day button {
   font-size: 0.3rem;
   padding: 2px;
@@ -584,14 +647,21 @@ export default {
 }
 
 .sunday {
-  background-color: #fff5f5;
+  // background-color: #fff5f5;
   color:#A00
 }
 .saturday {
-  background-color: #f5fff5;
+  // background-color: #f5fff5;
+  color: #080
 }
 .other {
   color: #bbb;
   background-color: #ddd;
+
+}
+@media (max-width < 576px){
+  .other {
+    display: none !important;
+  }
 }
 </style>
