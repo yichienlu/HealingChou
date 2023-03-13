@@ -29,11 +29,7 @@
           :key="'aaa' + j"
           :data-date="calendarMonth[(i - 1) * 7 + j - 1].date"
           :data-timestamp="
-            new Date(
-              calendarMonth[(i - 1) * 7 + j - 1].year,
-              calendarMonth[(i - 1) * 7 + j - 1].month,
-              calendarMonth[(i - 1) * 7 + j - 1].date
-            ).valueOf()
+            this.calculateDate(i,j).valueOf()
           "
           :class="{
             today:
@@ -49,97 +45,65 @@
           <!-- 週六時段 -->
           <div
             v-if="
-              new Date(
-                calendarMonth[(i - 1) * 7 + j - 1].year,
-                calendarMonth[(i - 1) * 7 + j - 1].month,
-                calendarMonth[(i - 1) * 7 + j - 1].date
-              ) > Date.now() &&
+              calculateDate(i,j) > Date.now() &&
               calendarMonth[(i - 1) * 7 + j - 1].month == calendar.month &&
-              new Date(
-                calendarMonth[(i - 1) * 7 + j - 1].year,
-                calendarMonth[(i - 1) * 7 + j - 1].month,
-                calendarMonth[(i - 1) * 7 + j - 1].date
-              ).getDay() === 6
+              calculateDate(i,j).getDay() === 6
             "
           >
             <button
-              v-if="
-                bookedTime.indexOf(
-                  new Date(
-                    calendarMonth[(i - 1) * 7 + j - 1].year,
-                    calendarMonth[(i - 1) * 7 + j - 1].month,
-                    calendarMonth[(i - 1) * 7 + j - 1].date
-                  ).setHours(10, 0, 0, 0)
-                ) == -1
-              "
+              v-if="bookedTime.indexOf(calculateDate(i,j).setHours(10, 0, 0, 0)) == -1"
               type="button"
               :data-session="
-                new Date(
-                  calendarMonth[(i - 1) * 7 + j - 1].year,
-                  calendarMonth[(i - 1) * 7 + j - 1].month,
-                  calendarMonth[(i - 1) * 7 + j - 1].date
-                ).setHours(10, 0, 0, 0)
+                calculateDate(i,j).setHours(10, 0, 0, 0)
               "
               class="btn btn-sm btn-outline-primary"
               data-bs-toggle="modal"
               data-bs-target="#orderModal"
-              @click.prevent="this.selectTempOrder(i,j,10,{
-                product: {
-                  category: 'closed',
-                  title: 'closed'
-                }
-              })"
+              @click.prevent="this.selectTempOrder(
+                calculateDate(i,j).setHours(10, 0, 0, 0), {
+                  product: {
+                    category: 'closed',
+                    title: 'closed'
+                  }
+                })"
             >
               10:00
             </button>
             <button
               v-if="
                 bookedTime.indexOf(
-                  new Date(
-                    calendarMonth[(i - 1) * 7 + j - 1].year,
-                    calendarMonth[(i - 1) * 7 + j - 1].month,
-                    calendarMonth[(i - 1) * 7 + j - 1].date
-                  ).setHours(14, 0, 0, 0)
+                  calculateDate(i,j).setHours(14, 0, 0, 0)
                 ) == -1
               "
               type="button"
-              :data-session="
-                new Date(
-                  calendarMonth[(i - 1) * 7 + j - 1].year,
-                  calendarMonth[(i - 1) * 7 + j - 1].month,
-                  calendarMonth[(i - 1) * 7 + j - 1].date
-                ).setHours(14, 0, 0, 0)
-              "
+              :data-session="calculateDate(i,j).setHours(14, 0, 0, 0)"
               class="btn btn-sm btn-outline-primary"
               data-bs-toggle="modal"
               data-bs-target="#orderModal"
-              @click.prevent="this.selectTempOrder(i,j,14,{})"
+              @click.prevent="this.selectTempOrder(
+                calculateDate(i,j).setHours(14, 0, 0, 0),{
+                  product: {
+                    category: 'closed',
+                    title: 'closed'
+                  }
+                })"
             >
               14:00
             </button>
             <button
               v-if="
                 bookedTime.indexOf(
-                  new Date(
-                    calendarMonth[(i - 1) * 7 + j - 1].year,
-                    calendarMonth[(i - 1) * 7 + j - 1].month,
-                    calendarMonth[(i - 1) * 7 + j - 1].date
-                  ).setHours(16, 0, 0, 0)
+                  calculateDate(i,j).setHours(16, 0, 0, 0)
                 ) == -1
               "
               type="button"
-              :data-session="
-                new Date(
-                  calendarMonth[(i - 1) * 7 + j - 1].year,
-                  calendarMonth[(i - 1) * 7 + j - 1].month,
-                  calendarMonth[(i - 1) * 7 + j - 1].date
-                ).setHours(16, 0, 0, 0)
-              "
+              :data-session="calculateDate(i,j).setHours(16, 0, 0, 0)"
               class="btn btn-sm btn-outline-primary"
               data-bs-toggle="modal"
               data-bs-target="#orderModal"
               @click.prevent="
-                this.selectTempOrder(i, j,16, {
+                this.selectTempOrder(
+                  calculateDate(i,j).setHours(16, 0, 0, 0), {
                   product: {
                     category: 'closed',
                     title: 'closed'
@@ -150,27 +114,16 @@
             </button>
             <button
               v-if="
-                bookedTime.indexOf(
-                  new Date(
-                    calendarMonth[(i - 1) * 7 + j - 1].year,
-                    calendarMonth[(i - 1) * 7 + j - 1].month,
-                    calendarMonth[(i - 1) * 7 + j - 1].date
-                  ).setHours(20, 0, 0, 0)
-                ) == -1
+                bookedTime.indexOf(calculateDate(i,j).setHours(20, 0, 0, 0)) == -1
               "
               type="button"
-              :data-session="
-                new Date(
-                  calendarMonth[(i - 1) * 7 + j - 1].year,
-                  calendarMonth[(i - 1) * 7 + j - 1].month,
-                  calendarMonth[(i - 1) * 7 + j - 1].date
-                ).setHours(20, 0, 0, 0)
-              "
+              :data-session="calculateDate(i,j).setHours(20, 0, 0, 0)"
               class="btn btn-sm btn-outline-primary"
               data-bs-toggle="modal"
               data-bs-target="#orderModal"
               @click.prevent="
-                this.selectTempOrder(i, j, 20, {
+                this.selectTempOrder(
+                  calculateDate(i,j).setHours(20, 0, 0, 0), {
                   product: {
                     category: 'closed',
                     title: 'closed'
@@ -184,57 +137,31 @@
           <!-- 週間時段(一二四五) -->
           <div
             v-else-if="
-              new Date(
-                calendarMonth[(i - 1) * 7 + j - 1].year,
-                calendarMonth[(i - 1) * 7 + j - 1].month,
-                calendarMonth[(i - 1) * 7 + j - 1].date
-              ) > Date.now() &&
+             calculateDate(i,j) > Date.now() &&
               calendarMonth[(i - 1) * 7 + j - 1].month == calendar.month &&
-              (new Date(
-                calendarMonth[(i - 1) * 7 + j - 1].year,
-                calendarMonth[(i - 1) * 7 + j - 1].month,
-                calendarMonth[(i - 1) * 7 + j - 1].date
-              ).getDay() === 1 ||
-                new Date(
-                  calendarMonth[(i - 1) * 7 + j - 1].year,
-                  calendarMonth[(i - 1) * 7 + j - 1].month,
-                  calendarMonth[(i - 1) * 7 + j - 1].date
-                ).getDay() === 2 ||
-                new Date(
-                  calendarMonth[(i - 1) * 7 + j - 1].year,
-                  calendarMonth[(i - 1) * 7 + j - 1].month,
-                  calendarMonth[(i - 1) * 7 + j - 1].date
-                ).getDay() === 4 ||
-                new Date(
-                  calendarMonth[(i - 1) * 7 + j - 1].year,
-                  calendarMonth[(i - 1) * 7 + j - 1].month,
-                  calendarMonth[(i - 1) * 7 + j - 1].date
-                ).getDay() === 5)
+              (
+                calculateDate(i,j).getDay() === 1 ||
+                calculateDate(i,j).getDay() === 2 ||
+                calculateDate(i,j).getDay() === 4 ||
+                calculateDate(i,j).getDay() === 5)
             "
           >
             <button
               v-if="
                 bookedTime.indexOf(
-                  new Date(
-                    calendarMonth[(i - 1) * 7 + j - 1].year,
-                    calendarMonth[(i - 1) * 7 + j - 1].month,
-                    calendarMonth[(i - 1) * 7 + j - 1].date
-                  ).setHours(20, 0, 0, 0)
+                  calculateDate(i,j).setHours(20, 0, 0, 0)
                 ) == -1
               "
               type="button"
               class="btn btn-sm btn-outline-primary"
               :data-session="
-                new Date(
-                  calendarMonth[(i - 1) * 7 + j - 1].year,
-                  calendarMonth[(i - 1) * 7 + j - 1].month,
-                  calendarMonth[(i - 1) * 7 + j - 1].date
-                ).setHours(20, 0, 0, 0)
+                calculateDate(i,j).setHours(20, 0, 0, 0)
               "
               data-bs-toggle="modal"
               data-bs-target="#orderModal"
               @click.prevent="
-                this.selectTempOrder(i, j, {
+                this.selectTempOrder(
+                  calculateDate(i,j).setHours(20, 0, 0, 0), {
                   product: {
                     category: 'closed',
                     title: 'closed'
@@ -251,33 +178,29 @@
               v-for="(item, index) in formatOrder[timestamp]"
               :key="'serve' + index"
             >
-              
               <a href="#"
                 class="booked"
+                :class="item.is_paid ? '' : 'text-danger' "
                 data-bs-toggle="modal"
                 data-bs-target="#orderModal"
                 @click.prevent="
-                  this.selectTempOrder(i, j, timestamp, {
+                  this.selectTempOrder(new Date (parseInt(timestamp)).setHours(item.time, 0, 0, 0), {
+                    time: new Date (parseInt(timestamp)).setHours(item.time, 0, 0, 0),
                     name: item.user.name,
                     phone: item.user.tel,
                     email: item.user.email,
                     message: item.message,
+                    is_paid: item.is_paid,
                     product: {
                       category: item.product.category,
-                      title: item.product.title
+                      title: item.product.title,
+                      id: item.product.id
                     }
                   })"
 
-                v-if="
-                  timestamp ==
-                  new Date(
-                    calendarMonth[(i - 1) * 7 + j - 1].year,
-                    calendarMonth[(i - 1) * 7 + j - 1].month,
-                    calendarMonth[(i - 1) * 7 + j - 1].date
-                  ).valueOf()
-                "
+                v-if="timestamp == calculateDate(i,j).valueOf()"
               >
-                {{ item.time }} {{ item.user.name }} {{ item.product.title }}
+                {{ item.time + ':00' }} {{ item.user.name }} {{ item.product.title }} {{  item.is_paid }}
               </a>
             </template>
           </template>
@@ -316,8 +239,16 @@
         <div class="mb-3 row">
           <label for="" class="col-sm-2 col-form-label"></label>
           <div class="col-sm-10">
-            <select class="form-select" aria-label="Default select example">
-              <!-- <option value="1">One</option> -->
+            <select class="form-select" v-if="this.tempOrder.product.category=='closed'" v-model="this.tempOrder.product.id">
+              <option value="closed">closed</option>
+            </select>
+            <select class="form-select" v-else-if="this.tempOrder.product.category=='service'">
+              <option :value="service.id" v-for="service in services" :key="service.id" :selected="this.tempOrder.product.id==service.id">
+                {{ service.title }}
+              </option>
+            </select>
+            <select class="form-select" v-else-if="this.tempOrder.product.category=='course'" v-model="this.tempOrder.product.id">
+              <option :value="course.id" v-for="course in courses" :key="course.id" :selected="this.tempOrder.product.id==course.id">{{ course.title }}</option>
             </select>
           </div>
         </div>
@@ -330,9 +261,7 @@
               readonly
               id="orderTime"
               v-model="this.tempOrder.time"
-            
             >
-            
           </div>
         </div>
         <div class="mb-3 row">
@@ -344,20 +273,23 @@
         <div class="mb-3 row">
           <label for="userPhone" class="col-sm-2 col-form-label">電話</label>
           <div class="col-sm-10">
-            <input type="tel" class="form-control" id="userPhone">
+            <input type="tel" class="form-control" id="userPhone" v-model="this.tempOrder.phone">
           </div>
         </div>
         <div class="mb-3 row">
           <label for="userEmail" class="col-sm-2 col-form-label">Email</label>
           <div class="col-sm-10">
-            <input type="email" class="form-control" id="userEmail">
+            <input type="email" class="form-control" id="userEmail" v-model="this.tempOrder.email">
           </div>
         </div>
         <div class="mb-3 row">
-
+          <div class="form-check col-12">
+            <input class="form-check-input" type="checkbox" value="" id="isPaid" v-model="this.tempOrder.is_paid">
+            <label class="form-check-label" for="isPaid">
+              確認付款
+            </label>
+          </div>
         </div>
-
-        
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-outline-danger me-auto" data-bs-dismiss="modal">刪除預約</button>
@@ -393,10 +325,12 @@ export default {
         phone: '',
         email: '',
         message: '',
-        time: 0,
+        time: '',
+        is_paid: false,
         product: {
           title: '',
-          category: ''
+          category: '',
+          id: ''
         }
       },
       today: {
@@ -410,7 +344,9 @@ export default {
         month: 0,
         date: 0,
         day: 0
-      }
+      },
+      courses:[],
+      services:[]
     }
   },
   components: {
@@ -421,7 +357,7 @@ export default {
       this.$http
         .get(`${VITE_URL}/api/${VITE_PATH}/admin/orders`)
         .then((res) => {
-          // console.log(res.data.orders)
+          console.log(res.data.orders)
           this.orders = res.data.orders.sort(
             (a, b) => a.user.address - b.user.address
           )
@@ -433,32 +369,20 @@ export default {
           console.log(err)
         })
     },
-    selectTempOrder(i,j,hour,order) {
-      console.log(hour)
-      let date = new Date(
-                  this.calendarMonth[(i - 1) * 7 + j - 1].year,
-                  this.calendarMonth[(i - 1) * 7 + j - 1].month,
-                  this.calendarMonth[(i - 1) * 7 + j - 1].date
-                )
-      let day = date.getDay()
-      let weekDay
-      switch (day){
-        case 1: weekDay='一'; break;
-        case 2: weekDay='二'; break;
-        case 4: weekDay='四'; break;
-        case 5: weekDay='五'; break;
-        case 6: weekDay='六'; break;
+    selectTempOrder(timestamp,order) {
+      let day
+      switch(new Date(timestamp).getDay()){
+        case 1: day='(一)'; break;
+        case 2: day='(二)'; break;
+        case 4: day='(四)'; break;
+        case 5: day='(五)'; break;
+        case 6: day='(六)'; break;
       }
-      
-      if(hour==0){
-        hour
-      }
-
+      let time = new Date(timestamp).toLocaleDateString()+ day+' '+  new Date(timestamp).toLocaleTimeString("en-GB")
       this.tempOrder = {
         ...order,
-        time: `${this.calendarMonth[(i - 1) * 7 + j - 1].year}/${this.calendarMonth[(i - 1) * 7 + j - 1].month}/${this.calendarMonth[(i - 1) * 7 + j - 1].date} (${weekDay}) ${hour}:00`
+        time
       }
-      console.log(i,j,order)
     },
     setToday() {
       const date = new Date()
@@ -483,13 +407,36 @@ export default {
         this.calendar.month = month
       }
     },
-    booking(data) {
-      console.log(data)
+    calculateDate(i,j){
+      let date =  new Date(
+        this.calendarMonth[(i - 1) * 7 + j - 1].year,
+        this.calendarMonth[(i - 1) * 7 + j - 1].month,
+        this.calendarMonth[(i - 1) * 7 + j - 1].date
+      )
+      return date
+    },
+    getProducts(){
+      this.$http.get(`${VITE_URL}/api/${VITE_PATH}/products/all`)
+      .then((res) => {
+        // console.log(res.data.products)
+        res.data.products.forEach((item)=>{
+          if(item.category=='course'){
+            this.courses.push({title:item.title, id:item.id})
+          } else if(item.category=='service'){
+            this.services.push({title:item.title, id:item.id})
+          }
+        })
+        // console.log(this.courses, this.services)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
     }
   },
   mounted() {
     this.setToday()
     this.getBooked()
+    this.getProducts()
   },
   computed: {
     calendarFirstDay() {
@@ -537,10 +484,10 @@ export default {
           product: product,
           user: item.user,
           message: item.message,
-          time: new Date(Number(item.user.address)).getHours() + ':00'
+          time: new Date(Number(item.user.address)).getHours(),
+          is_paid: item.is_paid
         })
       }
-      console.log(newOrders)
       return newOrders
     },
     bookedTime() {
@@ -562,6 +509,7 @@ export default {
   align-items: center;
   padding: 0 2rem;
   text-align: center;
+
 }
 .month i {
   cursor: pointer;
