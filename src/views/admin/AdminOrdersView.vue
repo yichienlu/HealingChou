@@ -13,7 +13,7 @@
           <i class="fas fa-angle-right"></i>
         </div>
       </div>
-      <div class="weekDay">
+      <div class="weekDay d-none d-sm-flex">
         <div>日</div>
         <div>一</div>
         <div>二</div>
@@ -22,9 +22,9 @@
         <div>五</div>
         <div>六</div>
       </div>
-      <div class="week" v-for="i in 5" :key="'aaa' + i">
+      <div class="week d-sm-flex" v-for="i in 5" :key="'aaa' + i">
         <div
-          class="day text-start ps-2"
+          class="day text-start ps-1"
           v-for="j in 7"
           :key="'aaa' + j"
           :data-date="calendarMonth[(i - 1) * 7 + j - 1].date"
@@ -32,15 +32,29 @@
             this.calculateDate(i,j).valueOf()
           "
           :class="{
+            other: calendarMonth[(i - 1) * 7 + j - 1].month !== calendar.month,
+            saturday: calendarMonth[(i - 1) * 7 + j - 1].day == 6,
+            sunday: calendarMonth[(i - 1) * 7 + j - 1].day == 0,
             today:
               calendarMonth[(i - 1) * 7 + j - 1].year === today.year &&
               calendarMonth[(i - 1) * 7 + j - 1].month === today.month &&
-              calendarMonth[(i - 1) * 7 + j - 1].date === today.date,
-            other: calendarMonth[(i - 1) * 7 + j - 1].month !== calendar.month
+              calendarMonth[(i - 1) * 7 + j - 1].date === today.date
           }"
         >
           <!-- 日期數字 -->
-          <p>{{ calendarMonth[(i - 1) * 7 + j - 1].date }}</p>
+          <p>
+            {{ calendarMonth[(i - 1) * 7 + j - 1].date }}
+            {{ 
+              calendarMonth[(i - 1) * 7 + j - 1].day == 0 ? '(日)' : 
+              calendarMonth[(i - 1) * 7 + j - 1].day == 1 ? '(一)' : 
+              calendarMonth[(i - 1) * 7 + j - 1].day == 2 ? '(二)' : 
+              calendarMonth[(i - 1) * 7 + j - 1].day == 3 ? '(三)' : 
+              calendarMonth[(i - 1) * 7 + j - 1].day == 4 ? '(四)' : 
+              calendarMonth[(i - 1) * 7 + j - 1].day == 5 ? '(五)' : 
+              '(六)'
+            }}
+          
+          </p>
           
           <!-- 週六時段 -->
           <div
@@ -200,7 +214,7 @@
 
                 v-if="timestamp == calculateDate(i,j).valueOf()"
               >
-                {{ item.time + ':00' }} {{ item.user.name }} {{ item.product.title }} {{  item.is_paid }}
+                {{ item.time + ':00' }} <br /> {{ item.user.name }} <br /> {{ item.product.title }}
               </a>
             </template>
           </template>
@@ -514,22 +528,21 @@ export default {
 .month i {
   cursor: pointer;
 }
-.weekdays {
-  display: flex;
-  align-items: center;
-}
-.weekdays div {
-  width: calc(100% / 7);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.day {
 
+.day {
+  // width: calc(100% / 7);
   font-size: 0.3rem;
 }
+@media (min-width>=576px){
+  .day {
+  width: calc(100% / 7);
+  // font-size: 0.3rem;
+}
+}
+// 768
 
 .day button {
+  font-size: 0.3rem;
   padding: 2px;
   margin-bottom: 5px;
 }
@@ -547,7 +560,7 @@ export default {
 }
 .weekDay,
 .week {
-  display: flex;
+  // display: flex;
   border-bottom: 1px solid #ddd;
 }
 .weekDay > div {
@@ -568,6 +581,14 @@ export default {
 .today {
   color: #000000;
   background-color: #ece4d8;
+}
+
+.sunday {
+  background-color: #fff5f5;
+  color:#A00
+}
+.saturday {
+  background-color: #f5fff5;
 }
 .other {
   color: #bbb;
