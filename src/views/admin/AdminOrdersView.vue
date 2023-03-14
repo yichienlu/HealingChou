@@ -198,9 +198,10 @@
               v-for="(item, index) in formatOrder[timestamp]"
               :key="'serve' + index"
             >
+            
+              <!-- :class="item.is_paid ? '' : 'text-danger' "    (放下面的a) -->
               <a href="#"
                 class="booked"
-                :class="item.is_paid ? '' : 'text-danger' "
                 data-bs-toggle="modal"
                 data-bs-target="#orderModal"
                 @click.prevent="
@@ -378,21 +379,43 @@ export default {
       },
       courses:[],
       services:[],
-      closed:[]
+      closed:[],
+      total_pages: 0
+
     }
   },
   components: {
     // RouterLink
   },
   methods: {
-    getBooked() {
-      this.$http
-        .get(`${VITE_URL}/api/${VITE_PATH}/admin/orders`)
+    getBooked(){
+      this.$http.get(`${VITE_URL}/api/${VITE_PATH}/admin/orders`)
         .then((res) => {
-          console.log(res.data.orders)
-          this.orders = res.data.orders.sort(
+          this.total_pages = res.data.pagination.total_pages
+
+          for(let i=1; i<= this.total_pages; i++){
+            this.getBookedPages(i)
+          }
+
+          this.orders = this.orders.sort(
             (a, b) => a.user.address - b.user.address
           )
+          console.log(this.orders)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
+
+    getBookedPages(page) {
+      this.$http.get(`${VITE_URL}/api/${VITE_PATH}/admin/orders?page=${page}`)
+        .then((res) => {
+          if(page==1){
+            this.orders = res.data.orders
+          } else {
+            this.orders = this.orders.concat(res.data.orders)
+          }
+          console.log(this.orders)
         })
         .catch((err) => {
           console.log(err)
@@ -512,11 +535,6 @@ export default {
       })
     }
   },
-  mounted() {
-    this.setToday()
-    this.getBooked()
-    this.getProducts()
-  },
   computed: {
     calendarFirstDay() {
       const mDate = new Date(this.calendar.year, this.calendar.month, 1)
@@ -579,6 +597,11 @@ export default {
       }
       return time
     }
+  },
+  mounted() {
+    this.setToday()
+    this.getBooked()
+    this.getProducts()
   }
 }
 </script>
