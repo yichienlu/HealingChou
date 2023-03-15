@@ -13,7 +13,7 @@
           <i class="fas fa-angle-right"></i>
         </div>
       </div>
-      <div class="weekDay d-none d-sm-flex">
+      <div class="weekDay d-flex">
         <div>日</div>
         <div>一</div>
         <div>二</div>
@@ -22,7 +22,7 @@
         <div>五</div>
         <div>六</div>
       </div>
-      <div class="week d-sm-flex" v-for="i in 5" :key="'aaa' + i">
+      <div class="week d-flex" v-for="i in 6" :key="'aaa' + i">
         <div
           class="day text-start ps-1"
           v-for="j in 7"
@@ -60,13 +60,14 @@
           <!-- 週六時段 -->
           <div
             v-if="
-              calculateDate(i,j) > Date.now() &&
+              // calculateDate(i,j) > Date.now() &&
               calendarMonth[(i - 1) * 7 + j - 1].month == calendar.month &&
               calculateDate(i,j).getDay() === 6
             "
           >
             <button
-              v-if="bookedTime.indexOf(calculateDate(i,j).setHours(10, 0, 0, 0)) == -1"
+              v-if="calculateDate(i,j) > Date.now() &&
+              bookedTime.indexOf(calculateDate(i,j).setHours(10, 0, 0, 0)) == -1"
               type="button"
               :data-session="
                 calculateDate(i,j).setHours(10, 0, 0, 0)
@@ -86,7 +87,7 @@
               10:00
             </button>
             <button
-              v-if="
+              v-if="calculateDate(i,j) > Date.now() &&
                 bookedTime.indexOf(
                   calculateDate(i,j).setHours(14, 0, 0, 0)
                 ) == -1
@@ -108,7 +109,7 @@
               14:00
             </button>
             <button
-              v-if="
+              v-if="calculateDate(i,j) > Date.now() &&
                 bookedTime.indexOf(
                   calculateDate(i,j).setHours(16, 0, 0, 0)
                 ) == -1
@@ -131,7 +132,7 @@
               16:00
             </button>
             <button
-              v-if="
+              v-if="calculateDate(i,j) > Date.now() &&
                 bookedTime.indexOf(calculateDate(i,j).setHours(20, 0, 0, 0)) == -1
               "
               type="button"
@@ -156,7 +157,6 @@
           <!-- 週間時段(一二四五) -->
           <div
             v-else-if="
-             calculateDate(i,j) > Date.now() &&
               calendarMonth[(i - 1) * 7 + j - 1].month == calendar.month &&
               (
                 calculateDate(i,j).getDay() === 1 ||
@@ -167,6 +167,7 @@
           >
             <button
               v-if="
+                calculateDate(i,j) > Date.now() &&
                 bookedTime.indexOf(
                   calculateDate(i,j).setHours(20, 0, 0, 0)
                 ) == -1
@@ -198,10 +199,12 @@
               v-for="(item, index) in formatOrder[timestamp]"
               :key="'serve' + index"
             >
-            
-              <!-- :class="item.is_paid ? '' : 'text-danger' "    (放下面的a) -->
               <a href="#"
                 class="booked"
+                :class="[
+                  calculateDate(i,j) > Date.now() ? '' : 'text-danger' ,
+                  item.user.name=='closed' ? 'text-muted text-decoration-none' : '' ,
+                ]"
                 data-bs-toggle="modal"
                 data-bs-target="#orderModal"
                 @click.prevent="
@@ -223,7 +226,10 @@
 
                 v-if="timestamp == calculateDate(i,j).valueOf()"
               >
-                {{ item.shownTime + ':00' }} <br class="d-none d-sm-block"> {{ item.user.name }} <br class="d-none d-sm-block"> {{ item.product.title }}
+                {{ item.shownTime + ':00' }} 
+                <span class="d-none d-md-inline">{{ item.user.name }} </span> 
+                <span class="d-none d-sm-inline">{{ item.product.title }}</span>
+                
               </a>
             </template>
           </template>
@@ -392,22 +398,24 @@ export default {
       this.$http.get(`${VITE_URL}/api/${VITE_PATH}/admin/orders`)
         .then((res) => {
           this.total_pages = res.data.pagination.total_pages
-
-          for(let i=1; i<= this.total_pages; i++){
-            this.getBookedPages(i)
-          }
-
-          this.orders = this.orders.sort(
-            (a, b) => a.user.address - b.user.address
-          )
-          console.log(this.orders)
+          this.processBooked()
         })
         .catch((err) => {
           console.log(err)
         })
     },
+    async processBooked(){
+          for(let i=1; i<= this.total_pages; i++){
+            await this.getBookedPages(i)
+          }
+          this.orders = this.orders.sort(
+            (a, b) => a.user.address - b.user.address
+          )
+          console.log(this.orders)
+    },
+    async getBookedPages(page) {
+      return new Promise((resolve)=>{
 
-    getBookedPages(page) {
       this.$http.get(`${VITE_URL}/api/${VITE_PATH}/admin/orders?page=${page}`)
         .then((res) => {
           if(page==1){
@@ -415,11 +423,13 @@ export default {
           } else {
             this.orders = this.orders.concat(res.data.orders)
           }
-          console.log(this.orders)
+            resolve();
         })
         .catch((err) => {
           console.log(err)
         })
+      })
+
     },
     selectTempOrder(timestamp,order) {
       console.log(order)
@@ -621,11 +631,7 @@ export default {
 
 .day {
   font-size: 0.3rem;
-}
-@media (min-width>=576px){
-  .day {
   width: calc(100% / 7);
-}
 }
 .day button {
   font-size: 0.3rem;

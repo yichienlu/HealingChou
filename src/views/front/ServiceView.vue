@@ -111,6 +111,7 @@
           <div
             v-else-if="
              calculateDate(i,j) > Date.now() &&
+             calculateDate(i,j) < Date.now()+86400000*60 &&
               calendarMonth[(i - 1) * 7 + j - 1].month == calendar.month &&
               (
                 calculateDate(i,j).getDay() === 1 ||
@@ -235,6 +236,7 @@ export default {
         day: 0
       },
       orders: [],
+      nestedOrders:[],
       total_pages:0
     }
     },
@@ -253,35 +255,40 @@ export default {
         console.log(err)
       })
     },
-    getBooked() {
+    getBooked(){
       this.$http.get(`${VITE_URL}/api/${VITE_PATH}/orders`)
         .then((res) => {
           this.total_pages = res.data.pagination.total_pages
-
-          for(let i=1; i<= this.total_pages; i++){
-            this.getBookedPages(i)
-          }
-
-          this.orders = this.orders.sort(
-            (a, b) => a.user.address - b.user.address
-          )
+          this.processBooked()
         })
         .catch((err) => {
           console.log(err)
         })
     },
-    getBookedPages(page){
-      this.$http.get(`${VITE_URL}/api/${VITE_PATH}/orders?page=${page}`)
-        .then((res) => {
-          if(page==1){
-            this.orders = res.data.orders
-          } else {
-            this.orders = this.orders.concat(res.data.orders)
-          }
-        })
-        .catch((err) => {
-          console.log(err)
-        })
+    async processBooked() {
+      for(let i=1; i<= this.total_pages; i++){
+        await this.getBookedPages(i)
+      }
+      this.orders = this.orders.sort(
+        (a, b) => a.user.address - b.user.address
+      )
+      console.log(this.orders)
+    },
+    async getBookedPages(page){
+      return new Promise((resolve)=>{
+        this.$http.get(`${VITE_URL}/api/${VITE_PATH}/orders?page=${page}`)
+          .then((res) => {
+            if(page==1){
+              this.orders = res.data.orders
+            } else {
+              this.orders = this.orders.concat(res.data.orders)
+            }
+            resolve();
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+      })
     },
     setToday() {
       const date = new Date()
