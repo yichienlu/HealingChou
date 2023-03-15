@@ -10,8 +10,9 @@
           >
             <div class="position-absolute top-0 bottom-0 start-0 end-0 healing-item-screen"></div>
             <h2 class="text-center mb-0">
-              <span class="material-symbols-outlined fs-48">{{ course.unit }}</span> <br>
-              {{ course.title }}</h2>
+              <span class="material-symbols-outlined fs-48">
+                {{ course.unit }}</span> <br>
+                {{ course.title }}</h2>
               <div class=" mb-0 p-4 pt-3 mt-auto flex healing-item-description">
               <div v-html="course.description"></div>
               <!-- {{ course.description }} -->

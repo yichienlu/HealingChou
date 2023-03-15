@@ -19,7 +19,6 @@ export default defineStore('adminCoursesStore', {
         this.services = res.data.products
 
         this.service_pagination = res.data.pagination
-        console.log(this.service_pagination)
       })
     },
     getAdminCourses(page = 1){

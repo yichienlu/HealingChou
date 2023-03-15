@@ -12,7 +12,7 @@
   </div>
 </section>
 
-<section class="healing_reserve bg-image" style="background-image: url(src/assets/images/tarot-stack.jpg);">
+<section class="healing_reserve bg-image" style="background-image: url(src/assets/images/tarot-stack.jpg);" v-if="service.origin_price">
   <div class="container pt-5 pb-5">
     <h2 class="text-center text-white mb-4">
       <img src="@/assets/images/tarot-card-icon.png" alt="">

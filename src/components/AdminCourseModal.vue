@@ -71,6 +71,11 @@
                 <input id="price" type="number" min="0" class="form-control"
                         placeholder="請輸入價格" v-model="tempCourse.price">
               </div>
+              <!-- <div class="mb-3 col-md-6">
+                <label for="price" class="form-label">origin價格</label>
+                <input id="price" type="number" min="0" class="form-control"
+                        placeholder="請輸入價格" v-model="tempCourse.origin_price">
+              </div> -->
             </div>
             <hr>
 
@@ -83,6 +88,13 @@
               <editor v-model="tempCourse.content" :init="init"></editor>
             </div>
             <div class="mb-3">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="needSession" 
+                        :true-value="1" :false-value="0" v-model="tempCourse.origin_price">
+                <label class="form-check-label" for="needSession">
+                  須預約時段
+                </label>
+              </div>
               <div class="form-check">
                 <input id="is_enabled" class="form-check-input" type="checkbox"
                         :true-value="1" :false-value="0" v-model="tempCourse.is_enabled">
