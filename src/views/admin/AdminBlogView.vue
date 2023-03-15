@@ -10,7 +10,7 @@
        <thead>
          <tr>
            <th style="width: 200px">標題</th>
-           <th style="width: 200px">作者</th>
+           <th style="width: 200px">分類</th>
            <th>描述</th>
            <th style="width: 100px">建立時間</th>
            <th style="width: 100px">是否公開</th>
@@ -79,7 +79,7 @@ export default {
     getAdminArticles(page=1){
       this.$http.get(`${VITE_URL}/api/${VITE_PATH}/admin/articles?page=${page}`)
         .then((res) => {
-          // console.log(res.data)
+          console.log(res.data)
           this.articles = res.data.articles
           this.pagination = res.data.pagination
 

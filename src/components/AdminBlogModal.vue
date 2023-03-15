@@ -37,7 +37,17 @@
               />
             </div>
             <div class="mb-3">
-              <label for="author" class="form-label">作者</label>
+              <label for="images" class="form-label">更多圖??</label>
+              <input
+                type="text"
+                class="form-control"
+                id="images"
+                v-model="tempArticle.images"
+                placeholder=""
+              />
+            </div>
+            <div class="mb-3">
+              <label for="author" class="form-label">分類</label>
               <input
                 type="text"
                 class="form-control"

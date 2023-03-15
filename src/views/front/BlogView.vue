@@ -27,29 +27,29 @@
     <div class="row justify-content-center">
       <h2 class="mb-5 col-xl-9 ">全部文章</h2>
       <ul class="list-unstyled col-xl-9">
-        <li class="mb-4">
-          <RouterLink to="blog_article" class="blog-border d-block">
+        <li class="mb-4" v-for="article in articles" :key="article.id">
+          <RouterLink :to="`/blog/${article.id}`" class="blog-border d-block">
             <div class="row align-items-stretch">
               <div class="col-lg-3 col-md-4">
-                <div class="d-block blog-list-item-image bg-image" style="background-image:url(src/assets/images/blog-01.jpg)"></div>
+                <div class="d-block blog-list-item-image bg-image" :style="{backgroundImage: `url(${article.imageUrl})`}"></div>
               </div>
               <div class="col-lg-9 col-md-8">
                 <div class="px-2 ps-md-0 py-2 d-flex flex-column">
                   <div class="mb-1 d-flex justify-content-between">
-                    <span class="badge rounded-pill bg-secondary fw-thin">水手回饋</span>
-                    <span class="fs-14">2022/9/6</span>
+                    <span class="badge rounded-pill bg-secondary fw-thin">{{ article.author }}</span>
+                    <span class="fs-14">{{ $filters.date(article.create_at) }}</span>
                   </div>
-                  <h3 class="">水手回饋：與童年、與原生、與過去的自己和解，多麼的美好</h3>
-                  <p class="d-none d-sm-block">
-                    以下是小水手針對金錢靈氣+希塔療癒的回饋，內容好動人，經過同意分享給大家🥰
-                  </p>
+                  <h3 class="">{{ article.title }}</h3>
+                  <div class="d-none d-sm-block">
+                    <div v-html="article.description"></div>
+                  </div>
                   <div class="text-end d-none d-md-block mt-auto">...more</div>                
                 </div>
               </div>
             </div>
           </RouterLink>
         </li>
-        <li class="mb-4">
+        <!-- <li class="mb-4">
           <RouterLink to="blog_article" class="blog-border d-block">
             <div class="row align-items-stretch">
               <div class="col-lg-3 col-md-4">
@@ -109,7 +109,7 @@
                   <h3 class="">射箭體驗</h3>
                   <p class="d-none d-sm-block">
                     今日再次去體驗射箭。 <br>
-  因為知道自己就是會被彈到手，所以這次課程直接跟老師借護具了😂
+                    因為知道自己就是會被彈到手，所以這次課程直接跟老師借護具了😂
                   </p>
                   <div class="text-end d-none d-md-block mt-auto">...more</div>                
                 </div>
@@ -183,9 +183,9 @@
               </div>
             </div>
           </RouterLink>
-        </li>
+        </li> -->
       </ul>    
-    <nav aria-label="Page navigation example">
+    <!-- <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
           <li class="page-item">
             <RouterLink to="blog_article" class="page-link" aria-label="Previous">
@@ -205,7 +205,9 @@
             </RouterLink>
           </li>
         </ul>
-      </nav>
+      </nav> -->
+      <pagination :pages="pagination"  @change-page="getArticles"></pagination>
+
     </div>
 
   </section>
@@ -215,11 +217,39 @@
 </template>
 
 <script>
+import Pagination from '@/components/PaginationComponent.vue';
+
 import { RouterLink } from 'vue-router'
+const { VITE_URL, VITE_PATH } = import.meta.env
 
 export default {
+  data () {
+    return {
+      articles:[],
+      pagination:{}
+    }
+  },
   components: {
-    RouterLink
+    RouterLink,
+    Pagination
+  },
+  methods:{
+    getArticles(page=1) {
+      this.$http.get(`${VITE_URL}/api/${VITE_PATH}/articles?page=${page}`)
+        .then((res) => {
+          // console.log(res.data)
+          this.articles = res.data.articles
+          this.pagination = res.data.pagination
+          console.log(this.articles)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
+
+  },
+  mounted(){
+    this.getArticles()
   }
 }
 </script>
