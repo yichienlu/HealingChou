@@ -82,7 +82,7 @@
               <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#adminCourseModal" @click="selectTempCourse(JSON.parse(JSON.stringify(course)))">
                 編輯
               </button>
-              <button type="button" class="btn btn-outline-danger btn-sm" @click="selectTempCourse(course)">
+              <button type="button" class="btn btn-outline-danger btn-sm" @click="deleteCourse(course.id)">
                 刪除
               </button>
             </div>
@@ -121,7 +121,7 @@ export default {
     AdminCourseModal
   },
   methods:{
-    ...mapActions(adminCoursesStore, ['getAdminCourses', 'getAdminServices', 'selectTempCourse'])
+    ...mapActions(adminCoursesStore, ['getAdminCourses', 'getAdminServices', 'selectTempCourse', 'deleteCourse'])
   },
   mounted(){
     this.getAdminServices();

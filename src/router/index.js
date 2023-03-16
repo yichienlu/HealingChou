@@ -59,20 +59,6 @@ const router = createRouter({
             title: '舟舟療心室 | 預約成功'
           } 
         },
-        // {
-        //   path: 'news',
-        //   component: () => import('../views/front/NewsView.vue'),
-        //   meta: {
-        //     title: '舟舟療心室 | 最新消息'
-        //   } 
-        // },
-        // {
-        //   path: 'news/:id',
-        //   component: () => import('../views/front/NewsArticleView.vue'),
-        //   meta: {
-        //     title: '舟舟療心室 | 最新消息'
-        //   } 
-        // },
         {
           path: 'blog',
           component: () => import('../views/front/BlogView.vue'),
@@ -130,20 +116,6 @@ const router = createRouter({
           component: () => import('../views/admin/AdminBlogView.vue'),
           meta: {
             title: '舟舟療心室 | 部落格管理'
-          },
-        },
-        {
-          path: 'news',
-          component: () => import('../views/admin/AdminBlogView.vue'),
-          meta: {
-            title: '舟舟療心室 | 最新消息管理'
-          },
-        },
-        {
-          path: 'coupons',
-          component: () => import('../views/admin/AdminCouponsView.vue'),
-          meta: {
-            title: '舟舟療心室 | 優惠管理'
           },
         }
       ]

@@ -202,8 +202,8 @@
               <a href="#"
                 class="booked"
                 :class="[
-                  calculateDate(i,j) > Date.now() ? '' : 'text-danger' ,
                   item.user.name=='closed' ? 'text-muted text-decoration-none' : '' ,
+                  calculateDate(i,j) > Date.now() ? '' : 'text-danger' 
                 ]"
                 data-bs-toggle="modal"
                 data-bs-target="#orderModal"
@@ -239,7 +239,6 @@
   </div>
 
   <!-- Modal -->
-
   <div class="modal fade" id="orderModal" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -501,10 +500,10 @@ export default {
         product_id: this.tempOrder.product.id,
         qty: 1
       }
-      console.log({ data })
+      // console.log({ data })
       this.$http.post(`${VITE_URL}/api/${VITE_PATH}/cart`, { data })
       .then((res) => {
-        console.log(res.data)
+        // console.log(res.data)
         this.addOrder()
       })
       .catch((err) => {
@@ -512,7 +511,7 @@ export default {
       })
     },
     addOrder(){
-      console.log(this.tempOrder)
+      // console.log(this.tempOrder)
       // 送出訂單
       const data = {
         user:{
@@ -523,10 +522,11 @@ export default {
         },
         message:this.tempOrder.message
       }
-      console.log({ data })
+      // console.log({ data })
       this.$http.post(`${VITE_URL}/api/${VITE_PATH}/order`, { data })
       .then((res) => {
-        console.log(res.data)
+        // console.log(res.data)
+        alert("已成功預約")
       })
       .catch((err) => {
         console.log(err)
@@ -536,13 +536,16 @@ export default {
 
     },
     deleteOrder(id){
-      this.$http.delete(`${VITE_URL}/api/${VITE_PATH}/admin/order/${id}`)
-      .then((res) => {
-        console.log(res.data)
-      })
-      .catch((err) => {
-        console.log(err)
-      })
+      if(window.confirm("確定要刪除?")){
+        this.$http.delete(`${VITE_URL}/api/${VITE_PATH}/admin/order/${id}`)
+        .then((res) => {
+          // console.log(res.data)
+          alert("預約已刪除")
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+      }
     }
   },
   computed: {

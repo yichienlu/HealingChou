@@ -15,27 +15,20 @@ export default defineStore('adminCoursesStore', {
     getAdminServices(page = 1){
       axios.get(`${VITE_URL}/api/${VITE_PATH}/admin/products?page=${page}&category=service`)
       .then((res)=>{
-        console.log(res.data)
         this.services = res.data.products
-
         this.service_pagination = res.data.pagination
       })
     },
     getAdminCourses(page = 1){
       axios.get(`${VITE_URL}/api/${VITE_PATH}/admin/products?page=${page}&category=course`)
       .then((res)=>{
-        console.log(res.data)
         this.courses = res.data.products
-
         this.course_pagination = res.data.pagination
-        console.log(this.course_pagination)
-
       })
     },
     addCourse(tempCourse, modal){
       axios.post(`${VITE_URL}/api/${VITE_PATH}/admin/product`, {"data": tempCourse})
       .then((res)=>{
-        // console.log(res.data)
         this.clearInputs()
         modal.hide();
         alert(res.data.message);
@@ -48,7 +41,6 @@ export default defineStore('adminCoursesStore', {
 
       })
       .catch((err)=>{
-        // console.log(err)
         alert(err.response.data.message)
       })
     },
@@ -71,25 +63,25 @@ export default defineStore('adminCoursesStore', {
         // alert(err.data.message)
       })
     },
-    deleteCourse(id, modal){
-      // console.log(id)
-      axios.delete(`${VITE_URL}/api/${VITE_PATH}/admin/product/${id}`)
-      .then((res)=>{
-        console.log(res.data)
-        modal.hide()
-        alert(res.data.message)
-        this.getAdminCourses()
-      })
-      .catch((err)=>{
-        console.dir(err)
-      })
+    deleteCourse(id){
+      if(window.confirm("確定要刪除?")){
+        // console.log(id)
+        axios.delete(`${VITE_URL}/api/${VITE_PATH}/admin/product/${id}`)
+        .then((res)=>{
+          console.log(res.data)
+          this.getAdminCourses()
+        })
+        .catch((err)=>{
+          console.dir(err)
+        })
+      }
+
     },
     uploadImage(){
-      const imageUrl = document.querySelector('#imageUrl')
+      const imageUrl = document.querySelector('#imageUpload')
       const file = imageUrl.files[0]
       const formData = new FormData();
       formData.append('file-to-upload', file)
-
       axios.post(`${VITE_URL}/api/${VITE_PATH}/admin/upload`, formData)
       .then((res)=>{
         this.tempCourse.imageUrl = res.data.imageUrl
@@ -99,7 +91,7 @@ export default defineStore('adminCoursesStore', {
       })
     },
     uploadImages(index){
-      const imagesUrl = document.querySelectorAll('#imagesUrl')
+      const imagesUrl = document.querySelectorAll('.imagesUpload')
       const file = imagesUrl[index].files[0]
       const formData = new FormData();
       formData.append('file-to-upload', file)

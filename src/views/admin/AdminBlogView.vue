@@ -114,15 +114,16 @@ export default {
         })
     },
     deleteArticle (id) {
-      this.$http.delete(`${VITE_URL}/api/${VITE_PATH}/admin/article/${id}`)
-        .then((res) => {
-          alert(res.data.message)
-          this.getAdminArticles()
-
-        })
-        .catch((err) => {
-          console.log(err)
-        })
+      if(window.confirm("確定要刪除?")){
+        this.$http.delete(`${VITE_URL}/api/${VITE_PATH}/admin/article/${id}`)
+          .then((res) => {
+            alert(res.data.message)
+            this.getAdminArticles()
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+      }
     },
     selectTempArticle(article){
       if(article.id){

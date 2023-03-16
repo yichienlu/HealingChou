@@ -12,39 +12,34 @@
       </div>
       <div class="modal-body">
         <div class="row">
-          <div class="col-sm-4">
+          <div class="col-sm-4 mb-4">
               <div class="mb-2">
                 <div class="mb-3">
-                  <h5>列表圖片</h5>
-                  <label for="imageUrl" class="form-label">圖片網址</label>
-                <input id="imageUrl" v-model="tempCourse.imageUrl" type="text" class="form-control form-control-sm mb-2" placeholder="請輸入圖片連結">
+                  <h6>列表圖片</h6>
+                  <input id="imageUrl" v-model="tempCourse.imageUrl" type="text" class="form-control form-control-sm mb-2" placeholder="請輸入圖片連結">
                   <form enctype="multipart/form-data"  method="post">
-                    <input type="file" name="file-to-upload" id="imageUrl" ref="file" placeholder="請選擇圖片" @change="uploadImage()" class="form-control">
+                    <input type="file" name="file-to-upload" id="imageUpload" ref="file" placeholder="請選擇圖片" @change="uploadImage()" class="form-control">
                     <!-- <input type="submit" value="上傳"> -->
                   </form>  
                 </div>
                 <img class="img-fluid" :src="tempCourse.imageUrl" alt="">
               </div>
               <div class="mb-2">
-                <h5>內容圖片</h5>
-                  <div v-for="(image, index) in tempCourse.imagesUrl" :key="index">
-                    <div class="mb-3">
-                        <!-- <label for="imageUrl" class="form-label">輸入次要圖片網址</label>
-                        <input type="text" class="form-control" placeholder="請輸入圖片連結" v-model="tempCourse.imagesUrl[index]" id=`imageUrl-${index}`> -->
+                <h6>內容圖片</h6>
+                  <div v-for="(image, index) in tempCourse.imagesUrl" :key="index" class="mb-3">
+                    <div class="mb-2">
+                        <input type="text" class="form-control" placeholder="請輸入圖片連結" v-model="tempCourse.imagesUrl[index]" :id="`imageUrl-${index}`">
                         <form enctype="multipart/form-data"  method="post">
-                          <input type="file" name="file-to-upload" id="imagesUrl" ref="file" placeholder="請選擇圖片" @change="$emit(uploadImages(index))" class="form-control">
+                          <input type="file" name="file-to-upload" :id="`imagesUpload-${index}`" class="form-control imagesUpload" ref="file" placeholder="請選擇圖片" @change="uploadImages(index)">
                         </form>  
                     </div>
                     <img class="img-fluid" :src="image" alt="">
                   </div>
               </div>
-
-              <template v-if="tempCourse.imagesUrl[tempCourse.imagesUrl.length-1]">
+              <div>
                 <button class="btn btn-outline-danger btn-sm d-block w-100" @click="tempCourse.imagesUrl.length > 1 ? tempCourse.imagesUrl.pop() : tempCourse.imagesUrl[0]=''">
                   刪除圖片
                 </button>
-              </template>
-              <div v-if="tempCourse.imagesUrl[tempCourse.imagesUrl.length-1] != ''">
                 <button class="btn btn-outline-primary btn-sm d-block w-100" @click="tempCourse.imagesUrl.push('')">
                   新增次要圖片
                 </button>
