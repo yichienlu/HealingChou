@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 class="text-center fs-1 py-40 py-lg-80 bg-image text-white" style="background-image: url(https://images.pexels.com/photos/9918898/pexels-photo-9918898.jpeg);">療癒服務</h2>
+    <h2 class="text-center fs-1 py-40 py-lg-80 bg-image text-white"  :style="{ backgroundImage: `url(${banner_bg})` }">療癒服務</h2>
     <section class="container py-40 py-lg-80">
       <div class="row" v-if="services.length">
         <div class="col-md-6 col-lg-4 col-xxl-3 mb-4" v-for="service in services" :key="service.id">
@@ -23,11 +23,14 @@
 
 <script>
 import { RouterLink } from 'vue-router'
+import banner_bg from '@/assets/images/boat.jpg'
+
 const { VITE_URL, VITE_PATH } = import.meta.env
 
 export default {
   data(){
     return {
+      banner_bg,
       services:[]
     }
   },

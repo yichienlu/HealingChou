@@ -1,6 +1,6 @@
 <template>
 <div class="course_Theta position-relative">
-    <h1 class="text-white text-center fs-1 pt-40 pt-lg-80 pb-40 pb-lg-80 lh-1 mb-0 bg-image" style="background-image: url(@/assets/images/banner-tarot-05.jpg);">
+    <h1 class="text-white text-center fs-1 pt-40 pt-lg-80 pb-40 pb-lg-80 lh-1 mb-0 bg-image" :style="{ backgroundImage: `url(${banner_bg})` }" >
       療癒課程 <br>
     </h1>
   <section class="healing_content bg-beige">
@@ -10,28 +10,27 @@
     </div>
   </section>
 
-
-  <section class="healing_reserve bg-image d-none" style="background-image: url(src/assets/images/tarot-stack.jpg);">
+  <!-- <section class="healing_reserve bg-image d-none" style="background-image: url(src/assets/images/tarot-stack.jpg);">
     <div class="container pt-5 pb-5">
       <h2 class="text-center text-white mb-4">
         報名課程
       </h2>
-
-      
     </div>
-  </section>
-
+  </section> -->
 
 </div>
 </template>
 
 <script>
 // import { RouterLink } from 'vue-router'
+import banner_bg from '@/assets/images/banner-tarot-05.jpg'
+
 const { VITE_URL, VITE_PATH } = import.meta.env
 
 export default {
   data(){
     return {
+      banner_bg,
       course: {}
     }
   },

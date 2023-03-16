@@ -1,6 +1,6 @@
 <template>
 <div class="healing_Theta">
-    <h1 class="text-center fs-1 pt-40 pt-lg-80 pb-40 pb-lg-80 lh-1 mb-0 bg-image text-white" style="background-image: url(@/assets/images/meditation-banner.jpg); background-position: center 70%;">
+    <h1 class="text-center fs-1 pt-40 pt-lg-80 pb-40 pb-lg-80 lh-1 mb-0 bg-image text-white" :style="{ backgroundImage: `url(${banner_bg})` }" style="background-position: center 70%;">
       療癒服務 <br>
       <span class="fs-3 fw-normal">{{ service.title }}</span>
     </h1>
@@ -12,7 +12,7 @@
   </div>
 </section>
 
-<section class="healing_reserve bg-image" style="background-image: url(@/assets/images/tarot-stack.jpg);" v-if="service.origin_price">
+<section class="healing_reserve bg-image" :style="{ backgroundImage: `url(${order_bg})` }" v-if="service.origin_price">
   <div class="container pt-5 pb-5">
     <h2 class="text-center text-white mb-4">
       <img src="@/assets/images/tarot-card-icon.png" alt="">
@@ -193,12 +193,17 @@
 
 <script>
 // import { RouterLink } from 'vue-router'
+import order_bg from '@/assets/images/tarot-stack.jpg'
+import banner_bg from '@/assets/images/meditation-banner.jpg'
+
 const { VITE_URL, VITE_PATH } = import.meta.env
 
 
 export default {
   data(){
     return {
+      banner_bg,
+      order_bg,
       service: {},
       months: [
         'January',
@@ -272,7 +277,7 @@ export default {
       this.orders = this.orders.sort(
         (a, b) => a.user.address - b.user.address
       )
-      console.log(this.orders)
+      // console.log(this.orders)
     },
     async getBookedPages(page){
       return new Promise((resolve)=>{
@@ -342,7 +347,13 @@ export default {
       const data = this.tempOrder
       this.$http.post(`${VITE_URL}/api/${VITE_PATH}/order`, { data })
       .then((res) => {
-        console.log(res.data)
+        // console.log(res.data)
+        // console.log(new Date(parseInt(data.user.address)).toString(), this.service.title)
+        alert(`
+          已完成預約
+          ${new Date(parseInt(data.user.address)).toString()}
+          ${this.service.title}
+        `)
         this.getBooked()
       })
       .catch((err) => {

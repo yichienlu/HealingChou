@@ -1,6 +1,6 @@
 <template>
 <div class="position-relative">
-  <h1 class="text-center fs-1 py-40 py-lg-80 lh-1 mb-0 bg-image text-white" style="background-image: url(@/assets/images/banner-tarot-06.jpg);">
+  <h1 class="text-center fs-1 py-40 py-lg-80 lh-1 mb-0 bg-image text-white" :style="{ backgroundImage: `url(${banner_bg})` }">
     舟舟小療
   </h1>
   <!-- <section class="bg-primary blog-navbar text-center d-none">
@@ -25,7 +25,6 @@
   </section> -->
   <section class="py-40 py-lg-80 container">
     <div class="row justify-content-center">
-      <!-- <h2 class="mb-5 col-xl-9 ">全部文章</h2> -->
       <ul class="list-unstyled col-xl-9">
         <li class="mb-4" v-for="article in articles" :key="article.id">
           <RouterLink :to="`/blog/${article.id}`" class="blog-border d-block">
@@ -207,24 +206,22 @@
         </ul>
       </nav> -->
       <pagination :pages="pagination"  @change-page="getArticles"></pagination>
-
     </div>
-
   </section>
-
-
 </div>
 </template>
 
 <script>
 import Pagination from '@/components/PaginationComponent.vue';
-
 import { RouterLink } from 'vue-router'
+import banner_bg from '@/assets/images/banner-tarot-06.jpg'
+
 const { VITE_URL, VITE_PATH } = import.meta.env
 
 export default {
   data () {
     return {
+      banner_bg,
       articles:[],
       pagination:{}
     }
