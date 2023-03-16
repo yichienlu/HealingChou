@@ -103,7 +103,6 @@
 import { RouterLink, RouterView } from 'vue-router'
 // const { VITE_URL, VITE_PATH } = import.meta.env
 import { Collapse } from 'bootstrap'
-// import { clippingParents } from '@popperjs/core';
 import LoaderComponent from '@/components/LoaderComponent.vue'
 
 export default {
@@ -130,30 +129,20 @@ export default {
       document.documentElement.scrollTop = 0;
     },
     closeLoader(){
-    document.querySelector('.loader').classList.remove('d-none');
+      document.querySelector('.loader').classList.remove('d-none');
       setTimeout(()=>{
         document.querySelector('.loader').classList.add('d-none');
       },1000)
     }
   },
   mounted() {
-
-    // this.$http.get(`${VITE_URL}/api/${VITE_PATH}/products`)
-    // .then((res) => {
-    //   console.log(res.data)
-    // })
-    // .catch((err) => {
-    //   console.log(err)
-    // })
     this.navbarToggle = new Collapse('#navbarMenu',{
       toggle: false
     })
 
     // loader
     window.addEventListener('load', this.closeLoader())
-    // setTimeout(() => {
-    //   this.loading = false;
-    // }, 2000);
+
 
     // 回頂部
     window.addEventListener('scroll', this.scrollFunction)
