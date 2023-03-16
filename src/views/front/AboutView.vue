@@ -1,5 +1,5 @@
 <template>
-<section class="bg-fixed bg-image" style="background-image: url('@/assets/images/index_theta.jpg');">
+<section class="bg-fixed bg-image" :style="{ backgroundImage: `url(${bg_image})` }">
   <div class="container pt-5 pb-sm-5">
     <div class="row justify-content-center ">
       <div class="about-chou col-lg-5 mb-5">
@@ -85,6 +85,7 @@
 
 <script>
 // import { RouterLink } from 'vue-router'
+import bg_image from '@/assets/images/index_theta.jpg'
 
 // export default {
 //   components: {

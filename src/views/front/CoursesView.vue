@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2 class="text-center fs-1 py-40 py-lg-80 text-white bg-image" 
-    :style="{ backgroundImage: `url(${imagePath})` }">療癒課程</h2>
+    :style="{ backgroundImage: `url(${banner_image})` }">療癒課程</h2>
     <section class="container py-40 py-lg-80">
       <div class="row" v-if="courses.length">
         <div class="col-md-6 col-lg-4 col-xxl-3 mb-4" v-for="course in courses" :key="course.id">
@@ -28,7 +28,7 @@
 
 <script>
 import { RouterLink } from 'vue-router'
-import imagePath from '@/assets/images/banner-tarot-01.jpg'
+import banner_image from '@/assets/images/banner-tarot-01.jpg'
 const { VITE_URL, VITE_PATH } = import.meta.env
 
 export default {
