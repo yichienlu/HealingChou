@@ -1,15 +1,5 @@
 <template>
   <div class="position-relative">
-    <!-- //讀取畫面 -->
-    <div class="loader">
-        <div class="loader-tarot card-5"></div>
-        <div class="loader-tarot card-4"></div>
-        <div class="loader-tarot card-3"></div>
-        <div class="loader-tarot card-2"></div>
-        <div class="loader-tarot card-1">
-          <img src="../assets/images/logo-light.svg" class="top-50 start-50 translate-middle">
-        </div>
-    </div>
     <!-- back to top -->
     <a href="#" @click.prevent="this.topFunction" id="backToTop" class="back-to-top">
       <span class="material-symbols-outlined">
@@ -103,17 +93,15 @@
 import { RouterLink, RouterView } from 'vue-router'
 // const { VITE_URL, VITE_PATH } = import.meta.env
 import { Collapse } from 'bootstrap'
-import LoaderComponent from '@/components/LoaderComponent.vue'
 
 export default {
   data(){
     return {
-      navbarToggle: null,
-      loading: true
+      navbarToggle: null
     }
   },
   components: {
-    RouterLink, RouterView, LoaderComponent
+    RouterLink, RouterView
   },
   methods:{
     scrollFunction() {
@@ -127,12 +115,6 @@ export default {
     topFunction() {
       document.body.scrollTop = 0;
       document.documentElement.scrollTop = 0;
-    },
-    closeLoader(){
-      document.querySelector('.loader').classList.remove('d-none');
-      setTimeout(()=>{
-        document.querySelector('.loader').classList.add('d-none');
-      },1000)
     }
   },
   mounted() {
@@ -141,8 +123,10 @@ export default {
     })
 
     // loader
-    window.addEventListener('load', this.closeLoader())
-
+    this.isLoading = true
+    setTimeout(()=>{
+      this.isLoading = false
+    },1000)
 
     // 回頂部
     window.addEventListener('scroll', this.scrollFunction)

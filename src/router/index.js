@@ -53,13 +53,6 @@ const router = createRouter({
           } 
         },
         {
-          path: 'appointment-success',
-          component: () => import('../views/front/AppointmentSuccessView.vue'),
-          meta: {
-            title: '舟舟療心室 | 預約成功'
-          } 
-        },
-        {
           path: 'blog',
           component: () => import('../views/front/BlogView.vue'),
           meta: {

@@ -1,5 +1,6 @@
 
 <template>
+<LoaderComponent :class="{'d-none': !isLoading}" class="loader"></LoaderComponent>
   <main>
     <section class="index-banner d-flex justify-content-center align-items-center">
       <div class="text-center text-white">
@@ -91,11 +92,26 @@
 </template>
 
 <script>
+import LoaderComponent from '@/components/LoaderComponent.vue'
 import { RouterLink } from 'vue-router'
 
 export default {
+  data(){
+    return {
+      isLoading: false
+    }
+  },
   components: {
-    RouterLink
+    RouterLink,
+    LoaderComponent
+  },
+  mounted(){
+    // loader
+    this.isLoading = true
+    setTimeout(()=>{
+      this.isLoading = false
+    },1000)
+
   }
 }
 </script>

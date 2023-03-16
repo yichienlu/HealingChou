@@ -1,4 +1,5 @@
 <template>
+  <LoaderComponent :class="{'d-none': !isLoading}" class="loader"></LoaderComponent>
   <div>
     <h2 class="text-center fs-1 py-40 py-lg-80 text-white bg-image" 
     :style="{ backgroundImage: 'url('+ banner_image +')' }">療癒課程</h2>
@@ -29,17 +30,21 @@
 <script>
 import { RouterLink } from 'vue-router'
 import banner_image from '@/assets/images/banner-tarot-01.jpg'
+import LoaderComponent from '@/components/LoaderComponent.vue'
+
 const { VITE_URL, VITE_PATH } = import.meta.env
 
 export default {
   data(){
     return {
+      isLoading: false,
       banner_image,
       courses:[]
     }
   },
   components: {
-    RouterLink
+    RouterLink,
+    LoaderComponent
   },
   methods: {
     getCourses(){
@@ -54,6 +59,12 @@ export default {
     }
   },
   mounted(){
+    // loader
+    this.isLoading = true
+    setTimeout(()=>{
+      this.isLoading = false
+    },1000)
+    
     this.getCourses()
   }
 }

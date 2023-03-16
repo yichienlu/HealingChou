@@ -1,4 +1,6 @@
 <template>
+<LoaderComponent :class="{'d-none': !isLoading}" class="loader"></LoaderComponent>
+
   <div class="position-relative">
     <h1 class="text-white bg-image text-center fs-1 py-40 py-lg-80 lh-1 mb-0" :style="{ backgroundImage: `url(${banner_bg})` }">
       舟舟小療
@@ -52,7 +54,7 @@
         </div>
       </div>
     </section>
-    <section class="bg-beige py-40 py-lg-80">
+    <section class="bg-beige py-40 py-lg-80 d-none">
       <h2 class="container mb-4">更多文章</h2>
       <div class="container">
         <div class="d-flex align-items-center">
@@ -112,10 +114,8 @@
                 </div>
               </RouterLink>
             </swiper-slide>
-
-
-
           </swiper>
+
           <!-- <div class="swiper blog-swiper">
           <div class="swiper-wrapper ">
             <div class="swiper-slide align-self-stretch">
@@ -203,6 +203,8 @@ import 'swiper/css/navigation'
 
 import { RouterLink } from 'vue-router'
 import banner_bg from '@/assets/images/banner-tarot-06.jpg'
+import LoaderComponent from '@/components/LoaderComponent.vue'
+
 
 const { VITE_URL, VITE_PATH } = import.meta.env
 
@@ -210,11 +212,13 @@ export default {
   components: {
     RouterLink,
     Swiper,
-    SwiperSlide
+    SwiperSlide,
+    LoaderComponent
   },
   data() {
     return {
       banner_bg,
+      isLoading: false,
       article: {},
       articles: [],
       swiperOptions: {
@@ -274,6 +278,12 @@ export default {
     }
   },
   mounted() {
+    // loader
+    this.isLoading = true
+    setTimeout(()=>{
+      this.isLoading = false
+    },1000)
+
     this.getArticle()
 
     // new Swiper('.blog-swiper', {

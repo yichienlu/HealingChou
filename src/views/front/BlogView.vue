@@ -1,4 +1,5 @@
 <template>
+<LoaderComponent :class="{'d-none': !isLoading}" class="loader"></LoaderComponent>
 <div class="position-relative">
   <h1 class="text-center fs-1 py-40 py-lg-80 lh-1 mb-0 bg-image text-white" :style="{ backgroundImage: `url(${banner_bg})` }">
     舟舟小療
@@ -215,12 +216,14 @@
 import Pagination from '@/components/PaginationComponent.vue';
 import { RouterLink } from 'vue-router'
 import banner_bg from '@/assets/images/banner-tarot-06.jpg'
+import LoaderComponent from '@/components/LoaderComponent.vue'
 
 const { VITE_URL, VITE_PATH } = import.meta.env
 
 export default {
   data () {
     return {
+      isLoading: false,
       banner_bg,
       articles:[],
       pagination:{}
@@ -228,7 +231,8 @@ export default {
   },
   components: {
     RouterLink,
-    Pagination
+    Pagination,
+    LoaderComponent
   },
   methods:{
     getArticles(page=1) {
@@ -237,7 +241,7 @@ export default {
           // console.log(res.data)
           this.articles = res.data.articles
           this.pagination = res.data.pagination
-          console.log(this.articles)
+          // console.log(this.articles)
         })
         .catch((err) => {
           console.log(err)
@@ -246,6 +250,12 @@ export default {
 
   },
   mounted(){
+    // loader
+    this.isLoading = true
+    setTimeout(()=>{
+      this.isLoading = false
+    },1000)
+
     this.getArticles()
   }
 }

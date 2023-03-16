@@ -1,5 +1,5 @@
 <template>
-  <div class="loader">
+  <div>
       <div class="loader-tarot card-5"></div>
       <div class="loader-tarot card-4"></div>
       <div class="loader-tarot card-3"></div>
@@ -12,6 +12,6 @@
 
 <script>
 export default {
-  name: 'Loader'
+  name: 'LoaderComponent'
 }
 </script>

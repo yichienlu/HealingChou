@@ -1,4 +1,5 @@
 <template>
+<LoaderComponent :class="{'d-none': !isLoading}" class="loader"></LoaderComponent>  
 <div class="course_Theta position-relative">
     <h1 class="text-white text-center fs-1 pt-40 pt-lg-80 pb-40 pb-lg-80 lh-1 mb-0 bg-image" :style="{ backgroundImage: `url(${banner_bg})` }" >
       療癒課程 <br>
@@ -24,6 +25,7 @@
 <script>
 // import { RouterLink } from 'vue-router'
 import banner_bg from '@/assets/images/banner-tarot-05.jpg'
+import LoaderComponent from '@/components/LoaderComponent.vue'
 
 const { VITE_URL, VITE_PATH } = import.meta.env
 
@@ -31,19 +33,21 @@ export default {
   data(){
     return {
       banner_bg,
+      isLoading: false,
       course: {}
     }
   },
-  // components: {
-  //   RouterLink
-  // },
+  components: {
+    LoaderComponent
+  },
   methods: {
     getCourse(){
       const { id } = this.$route.params
       this.$http.get(`${VITE_URL}/api/${VITE_PATH}/product/${id}`)
       .then((res) => {
-        console.log(res.data.product)
+        // console.log(res.data.product)
         this.course = res.data.product
+      this.isLoading = false
       })
       .catch((err) => {
         console.log(err)
@@ -51,6 +55,12 @@ export default {
     }
   },
   mounted(){
+    // loader
+    this.isLoading = true
+    // setTimeout(()=>{
+    //   this.isLoading = false
+    // },1000)
+
     this.getCourse()
   }
 }

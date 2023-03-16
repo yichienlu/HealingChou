@@ -1,4 +1,5 @@
 <template>
+<LoaderComponent :class="{'d-none': !isLoading}" class="loader"></LoaderComponent>
 <div class="healing_Theta">
     <h1 class="text-center fs-1 pt-40 pt-lg-80 pb-40 pb-lg-80 lh-1 mb-0 bg-image text-white" :style="{ backgroundImage: `url(${banner_bg})` }" style="background-position: center 70%;">
       療癒服務 <br>
@@ -20,9 +21,9 @@
     </h2>
     <div class="row justify-content-center">
       <div class="col-lg-8">
-        <form class="row p-4 needs-validation" novalidate>
+        <v-form ref="form" class="row p-4 "  v-slot="{ errors }" @submit="addToCart" >
           <div class="col-12 mb-3">
-            <label for="inputTime" class="form-label text-white">選擇療癒時間<span class="text-danger">*</span></label>
+            <label for="inputTime" class="form-label text-white">選擇療癒時間</label>
             <div class="calendar text-center">
       <div class="month">
         <button class="btn btn-outline-primary prev" @click="adjustMonth(-1)">
@@ -73,6 +74,7 @@
           <div
             v-if="
               calculateDate(i,j) > Date.now() &&
+              calculateDate(i,j) < Date.now()+86400000*60 &&
               calendarMonth[(i - 1) * 7 + j - 1].month == calendar.month &&
               calculateDate(i,j).getDay() === 6
             "
@@ -126,48 +128,29 @@
                   :data-session="calculateDate(i,j).setHours(20, 0, 0, 0)">
             <label class="btn btn-sm btn-outline-primary session-btn" :for="calculateDate(i,j).setHours(20, 0, 0, 0)"
                   v-if="bookedTime.indexOf(calculateDate(i,j).setHours(20, 0, 0, 0)) == -1">20:00</label>
-            <!-- <button
-              v-if="
-                bookedTime.indexOf(
-                  calculateDate(i,j).setHours(20, 0, 0, 0)
-                ) == -1
-              "
-              type="button"
-              class="btn btn-sm btn-outline-primary"
-              :data-session="
-                calculateDate(i,j).setHours(20, 0, 0, 0)
-              "
-              data-bs-toggle="modal"
-              data-bs-target="#orderModal"
-              @click.prevent="
-                this.selectTempOrder(
-                  calculateDate(i,j).setHours(20, 0, 0, 0), {
-                  product: {
-                    category: 'closed',
-                    title: 'closed'
-                  },
-                  time: calculateDate(i,j).setHours(20, 0, 0, 0)
-                })"
-            >
-              20:00
-            </button> -->
           </div>
-
         </div>
       </div>
     </div>
           </div>
+
           <div class="col-md-6 mb-3">
-            <label for="inputName" class="form-label text-white">姓名<span class="text-danger">*</span></label>
-            <input type="text" class="form-control" id="inputName" required v-model="this.tempOrder.user.name">
+            <label for="inputName" class="form-label text-white">姓名</label>
+            <!-- <input type="text" class="form-control" id="inputName" required v-model="this.tempOrder.user.name"> -->
+            <v-field id="inputName" name="姓名" type="text" class="form-control" :class="{ 'is-invalid': errors['姓名'] }" placeholder="請輸入姓名" rules="required" v-model="this.tempOrder.user.name"></v-field>
+            <error-message name="姓名" class="invalid-feedback"></error-message>
           </div>
           <div class="col-md-6 mb-3">
-            <label for="inputTel" class="form-label text-white">手機號碼<span class="text-danger">*</span></label>
-            <input type="tel" class="form-control" id="inputTel" required  v-model="this.tempOrder.user.tel">
+            <label for="inputTel" class="form-label text-white">手機號碼</label>
+            <!-- <input type="tel" class="form-control" id="inputTel" required  v-model="this.tempOrder.user.tel"> -->
+            <v-field id="inputTel" name="電話" type="tel" class="form-control" :class="{ 'is-invalid': errors['電話'] }" placeholder="請輸入電話" rules="required"  v-model="this.tempOrder.user.tel"></v-field>
+        <error-message name="電話" class="invalid-feedback"></error-message>
           </div>
           <div class="col-md-6 mb-3">
-            <label for="email" class="form-label text-white">email<span class="text-danger">*</span></label>
-            <input type="email" class="form-control" id="email" required  v-model="this.tempOrder.user.email">
+            <label for="email" class="form-label text-white">email</label>
+            <!-- <input type="email" class="form-control" id="email" required  v-model="this.tempOrder.user.email"> -->
+            <v-field id="email" name="email" type="email" class="form-control" :class="{ 'is-invalid': errors['email'] }" placeholder="請輸入 Email" rules="required|email" v-model="this.tempOrder.user.email"></v-field>
+            <error-message name="email" class="invalid-feedback"></error-message>
           </div>
           <div class="col-12 mb-3">
             <label for="formNote" class="form-label text-white">備註 (Line ID、帳號末5碼)</label>
@@ -178,9 +161,9 @@
               戶名：沈家舟</div>
           </div>
           <div class="col-12">
-            <button type="submit" class="btn btn-beige text-primary w-100" @click.prevent="addToCart">送出</button>
+            <button type="submit" class="btn btn-beige text-primary w-100" >送出</button>
           </div>
-        </form>
+        </v-form>
       </div>
     </div>
   </div>
@@ -195,6 +178,7 @@
 // import { RouterLink } from 'vue-router'
 import order_bg from '@/assets/images/tarot-stack.jpg'
 import banner_bg from '@/assets/images/meditation-banner.jpg'
+import LoaderComponent from '@/components/LoaderComponent.vue'
 
 const { VITE_URL, VITE_PATH } = import.meta.env
 
@@ -202,6 +186,7 @@ const { VITE_URL, VITE_PATH } = import.meta.env
 export default {
   data(){
     return {
+      isLoading: false,
       banner_bg,
       order_bg,
       service: {},
@@ -247,6 +232,7 @@ export default {
     },
   components: {
     // RouterLink
+    LoaderComponent
   },
   methods: {
     getService(){
@@ -277,6 +263,7 @@ export default {
       this.orders = this.orders.sort(
         (a, b) => a.user.address - b.user.address
       )
+      this.isLoading = false
       // console.log(this.orders)
     },
     async getBookedPages(page){
@@ -346,7 +333,7 @@ export default {
       this.tempOrder.user.address = selected
       const data = this.tempOrder
       this.$http.post(`${VITE_URL}/api/${VITE_PATH}/order`, { data })
-      .then((res) => {
+      .then(() => {
         // console.log(res.data)
         // console.log(new Date(parseInt(data.user.address)).toString(), this.service.title)
         alert(`
@@ -354,7 +341,6 @@ export default {
           ${new Date(parseInt(data.user.address)).toString()}
           ${this.service.title}
         `)
-        this.confirmOrder(this.service.id)
         this.getBooked()
       })
       .catch((err) => {
@@ -427,6 +413,12 @@ export default {
     }
   },
   mounted(){
+    // loader
+    this.isLoading = true
+    // setTimeout(()=>{
+    //   this.isLoading = false
+    // },1000)
+
     this.setToday()
     this.getBooked()
 

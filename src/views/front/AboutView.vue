@@ -1,5 +1,8 @@
 <template>
+<LoaderComponent :class="{'d-none': !isLoading}" class="loader"></LoaderComponent>
+
 <section class="bg-fixed bg-image" :style="{ backgroundImage: `url(${about_bg})` }">
+  
   <div class="container pt-5 pb-sm-5">
     <div class="row justify-content-center ">
       <div class="about-chou col-lg-5 mb-5">
@@ -86,16 +89,26 @@
 <script>
 // import { RouterLink } from 'vue-router'
 import about_bg from '@/assets/images/index_theta.jpg'
+import LoaderComponent from '@/components/LoaderComponent.vue'
 
 export default {
   data(){
     return {
+      isLoading: false,
       about_bg
     }
+  },
+  components: {
+    LoaderComponent
+  },
+  mounted(){
+    // loader
+    this.isLoading = true
+    setTimeout(()=>{
+      this.isLoading = false
+    },1000)
+
   }
-  // components: {
-  //   RouterLink
-  // }
 }
 </script>
 

@@ -1,6 +1,5 @@
 <template>
   <div>
-     <!-- <Loading :active="isLoading" :z-index="1060"></Loading> -->
      <div class="text-end mt-4">
        <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#articleModal" @click="selectTempArticle({tag:[]})">
          建立新的頁面

@@ -1,5 +1,7 @@
 <template>
-  <div>
+<LoaderComponent :class="{'d-none': !isLoading}" class="loader"></LoaderComponent>
+
+<div>
     <h2 class="text-center fs-1 py-40 py-lg-80 bg-image text-white"  :style="{ backgroundImage: `url(${banner_bg})` }">療癒服務</h2>
     <section class="container py-40 py-lg-80">
       <div class="row" v-if="services.length">
@@ -24,24 +26,34 @@
 <script>
 import { RouterLink } from 'vue-router'
 import banner_bg from '@/assets/images/boat.jpg'
+import LoaderComponent from '@/components/LoaderComponent.vue'
 
 const { VITE_URL, VITE_PATH } = import.meta.env
 
 export default {
   data(){
     return {
+      isLoading: false,
       banner_bg,
       services:[]
     }
   },
   components: {
-    RouterLink
+    RouterLink,
+    LoaderComponent
   },
   mounted() {
+    // loader
+    this.isLoading = true
+    // setTimeout(()=>{
+    //   this.isLoading = false
+    // },1000)
+
     this.$http.get(`${VITE_URL}/api/${VITE_PATH}/products?category=service`)
     .then((res) => {
       // console.log(res.data)
       this.services = res.data.products
+      this.isLoading = false
     })
     .catch((err) => {
       console.log(err)
