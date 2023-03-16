@@ -67,7 +67,6 @@ export default defineStore('adminCoursesStore', {
         // console.log(id)
         axios.delete(`${VITE_URL}/api/${VITE_PATH}/admin/product/${id}`)
         .then((res)=>{
-          // console.log(res.data)
           this.getAdminCourses()
         })
         .catch((err)=>{

@@ -115,6 +115,7 @@
 </template>
 
 <script>
+
 import adminCoursesStore from '@/stores/adminCoursesStore.js'
 import { mapState, mapActions } from "pinia";
 

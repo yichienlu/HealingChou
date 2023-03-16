@@ -195,12 +195,8 @@
 
           <!-- 已預約時段 -->
           <template v-for="(it, timestamp) in formatOrder" :key="timestamp">
-            <template
-              v-for="(item, index) in formatOrder[timestamp]"
-              :key="'serve' + index"
-            >
-              <a href="#"
-                class="booked"
+            <template v-for="(item, index) in formatOrder[timestamp]" :key="'serve' + index">
+              <a href="#" class="booked d-block"
                 :class="[
                   item.user.name=='closed' && calculateDate(i,j) > Date.now() ? 'text-muted text-decoration-none' : '' ,
                   calculateDate(i,j) > Date.now() ? '' : 'text-danger' 
@@ -328,8 +324,8 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-outline-danger me-auto" data-bs-dismiss="modal" v-if="this.tempOrder.id" @click="deleteOrder(this.tempOrder.id)">刪除預約</button>
-        <button type="button" class="btn btn-primary" v-if="this.tempOrder.id" @click="this.editOrder">儲存編輯</button>
-        <button type="button" class="btn btn-primary" v-else @click="this.addToCart">新增預約</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"  v-if="this.tempOrder.id" @click="this.editOrder">儲存編輯</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"  v-else @click="this.addToCart">新增預約</button>
       </div>
     </div>
   </div>
@@ -527,6 +523,7 @@ export default {
       .then((res) => {
         // console.log(res.data)
         alert("已成功預約")
+        this.getBooked()
       })
       .catch((err) => {
         console.log(err)
@@ -541,6 +538,7 @@ export default {
         .then((res) => {
           // console.log(res.data)
           alert("預約已刪除")
+          this.getBooked()
         })
         .catch((err) => {
           console.log(err)
