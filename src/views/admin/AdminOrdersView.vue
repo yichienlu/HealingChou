@@ -60,7 +60,6 @@
           <!-- 週六時段 -->
           <div
             v-if="
-              // calculateDate(i,j) > Date.now() &&
               calendarMonth[(i - 1) * 7 + j - 1].month == calendar.month &&
               calculateDate(i,j).getDay() === 6
             "

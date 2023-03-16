@@ -40,7 +40,7 @@ export default {
   mounted() {
     this.$http.get(`${VITE_URL}/api/${VITE_PATH}/products?category=service`)
     .then((res) => {
-      console.log(res.data)
+      // console.log(res.data)
       this.services = res.data.products
     })
     .catch((err) => {

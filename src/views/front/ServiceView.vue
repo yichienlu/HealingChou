@@ -354,13 +354,13 @@ export default {
           ${new Date(parseInt(data.user.address)).toString()}
           ${this.service.title}
         `)
+        this.confirmOrder(this.service.id)
         this.getBooked()
       })
       .catch((err) => {
         console.log(err)
       })
     }
-
 
   },
   computed:{
