@@ -1,6 +1,6 @@
 <template>
 <div class="position-relative">
-  <h1 class="text-center fs-1 py-40 py-lg-80 lh-1 mb-0 bg-image text-white" style="background-image: url(src/assets/images/banner-tarot-06.jpg);">
+  <h1 class="text-center fs-1 py-40 py-lg-80 lh-1 mb-0 bg-image text-white" style="background-image: url(@/assets/images/banner-tarot-06.jpg);">
     舟舟小療
   </h1>
   <!-- <section class="bg-primary blog-navbar text-center d-none">

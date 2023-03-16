@@ -1,6 +1,6 @@
 <template>
 <div class="healing_Theta">
-    <h1 class="text-center fs-1 pt-40 pt-lg-80 pb-40 pb-lg-80 lh-1 mb-0 bg-image text-white" style="background-image: url(src/assets/images/meditation-banner.jpg); background-position: center 70%;">
+    <h1 class="text-center fs-1 pt-40 pt-lg-80 pb-40 pb-lg-80 lh-1 mb-0 bg-image text-white" style="background-image: url(@/assets/images/meditation-banner.jpg); background-position: center 70%;">
       療癒服務 <br>
       <span class="fs-3 fw-normal">{{ service.title }}</span>
     </h1>
@@ -12,7 +12,7 @@
   </div>
 </section>
 
-<section class="healing_reserve bg-image" style="background-image: url(src/assets/images/tarot-stack.jpg);" v-if="service.origin_price">
+<section class="healing_reserve bg-image" style="background-image: url(@/assets/images/tarot-stack.jpg);" v-if="service.origin_price">
   <div class="container pt-5 pb-5">
     <h2 class="text-center text-white mb-4">
       <img src="@/assets/images/tarot-card-icon.png" alt="">

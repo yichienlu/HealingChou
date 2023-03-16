@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 class="text-center fs-1 py-40 py-lg-80 text-white bg-image" style="background-image: url(src/assets/images/banner-tarot-01.jpg);">療癒課程</h2>
+    <h2 class="text-center fs-1 py-40 py-lg-80 text-white bg-image" style="background-image: url(@/assets/images/banner-tarot-01.jpg);">療癒課程</h2>
     <section class="container py-40 py-lg-80">
       <div class="row" v-if="courses.length">
         <div class="col-md-6 col-lg-4 col-xxl-3 mb-4" v-for="course in courses" :key="course.id">

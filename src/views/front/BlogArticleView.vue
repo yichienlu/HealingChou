@@ -1,7 +1,7 @@
 <template>
   <div class="position-relative">
     <h1 class="text-white bg-image text-center fs-1 py-40 py-lg-80 lh-1 mb-0"
-      style="background-image: url(src/assets/images/banner-tarot-06.jpg)">
+      style="background-image: url(@/assets/images/banner-tarot-06.jpg)">
       舟舟小療
     </h1>
     <section class="bg-primary blog-navbar text-center">
@@ -63,7 +63,7 @@
               <RouterLink to="" class="blog-more-item d-block h-100">
                 <div class="p-2">
                   <div class="d-block blog-more-item-image bg-image mb-2"
-                    style="background-image: url(src/assets/images/blog-02.jpg)"></div>
+                    style="background-image: url(@/assets/images/blog-02.jpg)"></div>
                   <h3 class="fs-6">壓克力畫課程體驗</h3>
                 </div>
               </RouterLink>

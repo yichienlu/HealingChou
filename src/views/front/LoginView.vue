@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container py-80">
     <form id="form" class="form-signin" @submit.prevent="login">
       <div class="form-floating mb-3">
         <input type="email" class="form-control" id="username" placeholder="name@example.com" required autofocus v-model="user.username">

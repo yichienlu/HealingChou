@@ -1,6 +1,6 @@
 <template>
 <div class="course_Theta position-relative">
-    <h1 class="text-white text-center fs-1 pt-40 pt-lg-80 pb-40 pb-lg-80 lh-1 mb-0 bg-image" style="background-image: url(src/assets/images/banner-tarot-05.jpg);">
+    <h1 class="text-white text-center fs-1 pt-40 pt-lg-80 pb-40 pb-lg-80 lh-1 mb-0 bg-image" style="background-image: url(@/assets/images/banner-tarot-05.jpg);">
       療癒課程 <br>
     </h1>
   <section class="healing_content bg-beige">
