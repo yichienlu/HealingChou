@@ -87,11 +87,16 @@
 // import { RouterLink } from 'vue-router'
 import about_bg from '@/assets/images/index_theta.jpg'
 
-// export default {
-//   components: {
-//     RouterLink
-//   }
-// }
+export default {
+  data(){
+    return {
+      about_bg
+    }
+  }
+  // components: {
+  //   RouterLink
+  // }
+}
 </script>
 
 <style lang="scss">
