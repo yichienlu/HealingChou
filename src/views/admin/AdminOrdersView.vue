@@ -202,7 +202,7 @@
               <a href="#"
                 class="booked"
                 :class="[
-                  item.user.name=='closed' ? 'text-muted text-decoration-none' : '' ,
+                  item.user.name=='closed' && calculateDate(i,j) > Date.now() ? 'text-muted text-decoration-none' : '' ,
                   calculateDate(i,j) > Date.now() ? '' : 'text-danger' 
                 ]"
                 data-bs-toggle="modal"
@@ -410,7 +410,7 @@ export default {
           this.orders = this.orders.sort(
             (a, b) => a.user.address - b.user.address
           )
-          console.log(this.orders)
+          // console.log(this.orders)
     },
     async getBookedPages(page) {
       return new Promise((resolve)=>{

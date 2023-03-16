@@ -3,7 +3,7 @@
   <h1 class="text-center fs-1 py-40 py-lg-80 lh-1 mb-0 bg-image text-white" style="background-image: url(src/assets/images/banner-tarot-06.jpg);">
     舟舟小療
   </h1>
-  <section class="bg-primary blog-navbar text-center">
+  <!-- <section class="bg-primary blog-navbar text-center d-none">
     <div class="container">
       <div class="row justify-content-center">
         <ul class="nav col-lg-9">
@@ -22,10 +22,10 @@
         </ul>
       </div>    
     </div>
-  </section>
+  </section> -->
   <section class="py-40 py-lg-80 container">
     <div class="row justify-content-center">
-      <h2 class="mb-5 col-xl-9 ">全部文章</h2>
+      <!-- <h2 class="mb-5 col-xl-9 ">全部文章</h2> -->
       <ul class="list-unstyled col-xl-9">
         <li class="mb-4" v-for="article in articles" :key="article.id">
           <RouterLink :to="`/blog/${article.id}`" class="blog-border d-block">

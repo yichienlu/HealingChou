@@ -171,7 +171,7 @@
           </div>
           <div class="col-12 mb-3">
             <label for="formNote" class="form-label text-white">備註 (Line ID、帳號末5碼)</label>
-            <textarea class="form-control" id="formNote" rows="3"  v-model="this.tempOrder.message"></textarea>
+            <textarea class="form-control" id="formNote" rows="3" required v-model="this.tempOrder.message"></textarea>
             <div id="formNoteHelp" class="form-text text-light">
               匯款資訊：台新銀行 812   敦南分行 <br>
               帳號：28881004008118   <br>
