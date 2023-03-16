@@ -1,7 +1,7 @@
 <template>
   <div class="position-relative">
     <!-- //讀取畫面 -->
-    <div class="loader d-none">
+    <div class="loader">
         <div class="loader-tarot card-5"></div>
         <div class="loader-tarot card-4"></div>
         <div class="loader-tarot card-3"></div>
@@ -11,7 +11,7 @@
         </div>
     </div>
     <!-- back to top -->
-    <a href="#" onclick="topFunction()" id="backToTop" class="back-to-top">
+    <a href="#" @click.prevent="this.topFunction" id="backToTop" class="back-to-top">
       <span class="material-symbols-outlined">
         arrow_upward
         </span>
@@ -23,24 +23,24 @@
           <img src="../assets/images/logo-primary.svg" alt="Logo" height="20" class="d-inline-block me-2">
           <span>舟舟療心室</span>
         </RouterLink>
-        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse " id="navbarSupportedContent">
+        <div class="collapse navbar-collapse " id="navbarMenu">
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0 text-center">
             <!-- <li class="nav-item">
               <RouterLink to="/news" class="nav-link py-1 px-2 rounded-4">最新消息</RouterLink>
             </li> -->
-            <li class="nav-item ms-lg-4">
+            <li class="nav-item ms-lg-4" @click="this.navbarToggle.hide()">
               <RouterLink to="/about" class="nav-link py-1 px-2 rounded-4">關於舟舟</RouterLink>
             </li>
-            <li class="nav-item ms-lg-4">
+            <li class="nav-item ms-lg-4" @click="this.navbarToggle.hide()">
               <RouterLink to="/services" class="nav-link py-1 px-2 rounded-4">療癒服務</RouterLink>
             </li>
-            <li class="nav-item ms-lg-4">
+            <li class="nav-item ms-lg-4" @click="this.navbarToggle.hide()">
               <RouterLink to="/courses" class="nav-link py-1 px-2 rounded-4">療癒課程</RouterLink>
             </li>
-            <li class="nav-item ms-lg-4">
+            <li class="nav-item ms-lg-4" @click="this.navbarToggle.hide()">
               <RouterLink to="/blog" class="nav-link py-1 px-2 rounded-4">舟舟小療</RouterLink>
             </li>
           </ul>
@@ -63,9 +63,9 @@
           <div class="col-md-6 text-center align-self-center">
               <img src="../assets/images/logo-primary.svg" alt="Chou" class="d-inline-block mx-auto" width="120" 
               >
-              <h1 class="fs-5 lh-base fw-500" 
+              <h1 class="fs-5 lh-base fw-500 mb-2" 
               >舟舟療心室</h1>
-            <div class="d-flex justify-content-center">
+            <div class="d-flex justify-content-center fs-2">
               <a href="https://www.facebook.com/healingchou" target="_blank" 
               >
                 <i class="fa-brands fa-square-facebook"></i>
@@ -102,12 +102,42 @@
 <script>
 import { RouterLink, RouterView } from 'vue-router'
 // const { VITE_URL, VITE_PATH } = import.meta.env
+import { Collapse } from 'bootstrap'
+// import { clippingParents } from '@popperjs/core';
+import LoaderComponent from '@/components/LoaderComponent.vue'
 
 export default {
+  data(){
+    return {
+      navbarToggle: null,
+      loading: true
+    }
+  },
   components: {
-    RouterLink, RouterView
+    RouterLink, RouterView, LoaderComponent
+  },
+  methods:{
+    scrollFunction() {
+      var backToTop = document.getElementById("backToTop");
+      if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        backToTop.style.display = "block";
+      } else {
+        backToTop.style.display = "none";
+      }
+    },
+    topFunction() {
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    },
+    closeLoader(){
+    document.querySelector('.loader').classList.remove('d-none');
+      setTimeout(()=>{
+        document.querySelector('.loader').classList.add('d-none');
+      },1000)
+    }
   },
   mounted() {
+
     // this.$http.get(`${VITE_URL}/api/${VITE_PATH}/products`)
     // .then((res) => {
     //   console.log(res.data)
@@ -115,6 +145,19 @@ export default {
     // .catch((err) => {
     //   console.log(err)
     // })
+    this.navbarToggle = new Collapse('#navbarMenu',{
+      toggle: false
+    })
+
+    // loader
+    window.addEventListener('load', this.closeLoader())
+    // setTimeout(() => {
+    //   this.loading = false;
+    // }, 2000);
+
+    // 回頂部
+    window.addEventListener('scroll', this.scrollFunction)
+
   }
 }
 </script>

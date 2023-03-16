@@ -69,12 +69,12 @@
           <li>豐盛顯化</li>
           <li>心理諮詢</li>
         </ul>
-        <a href="./about.html" class="btn w-100">
+        <router-link to="/about" class="btn w-100">
           more 
           <svg width="127" height="9" viewBox="0 0 127 9" fill="none" xmlns="http://www.w3.org/2000/svg" class="ms-2">
             <path d="M126.354 4.85355C126.549 4.65829 126.549 4.34171 126.354 4.14645L123.172 0.964466C122.976 0.769204 122.66 0.769204 122.464 0.964466C122.269 1.15973 122.269 1.47631 122.464 1.67157L125.293 4.5L122.464 7.32843C122.269 7.52369 122.269 7.84027 122.464 8.03553C122.66 8.2308 122.976 8.2308 123.172 8.03553L126.354 4.85355ZM0 5H126V4H0V5Z" fill="currentColor"/>
             </svg>
-        </a>
+        </router-link>
       </div>
       <div class="col-md-6  position-relative">
         <div class="index-about-shadow d-none d-md-block bg-primary rounded-4"></div>

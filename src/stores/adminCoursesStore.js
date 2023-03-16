@@ -38,7 +38,6 @@ export default defineStore('adminCoursesStore', {
         }else{
           this.getAdminCourses()
         }
-
       })
       .catch((err)=>{
         alert(err.response.data.message)
@@ -47,7 +46,7 @@ export default defineStore('adminCoursesStore', {
     editCourse(tempCourse, modal){
       axios.put(`${VITE_URL}/api/${VITE_PATH}/admin/product/${tempCourse.id}`,{"data":tempCourse})
       .then((res)=>{
-        console.log(res.data)
+        // console.log(res.data)
         this.clearInputs()
         modal.hide();
         alert(res.data.message);
@@ -68,7 +67,7 @@ export default defineStore('adminCoursesStore', {
         // console.log(id)
         axios.delete(`${VITE_URL}/api/${VITE_PATH}/admin/product/${id}`)
         .then((res)=>{
-          console.log(res.data)
+          // console.log(res.data)
           this.getAdminCourses()
         })
         .catch((err)=>{
