@@ -1,1 +1,0 @@
-import{_ as t,R as n,r as s,o as r,c as a,d as c,w as _,b as e,f as l}from"./index-f1945f5c.js";const d={components:{RouterLink:n}},i=e("h1",null,"404",-1),p=e("h2",null,"哇~ 沒有這頁餒",-1);function u(f,m,h,k,x,V){const o=s("router-link");return r(),a("div",null,[i,p,c(o,{to:"/"},{default:_(()=>[l("回首頁")]),_:1})])}const w=t(d,[["render",u]]);export{w as default};
