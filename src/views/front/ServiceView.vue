@@ -253,6 +253,8 @@ export default {
       })
     },
     getBooked(){
+      this.isLoading = true
+
       this.$http.get(`${VITE_URL}/api/${VITE_PATH}/orders`)
         .then((res) => {
           this.total_pages = res.data.pagination.total_pages
@@ -340,16 +342,19 @@ export default {
       })
     },
     addOrder(resetForm){
-      const selected = document.querySelector('input[name="options"]:checked').dataset.session
-      this.tempOrder.user.address = selected
       const data = this.tempOrder
+      const selected = document.querySelector('input[name="options"]:checked').value
+      this.tempOrder.user.address = selected
+
+      const f = new Intl.DateTimeFormat('zh-TW', { dateStyle: 'full', timeStyle: 'short', hour12: false});
+
       this.$http.post(`${VITE_URL}/api/${VITE_PATH}/order`, { data })
       .then(() => {
           this.$swal.fire({
           icon: 'success',
           title: '已完成預約',
           html: `
-          ${new Date(parseInt(data.user.address)).toLocaleString()}  <br />
+          ${f.format((parseInt(this.tempOrder.user.address)))}  <br />
           ${this.service.title}
           `,
           footer: '到時見囉！'    
@@ -409,11 +414,10 @@ export default {
     selectedTime(){
       const f = new Intl.DateTimeFormat('zh-TW', {
         dateStyle: 'full',
+        timeStyle: 'short',
+        hour12: false
       });
-      const time = parseInt(this.tempOrder.user.address)
-
       return this.tempOrder.user.address ? f.format((parseInt(this.tempOrder.user.address))) : ''
-      
     }
   },
   mounted(){
