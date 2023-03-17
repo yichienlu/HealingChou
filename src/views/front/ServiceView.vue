@@ -81,28 +81,29 @@
           >
             <input type="radio" class="btn-check" name="options" :id="calculateDate(i,j).setHours(10, 0, 0, 0)" autocomplete="off" 
                   v-if="bookedTime.indexOf(calculateDate(i,j).setHours(10, 0, 0, 0)) == -1"
-                  :data-session="calculateDate(i,j).setHours(10, 0, 0, 0)"
+                  :value="calculateDate(i,j).setHours(10, 0, 0, 0)" v-model="this.tempOrder.user.address"
                   >
             <label class="btn btn-sm btn-outline-primary session-btn" :for="calculateDate(i,j).setHours(10, 0, 0, 0)"
                   v-if="bookedTime.indexOf(calculateDate(i,j).setHours(10, 0, 0, 0)) == -1">10:00</label>
 
             <input type="radio" class="btn-check" name="options" :id="calculateDate(i,j).setHours(14, 0, 0, 0)" autocomplete="off" 
                   v-if="bookedTime.indexOf(calculateDate(i,j).setHours(14, 0, 0, 0)) == -1"
-                  :data-session="calculateDate(i,j).setHours(14, 0, 0, 0)"
+                  :value="calculateDate(i,j).setHours(14, 0, 0, 0)" v-model="this.tempOrder.user.address"
                   >
             <label class="btn btn-sm btn-outline-primary session-btn" :for="calculateDate(i,j).setHours(14, 0, 0, 0)"
                   v-if="bookedTime.indexOf(calculateDate(i,j).setHours(14, 0, 0, 0)) == -1">14:00</label>
             
             <input type="radio" class="btn-check" name="options" :id="calculateDate(i,j).setHours(16, 0, 0, 0)" autocomplete="off" 
                   v-if="bookedTime.indexOf(calculateDate(i,j).setHours(16, 0, 0, 0)) == -1"
-                  :data-session="calculateDate(i,j).setHours(16, 0, 0, 0)"
+                  :value="calculateDate(i,j).setHours(16, 0, 0, 0)" v-model="this.tempOrder.user.address"
                   >
             <label class="btn btn-sm btn-outline-primary session-btn" :for="calculateDate(i,j).setHours(16, 0, 0, 0)"
                   v-if="bookedTime.indexOf(calculateDate(i,j).setHours(16, 0, 0, 0)) == -1">16:00</label>
 
             <input type="radio" class="btn-check" name="options" :id="calculateDate(i,j).setHours(20, 0, 0, 0)" autocomplete="off" 
                   v-if="bookedTime.indexOf(calculateDate(i,j).setHours(20, 0, 0, 0)) == -1"
-                  :data-session="calculateDate(i,j).setHours(20, 0, 0, 0)"
+                  :value="calculateDate(i,j).setHours(20, 0, 0, 0)" v-model="this.tempOrder.user.address"
+
                   >
             <label class="btn btn-sm btn-outline-primary session-btn" :for="calculateDate(i,j).setHours(20, 0, 0, 0)"
                   v-if="bookedTime.indexOf(calculateDate(i,j).setHours(20, 0, 0, 0)) == -1">20:00</label>
@@ -125,7 +126,7 @@
             <input type="radio" class="btn-check" name="options" 
                   :id="calculateDate(i,j).setHours(20, 0, 0, 0)" autocomplete="off" 
                   v-if="bookedTime.indexOf(calculateDate(i,j).setHours(20, 0, 0, 0)) == -1" 
-                  :data-session="calculateDate(i,j).setHours(20, 0, 0, 0)">
+                  :value="calculateDate(i,j).setHours(20, 0, 0, 0)" v-model="this.tempOrder.user.address"> 
             <label class="btn btn-sm btn-outline-primary session-btn" :for="calculateDate(i,j).setHours(20, 0, 0, 0)"
                   v-if="bookedTime.indexOf(calculateDate(i,j).setHours(20, 0, 0, 0)) == -1">20:00</label>
           </div>
@@ -133,7 +134,11 @@
       </div>
     </div>
           </div>
-
+          <div class="col-12 mb-3">
+            <label for="inputName" class="form-label text-white">時段</label>
+            <v-field id="sessionTime" name="時段" type="text" class="form-control" :class="{'is-invalid': errors['時段']}" placeholder="請點選時段" rules="required" v-model="this.selectedTime" :readonly="true"></v-field>
+            <error-message name="時段" class="invalid-feedback"></error-message>
+          </div>
           <div class="col-md-6 mb-3">
             <label for="inputName" class="form-label text-white">姓名</label>
             <!-- <input type="text" class="form-control" id="inputName" required v-model="this.tempOrder.user.name"> -->
@@ -179,7 +184,8 @@
 import order_bg from '@/assets/images/tarot-stack.jpg'
 import banner_bg from '@/assets/images/meditation-banner.jpg'
 import LoaderComponent from '@/components/LoaderComponent.vue'
-
+import { useForm } from 'vee-validate';
+const { handleSubmit } = useForm();
 const { VITE_URL, VITE_PATH } = import.meta.env
 
 
@@ -317,7 +323,7 @@ export default {
       )
       return date
     },
-    addToCart(){
+    addToCart(value, {resetForm}){
       const id = this.$route.params.id
       let data = {
         product_id: id,
@@ -326,13 +332,14 @@ export default {
       this.$http.post(`${VITE_URL}/api/${VITE_PATH}/cart`, { data })
       .then((res) => {
         console.log(res.data)
-        this.addOrder()
+        this.addOrder(resetForm)
       })
       .catch((err) => {
         console.log(err)
+        console.log(value)
       })
     },
-    addOrder(){
+    addOrder(resetForm){
       const selected = document.querySelector('input[name="options"]:checked').dataset.session
       this.tempOrder.user.address = selected
       const data = this.tempOrder
@@ -348,7 +355,8 @@ export default {
           footer: '到時見囉！'    
         })
         
-        this.$refs.form.reset() //FIXME: not working???
+        // this.$refs.form.reset() //FIXME: not working???
+        resetForm()
         this.getBooked()
       })
       .catch((err) => {
@@ -397,6 +405,15 @@ export default {
         time.push(item.user.address * 1)
       }
       return time
+    },
+    selectedTime(){
+      const f = new Intl.DateTimeFormat('zh-TW', {
+        dateStyle: 'full',
+      });
+      const time = parseInt(this.tempOrder.user.address)
+
+      return this.tempOrder.user.address ? f.format((parseInt(this.tempOrder.user.address))) : ''
+      
     }
   },
   mounted(){
