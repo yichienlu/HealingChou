@@ -14,17 +14,17 @@
 </section>
 
 <section class="healing_reserve bg-image" :style="{ backgroundImage: `url(${order_bg})` }" v-if="service.origin_price">
-  <div class="container pt-5 pb-5">
+  <div class="container py-5">
     <h2 class="text-center text-white mb-4">
       <img src="@/assets/images/tarot-card-icon.png" alt="">
       預約療癒
     </h2>
     <div class="row justify-content-center">
-      <div class="col-lg-8">
-        <v-form ref="form" class="row p-4 "  v-slot="{ errors }" @submit="addToCart" >
+      <div class="col">
+        <v-form ref="form" class="row  "  v-slot="{ errors }" @submit="addToCart" >
           <div class="col-12 mb-3">
             <label for="inputTime" class="form-label text-white">選擇療癒時間</label>
-            <div class="calendar text-center">
+            <div class="calendar text-center pt-3">
       <div class="month">
         <button class="btn btn-outline-primary prev" @click="adjustMonth(-1)">
           <i class="fas fa-angle-left"></i>
@@ -83,21 +83,21 @@
                   v-if="bookedTime.indexOf(calculateDate(i,j).setHours(10, 0, 0, 0)) == -1"
                   :value="calculateDate(i,j).setHours(10, 0, 0, 0)" v-model="this.tempOrder.user.address"
                   >
-            <label class="btn btn-sm btn-outline-primary session-btn" :for="calculateDate(i,j).setHours(10, 0, 0, 0)"
+            <label class="btn btn-sm btn-outline-primary session-btn me-1" :for="calculateDate(i,j).setHours(10, 0, 0, 0)"
                   v-if="bookedTime.indexOf(calculateDate(i,j).setHours(10, 0, 0, 0)) == -1">10:00</label>
 
             <input type="radio" class="btn-check" name="options" :id="calculateDate(i,j).setHours(14, 0, 0, 0)" autocomplete="off" 
                   v-if="bookedTime.indexOf(calculateDate(i,j).setHours(14, 0, 0, 0)) == -1"
                   :value="calculateDate(i,j).setHours(14, 0, 0, 0)" v-model="this.tempOrder.user.address"
                   >
-            <label class="btn btn-sm btn-outline-primary session-btn" :for="calculateDate(i,j).setHours(14, 0, 0, 0)"
+            <label class="btn btn-sm btn-outline-primary session-btn me-1" :for="calculateDate(i,j).setHours(14, 0, 0, 0)"
                   v-if="bookedTime.indexOf(calculateDate(i,j).setHours(14, 0, 0, 0)) == -1">14:00</label>
             
             <input type="radio" class="btn-check" name="options" :id="calculateDate(i,j).setHours(16, 0, 0, 0)" autocomplete="off" 
                   v-if="bookedTime.indexOf(calculateDate(i,j).setHours(16, 0, 0, 0)) == -1"
                   :value="calculateDate(i,j).setHours(16, 0, 0, 0)" v-model="this.tempOrder.user.address"
                   >
-            <label class="btn btn-sm btn-outline-primary session-btn" :for="calculateDate(i,j).setHours(16, 0, 0, 0)"
+            <label class="btn btn-sm btn-outline-primary session-btn me-1" :for="calculateDate(i,j).setHours(16, 0, 0, 0)"
                   v-if="bookedTime.indexOf(calculateDate(i,j).setHours(16, 0, 0, 0)) == -1">16:00</label>
 
             <input type="radio" class="btn-check" name="options" :id="calculateDate(i,j).setHours(20, 0, 0, 0)" autocomplete="off" 
@@ -149,9 +149,9 @@
             <label for="inputTel" class="form-label text-white">手機號碼</label>
             <!-- <input type="tel" class="form-control" id="inputTel" required  v-model="this.tempOrder.user.tel"> -->
             <v-field id="inputTel" name="電話" type="tel" class="form-control" :class="{ 'is-invalid': errors['電話'] }" placeholder="請輸入電話" rules="required"  v-model="this.tempOrder.user.tel"></v-field>
-        <error-message name="電話" class="invalid-feedback"></error-message>
+        <error-message name="電話" class="invalid-feedback text-danger"></error-message>
           </div>
-          <div class="col-md-6 mb-3">
+          <div class="col-12 mb-3">
             <label for="email" class="form-label text-white">email</label>
             <!-- <input type="email" class="form-control" id="email" required  v-model="this.tempOrder.user.email"> -->
             <v-field id="email" name="email" type="email" class="form-control" :class="{ 'is-invalid': errors['email'] }" placeholder="請輸入 Email" rules="required|email" v-model="this.tempOrder.user.email"></v-field>
@@ -455,6 +455,13 @@ export default {
   padding: 2px;
   margin-bottom: 5px;
 }
+.day .session-btn:hover {
+  background-color: #fff5;
+}
+.day .btn-check:checked+.session-btn {
+  background-color: var(--bs-primary);
+}
+
 .day .booked {
   cursor: pointer;
   text-decoration: underline;
@@ -503,6 +510,9 @@ export default {
 
 }
 
+// *{
+//   outline: 1px solid #AAA
+// }
 
 </style>
 

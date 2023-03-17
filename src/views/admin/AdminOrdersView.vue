@@ -1,5 +1,6 @@
 <template>
-  <div class="container">
+  <LoaderComponent :class="{'d-none': !isLoading}" class="loader"></LoaderComponent>
+  <div class="container py-80">
     <div class="calendar text-center">
       <div class="month">
         <button class="btn btn-outline-primary prev" @click="adjustMonth(-1)">
@@ -331,11 +332,14 @@
 </div>
 </template>
 <script>
-// import { RouterLink } from 'vue-router'
+// import { RouterLink } from 'vue-router'c
+import LoaderComponent from '@/components/LoaderComponent.vue'
+
 const { VITE_URL, VITE_PATH } = import.meta.env
 export default {
   data() {
     return {
+      isLoading: false,
       months: [
         'January',
         'February',
@@ -386,6 +390,7 @@ export default {
   },
   components: {
     // RouterLink
+    LoaderComponent
   },
   methods: {
     getBooked(){
@@ -405,6 +410,9 @@ export default {
           this.orders = this.orders.sort(
             (a, b) => a.user.address - b.user.address
           )
+          setTimeout(() => {
+            this.isLoading = false            
+          }, 1000);
           // console.log(this.orders)
     },
     async getBookedPages(page) {
@@ -488,6 +496,7 @@ export default {
       .catch((err) => {
         console.log(err)
       })
+
     },
     addToCart(){
       // 加入購物車
@@ -537,6 +546,7 @@ export default {
         .then((res) => {
           // console.log(res.data)
           alert("預約已刪除")
+          this.isLoading = true
           this.getBooked()
         })
         .catch((err) => {
@@ -609,6 +619,8 @@ export default {
     }
   },
   mounted() {
+    this.isLoading = true
+
     this.setToday()
     this.getBooked()
     this.getProducts()
