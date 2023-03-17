@@ -246,16 +246,16 @@ export default {
         .catch((err) => {
           console.log(err)
         })
+        .finally(()=>{
+          setTimeout(()=>{
+            this.isLoading = false
+          },1000)
+        })
     }
 
   },
   mounted(){
-    // loader
     this.isLoading = true
-    setTimeout(()=>{
-      this.isLoading = false
-    },1000)
-
     this.getArticles()
   }
 }

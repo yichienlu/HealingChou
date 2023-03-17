@@ -50,20 +50,23 @@ export default {
     getCourses(){
       this.$http.get(`${VITE_URL}/api/${VITE_PATH}/products?category=course`)
       .then((res) => {
-        console.log(res.data.products)
+        // console.log(res.data.products)
         this.courses = res.data.products
       })
       .catch((err) => {
         console.log(err)
+      })
+      .finally(()=>{
+        setTimeout(()=>{
+          this.isLoading = false
+        },1000)
       })
     }
   },
   mounted(){
     // loader
     this.isLoading = true
-    setTimeout(()=>{
-      this.isLoading = false
-    },1000)
+
     
     this.getCourses()
   }

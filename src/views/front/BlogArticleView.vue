@@ -5,7 +5,7 @@
     <h1 class="text-white bg-image text-center fs-1 py-40 py-lg-80 lh-1 mb-0" :style="{ backgroundImage: `url(${banner_bg})` }">
       舟舟小療
     </h1>
-    <section class="bg-primary blog-navbar text-center">
+    <section class="bg-primary blog-navbar text-center d-none">
       <div class="container">
         <div class="row justify-content-center">
           <ul class="nav col-lg-9">
@@ -263,6 +263,11 @@ export default {
         .catch((err) => {
           console.log(err)
         })
+        .finally(()=>{
+          setTimeout(()=>{
+            this.isLoading = false
+          },1000)
+        })
     }
   },
   setup() {
@@ -280,9 +285,6 @@ export default {
   mounted() {
     // loader
     this.isLoading = true
-    setTimeout(()=>{
-      this.isLoading = false
-    },1000)
 
     this.getArticle()
 

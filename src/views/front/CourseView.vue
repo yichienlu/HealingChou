@@ -47,10 +47,14 @@ export default {
       .then((res) => {
         // console.log(res.data.product)
         this.course = res.data.product
-      this.isLoading = false
       })
       .catch((err) => {
         console.log(err)
+      })
+      .finally(()=>{
+        setTimeout(()=>{
+          this.isLoading = false
+        },1000)
       })
     }
   },

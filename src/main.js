@@ -8,6 +8,14 @@ import VueAxios from 'vue-axios'
 import App from './App.vue' // 來自src資料夾
 import router from './router'
 
+// import Swal from 'sweetalert2'
+import VueSweetalert2 from 'vue-sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
+const options = {
+  confirmButtonColor: '#595043',
+  cancelButtonColor: '#817366',
+};
+
 import './assets/style/all.scss'
 import 'bootstrap'
 // import 'bootstrap/dist/js/bootstrap'
@@ -33,12 +41,14 @@ app.config.globalProperties.$filters = {
   currency,
 };
 
+// app.component() //作為元件
 app.component('VForm', Form)
 app.component('VField', Field)
 app.component('ErrorMessage', ErrorMessage)
 
-// app.component() //作為元件
-app.use(createPinia()) // 作為插件
+ // 作為插件
+app.use(VueSweetalert2, options);
+app.use(createPinia())
 app.use(router)
 app.use(VueAxios, axios)
 app.mount('#app')

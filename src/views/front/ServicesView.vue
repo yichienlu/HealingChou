@@ -53,10 +53,14 @@ export default {
     .then((res) => {
       // console.log(res.data)
       this.services = res.data.products
-      this.isLoading = false
     })
     .catch((err) => {
       console.log(err)
+    })
+    .finally(() => {
+      setTimeout(()=>{
+        this.isLoading = false
+      }, 1000)
     })
   }
 }

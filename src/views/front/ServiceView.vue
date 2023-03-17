@@ -255,6 +255,11 @@ export default {
         .catch((err) => {
           console.log(err)
         })
+        .finally(()=>{
+          setTimeout(() => {
+            this.isLoading = false            
+          }, 1000);
+        })
     },
     async processBooked() {
       for(let i=1; i<= this.total_pages; i++){
@@ -263,7 +268,6 @@ export default {
       this.orders = this.orders.sort(
         (a, b) => a.user.address - b.user.address
       )
-      this.isLoading = false
       // console.log(this.orders)
     },
     async getBookedPages(page){
@@ -334,13 +338,17 @@ export default {
       const data = this.tempOrder
       this.$http.post(`${VITE_URL}/api/${VITE_PATH}/order`, { data })
       .then(() => {
-        // console.log(res.data)
-        // console.log(new Date(parseInt(data.user.address)).toString(), this.service.title)
-        alert(`
-          已完成預約
-          ${new Date(parseInt(data.user.address)).toString()}
+          this.$swal.fire({
+          icon: 'success',
+          title: '已完成預約',
+          html: `
+          ${new Date(parseInt(data.user.address)).toLocaleString()}  <br />
           ${this.service.title}
-        `)
+          `,
+          footer: '到時見囉！'    
+        })
+        
+        this.$refs.form.reset() //FIXME: not working???
         this.getBooked()
       })
       .catch((err) => {
@@ -382,27 +390,6 @@ export default {
       }
       return data
     },
-    // formatOrder() {
-    //   const newOrders = {}
-    //   for (const item of this.orders) {
-    //     const key = Object.keys(item.products)[0]
-    //     const product = item.products[key].product
-    //     const day = new Date(Number(item.user.address)).setHours(0, 0, 0, 0)
-    //     if (!newOrders[day]) {
-    //       newOrders[day] = []
-    //     }
-    //     newOrders[day].push({
-    //       id: item.id,
-    //       product: product,
-    //       user: item.user,
-    //       message: item.message,
-    //       time: item.user.address,
-    //       shownTime: new Date(Number(item.user.address)).getHours(),
-    //       is_paid: item.is_paid
-    //     })
-    //   }
-    //   return newOrders
-    // },
     bookedTime() {
       // 已經被預定的時間
       const time = []
@@ -413,15 +400,9 @@ export default {
     }
   },
   mounted(){
-    // loader
     this.isLoading = true
-    // setTimeout(()=>{
-    //   this.isLoading = false
-    // },1000)
-
     this.setToday()
     this.getBooked()
-
     this.getService()
   }
 }
@@ -448,10 +429,6 @@ export default {
   width: calc(100% / 7);
 
 }
-// @media (min-width>=576px){
-//   .day {
-// }
-// }
 .day button, .day .session-btn {
   font-size: 0.3rem;
   padding: 2px;
@@ -471,7 +448,6 @@ export default {
 }
 .weekDay,
 .week {
-  // display: flex;
   border-bottom: 1px solid #ddd;
 }
 .weekDay > div {
@@ -495,11 +471,9 @@ export default {
 }
 
 .sunday {
-  // background-color: #fff5f5;
   color:#A00
 }
 .saturday {
-  // background-color: #f5fff5;
   color: #080
 }
 .other {
@@ -507,11 +481,6 @@ export default {
   background-color: #ddd8;
 
 }
-// @media (max-width < 576px){
-//   .other {
-//     display: none !important;
-//   }
-// }
 
 
 </style>
