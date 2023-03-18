@@ -131,8 +131,7 @@ export default {
     }
   },
   methods: {
-    getArticle() {
-      const { id } = this.$route.params
+    getArticle(id) {
       this.$http.get(`${VITE_URL}/api/${VITE_PATH}/article/${id}`)
         .then((res) => {
           // console.log(res.data)
@@ -160,69 +159,31 @@ export default {
         })
     }
   },
+  // https://github.com/Key0329/JoinSport/blob/main/src/views/front/JoinDetailView.vue
+  watch:{
+    $route(to) {
+      if (to.params.id) {
+        const { id } = this.$route.params
+        this.getArticle(id)
+      }
+    },
+  },
   setup() {
-    // const onSwiper = (swiper) => {
-    //     console.log(swiper);
-    //   };
-    //   const onSlideChange = () => {
-    //     console.log('slide change');
-    //   };
     return {
-
       modules: [Autoplay, Pagination, Navigation],
     }
   },
   mounted() {
-    // loader
     this.isLoading = true
-
-    this.getArticle()
+    const { id } = this.$route.params
+    this.getArticle(id)
     this.getArticles()
-
-    // new Swiper('.blog-swiper', {
-    //   loop: true,
-    //   freeMode: true,
-    //   autoHeight: true,
-    //   slidesPerView: 1.2,
-    //   spaceBetween: 8,
-    //   breakpoints: {
-    //     320: {
-    //       slidesPerView: 2.2,
-    //       spaceBetween: 20
-    //     },
-    //     576: {
-    //       slidesPerView: 2.7,
-    //       spaceBetween: 20
-    //     },
-    //     768: {
-    //       slidesPerView: 3.2,
-    //       spaceBetween: 30
-    //     },
-    //     992: {
-    //       slidesPerView: 4.2,
-    //       spaceBetween: 40
-    //     },
-    //     1200: {
-    //       slidesPerView: 5.2,
-    //       spaceBetween: 40
-    //     },
-    //   },
-
-    // navigation: {
-    //   nextEl: '.blog-swiper-button-next',
-    //   prevEl: '.blog-swiper-button-prev',
-    // },
-    // });
-
   }
 }
 //
 </script>
 
 <style lang="scss">
-// * {
-//   outline: 1px solid #AAA
-// }
 
 swiper-slide {
   height: 200px;

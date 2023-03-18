@@ -81,7 +81,6 @@ export default {
           console.log(res.data)
           this.articles = res.data.articles
           this.pagination = res.data.pagination
-
         })
         .catch((err) => {
           console.log(err)
