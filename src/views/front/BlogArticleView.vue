@@ -66,7 +66,7 @@
       </h2>
       <div class="container">
         <div class="position-relative">
-          <swiper class="swiper blog-swiper" :loop="true"  :modules="modules"  
+          <swiper class="swiper blog-swiper" :slidesPerView="1" :spaceBetween="30" :loop="true"  :modules="modules"  
           :breakpoints=" {
           320: {
             slidesPerView: 2.2,
@@ -136,16 +136,6 @@ export default {
       isLoading: false,
       article: {},
       articles: [],
-      swiper: null,
-      // swiperOptions: {
-      //   // loop: true,
-      //   // navigation: {
-      //   //   nextEl: '.swiper-custom-button-next',
-      //   //   prevEl: '.swiper-custom-button-prev'
-      //   // },
-        
-      // },
-
     }
   },
   methods: {
