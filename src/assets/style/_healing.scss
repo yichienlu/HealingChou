@@ -1,47 +1,3 @@
-// datepicker
-.datepicker-input.form-control.in-edit {
-  border-color: transparent;
-}
-.datepicker-input::placeholder {
-  color: $secondary;
-}
-
-.datepicker:focus {
-  outline-color: $primary;
-}
-.datepicker .datepicker-controls .view-switch {
-  color: $primary;
-}
-.datepicker-grid {
-  .datepicker-cell.day.focused {
-    background: #FFF;
-  }
-  .datepicker-cell.day:hover {
-    background: lighten($light, 5%);
-  }
-  
-  .datepicker-cell.day.prev{
-    color: darken($light, 10%);
-  }
-  .datepicker-cell.day.next{
-    color: darken($light, 10%);
-  }
-  .datepicker-cell.focused.selected {
-    background: $primary;
-    color: #FFF;
-    &:hover {
-      background: $secondary;
-    }
-    &.prev {
-      background: $secondary;
-    }
-  }
-}
-
-
-
-
-
 .healing-item {
   background-size: cover;
   background-position: center;
@@ -62,26 +18,6 @@
   .healing-item-description {
     transform: translateY(100%);
   }
-
-  // &-theta {
-  //   background-image: url(https://images.unsplash.com/photo-1506126613408-eca07ce68773?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=499&q=80);
-  //   // background-image: url(https://images.unsplash.com/photo-1621923647893-901f834b3e6a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80);
-
-  // }
-  // &-tarot {
-  //   // background-image: url(../images/tarot.jpg);
-  //   background-image: url(../images/tarot-stack.jpg);
-  //   // background-image: url(https://images.unsplash.com/photo-1621923647893-901f834b3e6a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80);
-    
-  // }
-  // &-MoneyReiki {
-  //   // background-image: url(https://images.unsplash.com/photo-1593672715438-d88a70629abe?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80);
-  //   background-image: url(https://cdn.pixabay.com/photo/2014/11/04/20/21/dollars-517113_960_720.jpg);
-  // }
-
-  // .tarot-icon {
-  //   transform: rotate(180deg)
-  // }
 
   &:hover {
     outline: 3px solid $secondary;
