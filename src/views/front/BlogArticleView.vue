@@ -66,12 +66,34 @@
       </h2>
       <div class="container">
         <div class="position-relative">
-          <swiper class="swiper blog-swiper" :options = 'swiperOptions' :modules="modules" :loop="true" :breakpoints="swiperOptions.breakpoints" 
+          <swiper class="swiper blog-swiper" :loop="true"  :modules="modules"  
+          :breakpoints=" {
+          320: {
+            slidesPerView: 2.2,
+            spaceBetween: 20
+          },
+          576: {
+            slidesPerView: 2.7,
+            spaceBetween: 20
+          },
+          768: {
+            slidesPerView: 3.2,
+            spaceBetween: 30
+          },
+          992: {
+            slidesPerView: 4.2,
+            spaceBetween: 40
+          },
+          1200: {
+            slidesPerView: 5.2,
+            spaceBetween: 40
+          },
+        }"
           :navigation="{
             nextEl: '.swiper-custom-button-next',
             prevEl: '.swiper-custom-button-prev'
             }"
-          :key="swiperKey">
+          >
             <swiper-slide class="swiper-slide align-self-stretch" v-for="item in articles" :key="item.id">
               <RouterLink :to="`/blog/${item.id}`" class="blog-more-item d-flex">
                 <div class="p-2 mx-auto">
@@ -115,35 +137,15 @@ export default {
       article: {},
       articles: [],
       swiper: null,
-      swiperKey: 0,
-      swiperOptions: {
-        // navigation: {
-        //   nextEl: '.swiper-custom-button-next',
-        //   prevEl: '.swiper-custom-button-prev'
-        // },
-        breakpoints: {
-          320: {
-            slidesPerView: 2.2,
-            spaceBetween: 20
-          },
-          576: {
-            slidesPerView: 2.7,
-            spaceBetween: 20
-          },
-          768: {
-            slidesPerView: 3.2,
-            spaceBetween: 30
-          },
-          992: {
-            slidesPerView: 4.2,
-            spaceBetween: 40
-          },
-          1200: {
-            slidesPerView: 5.2,
-            spaceBetween: 40
-          },
-        }
-      }
+      // swiperOptions: {
+      //   // loop: true,
+      //   // navigation: {
+      //   //   nextEl: '.swiper-custom-button-next',
+      //   //   prevEl: '.swiper-custom-button-prev'
+      //   // },
+        
+      // },
+
     }
   },
   methods: {
