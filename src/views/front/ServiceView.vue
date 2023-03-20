@@ -6,137 +6,137 @@
       <span class="fs-3 fw-normal">{{ service.title }}</span>
     </h1>
 
-<section class="healing_content bg-beige">
-  <div class="container pt-5 pb-5 position-relative">
-    <h2>{{ service.title }}</h2>
-    <div v-html="service.content"></div>
-  </div>
-</section>
-
-<section class="healing_reserve bg-image" :style="{ backgroundImage: `url(${order_bg})` }" v-if="service.origin_price">
-  <div class="container py-5">
-    <h2 class="text-center text-white mb-4">
-      <img src="@/assets/images/tarot-card-icon.png" alt="">
-      預約療癒
-    </h2>
-    <div class="row justify-content-center">
-      <div class="col">
-        <v-form ref="form" class="row  "  v-slot="{ errors }" @submit="addToCart" >
-          <div class="col-12 mb-3">
-            <label for="inputTime" class="form-label text-white">選擇療癒時間</label>
-            <div class="calendar text-center pt-3">
-      <div class="month">
-        <button class="btn btn-outline-primary prev" @click="adjustMonth(-1)">
-          <i class="fas fa-angle-left"></i>
-        </button>
-        <div class="date">
-          <h1>{{ calendar.year }}</h1>
-          <h2>{{ months[calendar.month] }}</h2>
-        </div>
-        <div class="btn btn-outline-primary next" @click="adjustMonth(1)">
-          <i class="fas fa-angle-right"></i>
-        </div>
-      </div>
-      <div class="weekDay  d-flex">
-        <div>日</div>
-        <div>一</div>
-        <div>二</div>
-        <div>三</div>
-        <div>四</div>
-        <div>五</div>
-        <div>六</div>
-      </div>
-      <div class="week d-flex" v-for="i in 6" :key="'aaa' + i">
-        <div
-          class="day text-start ps-1"
-          v-for="j in 7"
-          :key="'aaa' + j"
-          :data-date="calendarMonth[(i - 1) * 7 + j - 1].date"
-          :data-timestamp="
-            this.calculateDate(i,j).valueOf()
-          "
-          :class="{
-            other: calendarMonth[(i - 1) * 7 + j - 1].month !== calendar.month,
-            saturday: calendarMonth[(i - 1) * 7 + j - 1].day == 6,
-            sunday: calendarMonth[(i - 1) * 7 + j - 1].day == 0,
-            today:
-              calendarMonth[(i - 1) * 7 + j - 1].year === today.year &&
-              calendarMonth[(i - 1) * 7 + j - 1].month === today.month &&
-              calendarMonth[(i - 1) * 7 + j - 1].date === today.date
-          }"
-        >
-          <!-- 日期數字 -->
-          <p>
-            {{ calendarMonth[(i - 1) * 7 + j - 1].date }}
-          </p>
-          
-          <!-- 週六時段 -->
-          <div
-            v-if="
-              calculateDate(i,j) > Date.now() &&
-              calculateDate(i,j) < Date.now()+86400000*60 &&
-              calendarMonth[(i - 1) * 7 + j - 1].month == calendar.month &&
-              calculateDate(i,j).getDay() === 6
-            "
-          >
-            <input type="radio" class="btn-check" name="options" :id="calculateDate(i,j).setHours(10, 0, 0, 0)" autocomplete="off" 
-                  v-if="bookedTime.indexOf(calculateDate(i,j).setHours(10, 0, 0, 0)) == -1"
-                  :value="calculateDate(i,j).setHours(10, 0, 0, 0)" v-model="this.tempOrder.user.address"
-                  >
-            <label class="btn btn-sm btn-outline-primary session-btn me-1" :for="calculateDate(i,j).setHours(10, 0, 0, 0)"
-                  v-if="bookedTime.indexOf(calculateDate(i,j).setHours(10, 0, 0, 0)) == -1">10:00</label>
-
-            <input type="radio" class="btn-check" name="options" :id="calculateDate(i,j).setHours(14, 0, 0, 0)" autocomplete="off" 
-                  v-if="bookedTime.indexOf(calculateDate(i,j).setHours(14, 0, 0, 0)) == -1"
-                  :value="calculateDate(i,j).setHours(14, 0, 0, 0)" v-model="this.tempOrder.user.address"
-                  >
-            <label class="btn btn-sm btn-outline-primary session-btn me-1" :for="calculateDate(i,j).setHours(14, 0, 0, 0)"
-                  v-if="bookedTime.indexOf(calculateDate(i,j).setHours(14, 0, 0, 0)) == -1">14:00</label>
-            
-            <input type="radio" class="btn-check" name="options" :id="calculateDate(i,j).setHours(16, 0, 0, 0)" autocomplete="off" 
-                  v-if="bookedTime.indexOf(calculateDate(i,j).setHours(16, 0, 0, 0)) == -1"
-                  :value="calculateDate(i,j).setHours(16, 0, 0, 0)" v-model="this.tempOrder.user.address"
-                  >
-            <label class="btn btn-sm btn-outline-primary session-btn me-1" :for="calculateDate(i,j).setHours(16, 0, 0, 0)"
-                  v-if="bookedTime.indexOf(calculateDate(i,j).setHours(16, 0, 0, 0)) == -1">16:00</label>
-
-            <input type="radio" class="btn-check" name="options" :id="calculateDate(i,j).setHours(20, 0, 0, 0)" autocomplete="off" 
-                  v-if="bookedTime.indexOf(calculateDate(i,j).setHours(20, 0, 0, 0)) == -1"
-                  :value="calculateDate(i,j).setHours(20, 0, 0, 0)" v-model="this.tempOrder.user.address"
-
-                  >
-            <label class="btn btn-sm btn-outline-primary session-btn" :for="calculateDate(i,j).setHours(20, 0, 0, 0)"
-                  v-if="bookedTime.indexOf(calculateDate(i,j).setHours(20, 0, 0, 0)) == -1">20:00</label>
-
+        <section class="healing_content bg-beige">
+          <div class="container pt-5 pb-5 position-relative">
+            <h2>{{ service.title }}</h2>
+            <div v-html="service.content"></div>
           </div>
+        </section>
 
-          <!-- 週間時段(一二四五) -->
-          <div
-            v-else-if="
-             calculateDate(i,j) > Date.now() &&
-             calculateDate(i,j) < Date.now()+86400000*60 &&
-              calendarMonth[(i - 1) * 7 + j - 1].month == calendar.month &&
-              (
-                calculateDate(i,j).getDay() === 1 ||
-                calculateDate(i,j).getDay() === 2 ||
-                calculateDate(i,j).getDay() === 4 ||
-                calculateDate(i,j).getDay() === 5)
-            "
-          >
-            <input type="radio" class="btn-check" name="options" 
-                  :id="calculateDate(i,j).setHours(20, 0, 0, 0)" autocomplete="off" 
-                  v-if="bookedTime.indexOf(calculateDate(i,j).setHours(20, 0, 0, 0)) == -1" 
-                  :value="calculateDate(i,j).setHours(20, 0, 0, 0)" v-model="this.tempOrder.user.address"> 
-            <label class="btn btn-sm btn-outline-primary session-btn" :for="calculateDate(i,j).setHours(20, 0, 0, 0)"
-                  v-if="bookedTime.indexOf(calculateDate(i,j).setHours(20, 0, 0, 0)) == -1">20:00</label>
-          </div>
-        </div>
-      </div>
-    </div>
+        <section class="healing_reserve bg-image" :style="{ backgroundImage: `url(${order_bg})` }" v-if="service.origin_price">
+          <div class="container py-5">
+            <h2 class="text-center text-white mb-4">
+              <img src="@/assets/images/tarot-card-icon.png" alt="">
+              預約療癒
+            </h2>
+            <div class="row justify-content-center">
+              <div class="col">
+                <v-form ref="form" class="row  "  v-slot="{ errors }" @submit="addToCart" >
+                  <div class="col-12 mb-3">
+                    <label for="inputTime" class="form-label text-white">選擇療癒時間</label>
+                    <div class="calendar text-center pt-3">
+              <div class="month">
+                <button class="btn btn-outline-primary prev" @click="adjustMonth(-1)">
+                  <i class="fas fa-angle-left"></i>
+                </button>
+                <div class="date">
+                  <h1>{{ calendar.year }}</h1>
+                  <h2>{{ months[calendar.month] }}</h2>
+                </div>
+                <div class="btn btn-outline-primary next" @click="adjustMonth(1)">
+                  <i class="fas fa-angle-right"></i>
+                </div>
+              </div>
+              <div class="weekDay  d-flex">
+                <div>日</div>
+                <div>一</div>
+                <div>二</div>
+                <div>三</div>
+                <div>四</div>
+                <div>五</div>
+                <div>六</div>
+              </div>
+              <div class="week d-flex" v-for="i in 6" :key="'aaa' + i">
+                <div
+                  class="day text-start ps-1"
+                  v-for="j in 7"
+                  :key="'aaa' + j"
+                  :data-date="calendarMonth[(i - 1) * 7 + j - 1].date"
+                  :data-timestamp="
+                    this.calculateDate(i,j).valueOf()
+                  "
+                  :class="{
+                    other: calendarMonth[(i - 1) * 7 + j - 1].month !== calendar.month,
+                    saturday: calendarMonth[(i - 1) * 7 + j - 1].day == 6,
+                    sunday: calendarMonth[(i - 1) * 7 + j - 1].day == 0,
+                    today:
+                      calendarMonth[(i - 1) * 7 + j - 1].year === today.year &&
+                      calendarMonth[(i - 1) * 7 + j - 1].month === today.month &&
+                      calendarMonth[(i - 1) * 7 + j - 1].date === today.date
+                  }"
+                >
+                  <!-- 日期數字 -->
+                  <p>
+                    {{ calendarMonth[(i - 1) * 7 + j - 1].date }}
+                  </p>
+                  
+                  <!-- 週六時段 -->
+                  <div
+                    v-if="
+                      calculateDate(i,j) > Date.now() &&
+                      calculateDate(i,j) < Date.now()+86400000*60 &&
+                      calendarMonth[(i - 1) * 7 + j - 1].month == calendar.month &&
+                      calculateDate(i,j).getDay() === 6
+                    "
+                  >
+                    <input type="radio" class="btn-check" name="options" :id="calculateDate(i,j).setHours(10, 0, 0, 0)" autocomplete="off" 
+                          v-if="bookedTime.indexOf(calculateDate(i,j).setHours(10, 0, 0, 0)) == -1"
+                          :value="calculateDate(i,j).setHours(10, 0, 0, 0)" v-model="this.tempOrder.user.address"
+                          >
+                    <label class="btn btn-sm btn-outline-primary session-btn me-1" :for="calculateDate(i,j).setHours(10, 0, 0, 0)"
+                          v-if="bookedTime.indexOf(calculateDate(i,j).setHours(10, 0, 0, 0)) == -1">10:00</label>
+
+                    <input type="radio" class="btn-check" name="options" :id="calculateDate(i,j).setHours(14, 0, 0, 0)" autocomplete="off" 
+                          v-if="bookedTime.indexOf(calculateDate(i,j).setHours(14, 0, 0, 0)) == -1"
+                          :value="calculateDate(i,j).setHours(14, 0, 0, 0)" v-model="this.tempOrder.user.address"
+                          >
+                    <label class="btn btn-sm btn-outline-primary session-btn me-1" :for="calculateDate(i,j).setHours(14, 0, 0, 0)"
+                          v-if="bookedTime.indexOf(calculateDate(i,j).setHours(14, 0, 0, 0)) == -1">14:00</label>
+                    
+                    <input type="radio" class="btn-check" name="options" :id="calculateDate(i,j).setHours(16, 0, 0, 0)" autocomplete="off" 
+                          v-if="bookedTime.indexOf(calculateDate(i,j).setHours(16, 0, 0, 0)) == -1"
+                          :value="calculateDate(i,j).setHours(16, 0, 0, 0)" v-model="this.tempOrder.user.address"
+                          >
+                    <label class="btn btn-sm btn-outline-primary session-btn me-1" :for="calculateDate(i,j).setHours(16, 0, 0, 0)"
+                          v-if="bookedTime.indexOf(calculateDate(i,j).setHours(16, 0, 0, 0)) == -1">16:00</label>
+
+                    <input type="radio" class="btn-check" name="options" :id="calculateDate(i,j).setHours(20, 0, 0, 0)" autocomplete="off" 
+                          v-if="bookedTime.indexOf(calculateDate(i,j).setHours(20, 0, 0, 0)) == -1"
+                          :value="calculateDate(i,j).setHours(20, 0, 0, 0)" v-model="this.tempOrder.user.address"
+
+                          >
+                    <label class="btn btn-sm btn-outline-primary session-btn" :for="calculateDate(i,j).setHours(20, 0, 0, 0)"
+                          v-if="bookedTime.indexOf(calculateDate(i,j).setHours(20, 0, 0, 0)) == -1">20:00</label>
+
+                  </div>
+
+                  <!-- 週間時段(一二四五) -->
+                  <div
+                    v-else-if="
+                    calculateDate(i,j) > Date.now() &&
+                    calculateDate(i,j) < Date.now()+86400000*60 &&
+                      calendarMonth[(i - 1) * 7 + j - 1].month == calendar.month &&
+                      (
+                        calculateDate(i,j).getDay() === 1 ||
+                        calculateDate(i,j).getDay() === 2 ||
+                        calculateDate(i,j).getDay() === 4 ||
+                        calculateDate(i,j).getDay() === 5)
+                    "
+                  >
+                    <input type="radio" class="btn-check" name="options" 
+                          :id="calculateDate(i,j).setHours(20, 0, 0, 0)" autocomplete="off" 
+                          v-if="bookedTime.indexOf(calculateDate(i,j).setHours(20, 0, 0, 0)) == -1" 
+                          :value="calculateDate(i,j).setHours(20, 0, 0, 0)" v-model="this.tempOrder.user.address"> 
+                    <label class="btn btn-sm btn-outline-primary session-btn" :for="calculateDate(i,j).setHours(20, 0, 0, 0)"
+                          v-if="bookedTime.indexOf(calculateDate(i,j).setHours(20, 0, 0, 0)) == -1">20:00</label>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="col-12 mb-3">
             <label for="inputName" class="form-label text-white">時段</label>
-            <v-field id="sessionTime" name="時段" type="text" class="form-control" :class="{'is-invalid': errors['時段']}" placeholder="請點選時段" rules="required" v-model="this.selectedTime" :readonly="true"></v-field>
+            <v-field id="sessionTime" name="時段" type="text" class="form-control" :class="{'is-invalid': errors['時段']}" placeholder="請在上方月曆點選時段" rules="required" v-model="this.selectedTime" :readonly="true"></v-field>
             <error-message name="時段" class="invalid-feedback"></error-message>
           </div>
           <div class="col-md-6 mb-3">
@@ -173,9 +173,6 @@
     </div>
   </div>
 </section>
-
-
-
 </div>
 </template>
 
@@ -184,8 +181,8 @@
 import order_bg from '@/assets/images/tarot-stack.jpg'
 import banner_bg from '@/assets/images/meditation-banner.jpg'
 import LoaderComponent from '@/components/LoaderComponent.vue'
-import { useForm } from 'vee-validate';
-const { handleSubmit } = useForm();
+// import { useForm } from 'vee-validate';
+// const { handleSubmit } = useForm();
 const { VITE_URL, VITE_PATH } = import.meta.env
 
 
@@ -360,7 +357,6 @@ export default {
           footer: '到時見囉！'    
         })
         
-        // this.$refs.form.reset() //FIXME: not working???
         resetForm()
         this.getBooked()
       })

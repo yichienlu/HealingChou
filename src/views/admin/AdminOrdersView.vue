@@ -506,7 +506,7 @@ export default {
       }
       // console.log({ data })
       this.$http.post(`${VITE_URL}/api/${VITE_PATH}/cart`, { data })
-      .then((res) => {
+      .then(() => {
         // console.log(res.data)
         this.addOrder()
       })
@@ -528,7 +528,7 @@ export default {
       }
       // console.log({ data })
       this.$http.post(`${VITE_URL}/api/${VITE_PATH}/order`, { data })
-      .then((res) => {
+      .then(() => {
         // console.log(res.data)
         alert("已成功預約")
         this.getBooked()
@@ -543,7 +543,7 @@ export default {
     deleteOrder(id){
       if(window.confirm("確定要刪除?")){
         this.$http.delete(`${VITE_URL}/api/${VITE_PATH}/admin/order/${id}`)
-        .then((res) => {
+        .then(() => {
           // console.log(res.data)
           alert("預約已刪除")
           this.isLoading = true
