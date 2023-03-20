@@ -56,12 +56,11 @@
       <h2 class="container mb-4">更多文章</h2>
       <div class="container">
         <div class="d-flex align-items-center">
-          <swiper class="swiper blog-swiper" :modules="modules" :loop="true" navigation
-            :breakpoints="swiperOptions.breakpoints">
+          <swiper class="swiper blog-swiper" :options = 'swiperOptions' :modules="modules" :loop="true" navigation :breakpoints="swiperOptions.breakpoints"  :key="swiperKey">
             <swiper-slide class="swiper-slide align-self-stretch" v-for="item in articles" :key="item.id">
-              <RouterLink :to="`/blog/${item.id}`" class="blog-more-item d-block h-100">
-                <div class="p-2">
-                    <img :src="item.imageUrl" class="d-block blog-more-item-image mb-2 object-fit-cover" alt="">
+              <RouterLink :to="`/blog/${item.id}`" class="blog-more-item d-flex">
+                <div class="p-2 mx-auto">
+                    <img :src="item.imageUrl" class="d-block blog-more-item-image mb-2  mx-auto object-fit-cover" alt="">
                   <h3 class="fs-6">{{ item.title }}</h3>
                 </div>
               </RouterLink>
@@ -100,6 +99,8 @@ export default {
       isLoading: false,
       article: {},
       articles: [],
+      swiper: null,
+      swiperKey: 0,
       swiperOptions: {
         navigation: {
           nextEl: '.swiper-button-next',
@@ -134,9 +135,10 @@ export default {
     getArticle(id) {
       this.$http.get(`${VITE_URL}/api/${VITE_PATH}/article/${id}`)
         .then((res) => {
+          this.isLoading = true
           // console.log(res.data)
           this.article = res.data.article
-          // document.querySelector('#content').innerHTML = res.data.article.content
+          this.getArticles(this.article.id)
         })
         .catch((err) => {
           console.log(err)
@@ -147,19 +149,24 @@ export default {
           },1000)
         })
     },
-    getArticles(){
+    getArticles(id){
+      // 重整 swiper
+      // this.swiperKey +=1
+      // this.swiper.destroy(true,true)
+      // this.swiper = new Swiper('.swiper', this.swiperOptions)
+
+
       this.$http.get(`${VITE_URL}/api/${VITE_PATH}/articles`)
       .then((res) => {
           this.articles = res.data.articles
-          this.articles.shift()
-          // console.log(this.articles)
+          const index = this.articles.findIndex(i=>i.id === id)
+          this.articles.splice(index, 1)
         })
         .catch((err) => {
           console.log(err)
         })
     }
   },
-  // https://github.com/Key0329/JoinSport/blob/main/src/views/front/JoinDetailView.vue
   watch:{
     $route(to) {
       if (to.params.id) {
@@ -174,19 +181,28 @@ export default {
     }
   },
   mounted() {
-    this.isLoading = true
+    // console.log(Swiper);
+    // this.swiper = new Swiper('.swiper', this.swiperOptions)
+
     const { id } = this.$route.params
     this.getArticle(id)
-    this.getArticles()
   }
 }
 //
 </script>
 
 <style lang="scss">
-
-swiper-slide {
-  height: 200px;
+// *{outline:1px solid #AAA}
+.swiper-slide {
+  text-align: center;
+  .blog-more-item {
+    img {
+      height: 200px;
+    }
+  }
+  .swiper-button-prev, .swiper-button-next {
+    background-color: #A00
+  }
 }
 </style>
 
