@@ -36,7 +36,7 @@
                 placeholder="請輸入圖片連結"
               />
             </div>
-            <div class="mb-3">
+            <!-- <div class="mb-3">
               <label for="images" class="form-label">更多圖??</label>
               <input
                 type="text"
@@ -45,7 +45,7 @@
                 v-model="tempArticle.images"
                 placeholder=""
               />
-            </div>
+            </div> -->
             <div class="mb-3">
               <label for="author" class="form-label">分類</label>
               <input

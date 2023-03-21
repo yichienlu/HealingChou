@@ -81,11 +81,11 @@
             spaceBetween: 30
           },
           992: {
-            slidesPerView: 4.2,
+            slidesPerView: 3.8,
             spaceBetween: 40
           },
           1200: {
-            slidesPerView: 5.2,
+            slidesPerView: 4.4,
             spaceBetween: 40
           },
         }"

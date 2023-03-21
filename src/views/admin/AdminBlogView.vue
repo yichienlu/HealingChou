@@ -78,7 +78,7 @@ export default {
     getAdminArticles(page=1){
       this.$http.get(`${VITE_URL}/api/${VITE_PATH}/admin/articles?page=${page}`)
         .then((res) => {
-          console.log(res.data)
+          // console.log(res.data)
           this.articles = res.data.articles
           this.pagination = res.data.pagination
         })
@@ -103,7 +103,7 @@ export default {
         .then((res) => {
           alert(res.data.message)
           this.articleModal.hide()
-          this.tempArticle = {}
+          this.tempArticle = {content:''}
           this.getAdminArticles()
 
         })
