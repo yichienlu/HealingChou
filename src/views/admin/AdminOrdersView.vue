@@ -245,7 +245,7 @@
       </div>
       <div class="modal-body">
         <div class="mb-3 row">
-          <label for="" class="col-sm-2 col-form-label">類別</label>
+          <legend class="col-form-label col-sm-2 pt-0">類別</legend>
           <div class="col-sm-10">
             <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" name="flexRadio" id="flexRadio1" value="closed" v-model="this.tempOrder.product.category">
@@ -313,13 +313,11 @@
             <input type="text" class="form-control" id="message" v-model="this.tempOrder.message">
           </div>
         </div>
-        <div class="mb-3 row">
-          <div class="form-check col-12">
-            <input class="form-check-input" type="checkbox" value="" id="isPaid" v-model="this.tempOrder.is_paid">
-            <label class="form-check-label" for="isPaid">
-              確認付款
-            </label>
-          </div>
+        <div class="mb-3 form-check">
+          <input class="form-check-input" type="checkbox" value="" id="isPaid" v-model="this.tempOrder.is_paid">
+          <label class="form-check-label" for="isPaid">
+            確認付款
+          </label>
         </div>
       </div>
       <div class="modal-footer">
@@ -434,7 +432,7 @@ export default {
 
     },
     selectTempOrder(timestamp,order) {
-      console.log(order)
+      // console.log(order)
       let day
       switch(new Date(timestamp).getDay()){
         case 1: day='(一)'; break;
@@ -705,4 +703,5 @@ export default {
     display: none !important;
   }
 }
+
 </style>
