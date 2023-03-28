@@ -3,7 +3,7 @@
 
 <div>
     <h2 class="text-center fs-1 py-40 py-lg-80 bg-image text-white"  :style="{ backgroundImage: `url(${banner_bg})` }">療癒服務</h2>
-    <section class="container py-40 py-lg-80">
+    <section class="container py-40 py-lg-80 px-3">
       <div class="row" v-if="services.length">
         <div class="col-md-6 col-lg-4 col-xxl-3 mb-4" v-for="service in services" :key="service.id">
           <RouterLink  :to="`/service/${service.id}`" class="healing-item healing-item-theta d-block h-100 position-relative rounded-12 d-flex flex-column shadow" :style="{backgroundImage: 'url('+ service.imageUrl+')'}" >
