@@ -1,176 +1,172 @@
 <template>
-<LoaderComponent :class="{'d-none': !isLoading}" class="loader"></LoaderComponent>
-<div class="healing_Theta">
+  <LoaderComponent :class="{'d-none': !isLoading}" class="loader"></LoaderComponent>
+  <div class="healing_Theta">
     <h1 class="text-center fs-1 pt-40 pt-lg-80 pb-40 pb-lg-80 lh-1 mb-0 bg-image text-white" :style="{ backgroundImage: `url(${banner_bg})` }" style="background-position: center 70%;">
       療癒服務 <br>
       <span class="fs-3 fw-normal">{{ service.title }}</span>
     </h1>
-
-        <section class="healing_content bg-beige">
-          <div class="container pt-5 pb-5 position-relative">
-            <h2>{{ service.title }}</h2>
-            <div v-html="service.content"></div>
-          </div>
-        </section>
-
-        <section class="healing_reserve bg-image" :style="{ backgroundImage: `url(${order_bg})` }" v-if="service.origin_price">
-          <div class="container py-5">
-            <h2 class="text-center text-white mb-4">
-              <img src="@/assets/images/tarot-card-icon.png" alt="">
-              預約療癒
-            </h2>
-            <div class="row justify-content-center">
-              <div class="col">
-                <v-form ref="form" class="row  "  v-slot="{ errors }" @submit="addToCart" >
-                  <div class="col-12 mb-3">
-                    <label for="inputTime" class="form-label text-white">選擇療癒時間</label>
-                    <div class="calendar text-center pt-3">
-              <div class="month">
-                <button type="button" class="btn btn-outline-primary prev" @click="adjustMonth(-1)">
-                  <i class="fas fa-angle-left"></i>
-                </button>
-                <div class="date">
-                  <h1>{{ calendar.year }}</h1>
-                  <h2>{{ months[calendar.month] }}</h2>
-                </div>
-                <div class="btn btn-outline-primary next" @click="adjustMonth(1)">
-                  <i class="fas fa-angle-right"></i>
-                </div>
-              </div>
-              <div class="weekDay  d-flex">
-                <div>日</div>
-                <div>一</div>
-                <div>二</div>
-                <div>三</div>
-                <div>四</div>
-                <div>五</div>
-                <div>六</div>
-              </div>
-              <div class="week d-flex" v-for="i in 6" :key="'aaa' + i">
-                <div
-                  class="day text-start ps-1"
-                  v-for="j in 7"
-                  :key="'aaa' + j"
-                  :data-date="calendarMonth[(i - 1) * 7 + j - 1].date"
-                  :data-timestamp="
-                    this.calculateDate(i,j).valueOf()
-                  "
-                  :class="{
-                    other: calendarMonth[(i - 1) * 7 + j - 1].month !== calendar.month,
-                    saturday: calendarMonth[(i - 1) * 7 + j - 1].day == 6,
-                    sunday: calendarMonth[(i - 1) * 7 + j - 1].day == 0,
-                    today:
-                      calendarMonth[(i - 1) * 7 + j - 1].year === today.year &&
-                      calendarMonth[(i - 1) * 7 + j - 1].month === today.month &&
-                      calendarMonth[(i - 1) * 7 + j - 1].date === today.date
-                  }"
-                >
-                  <!-- 日期數字 -->
-                  <p>
-                    {{ calendarMonth[(i - 1) * 7 + j - 1].date }}
-                  </p>
-                  
-                  <!-- 週六時段 -->
-                  <div
-                    v-if="
-                      calculateDate(i,j) > Date.now() &&
-                      calculateDate(i,j) < Date.now()+86400000*60 &&
-                      calendarMonth[(i - 1) * 7 + j - 1].month == calendar.month &&
-                      calculateDate(i,j).getDay() === 6
-                    "
-                  >
-                    <input type="radio" class="btn-check" name="options" :id="calculateDate(i,j).setHours(10, 0, 0, 0)" autocomplete="off" 
-                          v-if="bookedTime.indexOf(calculateDate(i,j).setHours(10, 0, 0, 0)) == -1"
-                          :value="calculateDate(i,j).setHours(10, 0, 0, 0)" v-model="this.tempOrder.user.address"
-                          >
-                    <label class="btn btn-sm btn-outline-primary session-btn me-1" :for="calculateDate(i,j).setHours(10, 0, 0, 0)"
-                          v-if="bookedTime.indexOf(calculateDate(i,j).setHours(10, 0, 0, 0)) == -1">10:00</label>
-
-                    <input type="radio" class="btn-check" name="options" :id="calculateDate(i,j).setHours(14, 0, 0, 0)" autocomplete="off" 
-                          v-if="bookedTime.indexOf(calculateDate(i,j).setHours(14, 0, 0, 0)) == -1"
-                          :value="calculateDate(i,j).setHours(14, 0, 0, 0)" v-model="this.tempOrder.user.address"
-                          >
-                    <label class="btn btn-sm btn-outline-primary session-btn me-1" :for="calculateDate(i,j).setHours(14, 0, 0, 0)"
-                          v-if="bookedTime.indexOf(calculateDate(i,j).setHours(14, 0, 0, 0)) == -1">14:00</label>
-                    
-                    <input type="radio" class="btn-check" name="options" :id="calculateDate(i,j).setHours(16, 0, 0, 0)" autocomplete="off" 
-                          v-if="bookedTime.indexOf(calculateDate(i,j).setHours(16, 0, 0, 0)) == -1"
-                          :value="calculateDate(i,j).setHours(16, 0, 0, 0)" v-model="this.tempOrder.user.address"
-                          >
-                    <label class="btn btn-sm btn-outline-primary session-btn me-1" :for="calculateDate(i,j).setHours(16, 0, 0, 0)"
-                          v-if="bookedTime.indexOf(calculateDate(i,j).setHours(16, 0, 0, 0)) == -1">16:00</label>
-
-                    <input type="radio" class="btn-check" name="options" :id="calculateDate(i,j).setHours(20, 0, 0, 0)" autocomplete="off" 
-                          v-if="bookedTime.indexOf(calculateDate(i,j).setHours(20, 0, 0, 0)) == -1"
-                          :value="calculateDate(i,j).setHours(20, 0, 0, 0)" v-model="this.tempOrder.user.address"
-
-                          >
-                    <label class="btn btn-sm btn-outline-primary session-btn" :for="calculateDate(i,j).setHours(20, 0, 0, 0)"
-                          v-if="bookedTime.indexOf(calculateDate(i,j).setHours(20, 0, 0, 0)) == -1">20:00</label>
-
-                  </div>
-
-                  <!-- 週間時段(一二四五) -->
-                  <div
-                    v-else-if="
-                    calculateDate(i,j) > Date.now() &&
-                    calculateDate(i,j) < Date.now()+86400000*60 &&
-                      calendarMonth[(i - 1) * 7 + j - 1].month == calendar.month &&
-                      (
-                        calculateDate(i,j).getDay() === 1 ||
-                        calculateDate(i,j).getDay() === 2 ||
-                        calculateDate(i,j).getDay() === 4 ||
-                        calculateDate(i,j).getDay() === 5)
-                    "
-                  >
-                    <input type="radio" class="btn-check" name="options" 
-                          :id="calculateDate(i,j).setHours(20, 0, 0, 0)" autocomplete="off" 
-                          v-if="bookedTime.indexOf(calculateDate(i,j).setHours(20, 0, 0, 0)) == -1" 
-                          :value="calculateDate(i,j).setHours(20, 0, 0, 0)" v-model="this.tempOrder.user.address"> 
-                    <label class="btn btn-sm btn-outline-primary session-btn" :for="calculateDate(i,j).setHours(20, 0, 0, 0)"
-                          v-if="bookedTime.indexOf(calculateDate(i,j).setHours(20, 0, 0, 0)) == -1">20:00</label>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-12 mb-3">
-            <label for="inputName" class="form-label text-white">時段</label>
-            <v-field id="sessionTime" name="時段" type="text" class="form-control" :class="{'is-invalid': errors['時段']}" placeholder="請在上方月曆點選時段" rules="required" v-model="this.selectedTime" :readonly="true"></v-field>
-            <error-message name="時段" class="invalid-feedback"></error-message>
-          </div>
-          <div class="col-md-6 mb-3">
-            <label for="inputName" class="form-label text-white">姓名</label>
-            <v-field id="inputName" name="姓名" type="text" class="form-control" :class="{ 'is-invalid': errors['姓名'] }" placeholder="請輸入姓名" rules="required" v-model="this.tempOrder.user.name"></v-field>
-            <error-message name="姓名" class="invalid-feedback"></error-message>
-          </div>
-          <div class="col-md-6 mb-3">
-            <label for="inputTel" class="form-label text-white">手機號碼</label>
-            <v-field id="inputTel" name="電話" type="tel" class="form-control" :class="{ 'is-invalid': errors['電話'] }" placeholder="請輸入電話" rules="required"  v-model="this.tempOrder.user.tel"></v-field>
-        <error-message name="電話" class="invalid-feedback text-danger"></error-message>
-          </div>
-          <div class="col-12 mb-3">
-            <label for="email" class="form-label text-white">email</label>
-            <v-field id="email" name="email" type="email" class="form-control" :class="{ 'is-invalid': errors['email'] }" placeholder="請輸入 Email" rules="required|email" v-model="this.tempOrder.user.email"></v-field>
-            <error-message name="email" class="invalid-feedback"></error-message>
-          </div>
-          <div class="col-12 mb-3">
-            <label for="formNote" class="form-label text-white">備註 (Line ID、帳號末5碼)</label>
-            <textarea class="form-control" id="formNote" rows="3" required v-model="this.tempOrder.message"></textarea>
-            <div id="formNoteHelp" class="form-text text-light">
-              匯款資訊：台新銀行 812   敦南分行 <br>
-              帳號：28881004008118   <br>
-              戶名：沈家舟</div>
-          </div>
-          <div class="col-12">
-            <button type="submit" class="btn btn-beige text-primary w-100" >送出</button>
-          </div>
-        </v-form>
+    <section class="healing_content bg-beige">
+      <div class="container pt-5 pb-5 position-relative">
+        <h2>{{ service.title }}</h2>
+        <div v-html="service.content"></div>
       </div>
-    </div>
+    </section>
+    <section class="healing_reserve bg-image" :style="{ backgroundImage: `url(${order_bg})` }" v-if="service.origin_price">
+      <div class="container py-5">
+        <h2 class="text-center text-white mb-4">
+          <img src="@/assets/images/tarot-card-icon.png" alt="">
+          預約療癒
+        </h2>
+        <div class="row justify-content-center">
+          <div class="col">
+            <v-form ref="form" class="row service-form"  v-slot="{ errors }" @submit="addToCart" >
+              <div class="col-12 mb-3">
+                <label for="inputTime" class="form-label text-white">選擇療癒時間</label>
+                <div class="calendar text-center pt-3">
+                  <div class="month">
+                    <button type="button" class="btn btn-outline-primary prev" @click="adjustMonth(-1)">
+                      <i class="fas fa-angle-left"></i>
+                    </button>
+                    <div class="date">
+                      <h1>{{ calendar.year }}</h1>
+                      <h2>{{ months[calendar.month] }}</h2>
+                    </div>
+                    <div class="btn btn-outline-primary next" @click="adjustMonth(1)">
+                      <i class="fas fa-angle-right"></i>
+                    </div>
+                  </div>
+                  <div class="weekDay  d-flex">
+                    <div>日</div>
+                    <div>一</div>
+                    <div>二</div>
+                    <div>三</div>
+                    <div>四</div>
+                    <div>五</div>
+                    <div>六</div>
+                  </div>
+                  <div class="week d-flex" v-for="i in 6" :key="'aaa' + i">
+                    <div
+                      class="day text-start ps-1"
+                      v-for="j in 7"
+                      :key="'aaa' + j"
+                      :data-date="calendarMonth[(i - 1) * 7 + j - 1].date"
+                      :data-timestamp="
+                        this.calculateDate(i,j).valueOf()
+                      "
+                      :class="{
+                        other: calendarMonth[(i - 1) * 7 + j - 1].month !== calendar.month,
+                        saturday: calendarMonth[(i - 1) * 7 + j - 1].day == 6,
+                        sunday: calendarMonth[(i - 1) * 7 + j - 1].day == 0,
+                        today:
+                          calendarMonth[(i - 1) * 7 + j - 1].year === today.year &&
+                          calendarMonth[(i - 1) * 7 + j - 1].month === today.month &&
+                          calendarMonth[(i - 1) * 7 + j - 1].date === today.date
+                      }"
+                    >
+                      <!-- 日期數字 -->
+                      <p>
+                        {{ calendarMonth[(i - 1) * 7 + j - 1].date }}
+                      </p>
+                      
+                      <!-- 週六時段 -->
+                      <div
+                        v-if="
+                          calculateDate(i,j) > Date.now() &&
+                          calculateDate(i,j) < Date.now()+86400000*60 &&
+                          calendarMonth[(i - 1) * 7 + j - 1].month == calendar.month &&
+                          calculateDate(i,j).getDay() === 6
+                        "
+                      >
+                        <input type="radio" class="btn-check" name="options" :id="calculateDate(i,j).setHours(10, 0, 0, 0)" autocomplete="off" 
+                              v-if="bookedTime.indexOf(calculateDate(i,j).setHours(10, 0, 0, 0)) == -1"
+                              :value="calculateDate(i,j).setHours(10, 0, 0, 0)" v-model="this.tempOrder.user.address"
+                              >
+                        <label class="btn btn-sm btn-outline-primary session-btn me-1" :for="calculateDate(i,j).setHours(10, 0, 0, 0)"
+                              v-if="bookedTime.indexOf(calculateDate(i,j).setHours(10, 0, 0, 0)) == -1">10:00</label>
+                        
+                        <input type="radio" class="btn-check" name="options" :id="calculateDate(i,j).setHours(14, 0, 0, 0)" autocomplete="off" 
+                              v-if="bookedTime.indexOf(calculateDate(i,j).setHours(14, 0, 0, 0)) == -1"
+                              :value="calculateDate(i,j).setHours(14, 0, 0, 0)" v-model="this.tempOrder.user.address"
+                              >
+                        <label class="btn btn-sm btn-outline-primary session-btn me-1" :for="calculateDate(i,j).setHours(14, 0, 0, 0)"
+                              v-if="bookedTime.indexOf(calculateDate(i,j).setHours(14, 0, 0, 0)) == -1">14:00</label>
+                        
+                        <input type="radio" class="btn-check" name="options" :id="calculateDate(i,j).setHours(16, 0, 0, 0)" autocomplete="off" 
+                              v-if="bookedTime.indexOf(calculateDate(i,j).setHours(16, 0, 0, 0)) == -1"
+                              :value="calculateDate(i,j).setHours(16, 0, 0, 0)" v-model="this.tempOrder.user.address"
+                              >
+                        <label class="btn btn-sm btn-outline-primary session-btn me-1" :for="calculateDate(i,j).setHours(16, 0, 0, 0)"
+                              v-if="bookedTime.indexOf(calculateDate(i,j).setHours(16, 0, 0, 0)) == -1">16:00</label>
+
+                        <input type="radio" class="btn-check" name="options" :id="calculateDate(i,j).setHours(20, 0, 0, 0)" autocomplete="off" 
+                              v-if="bookedTime.indexOf(calculateDate(i,j).setHours(20, 0, 0, 0)) == -1"
+                              :value="calculateDate(i,j).setHours(20, 0, 0, 0)" v-model="this.tempOrder.user.address"
+
+                              >
+                        <label class="btn btn-sm btn-outline-primary session-btn" :for="calculateDate(i,j).setHours(20, 0, 0, 0)"
+                              v-if="bookedTime.indexOf(calculateDate(i,j).setHours(20, 0, 0, 0)) == -1">20:00</label>
+                      </div>
+
+                      <!-- 週間時段(一二四五) -->
+                      <div
+                        v-else-if="
+                        calculateDate(i,j) > Date.now() &&
+                        calculateDate(i,j) < Date.now()+86400000*60 &&
+                          calendarMonth[(i - 1) * 7 + j - 1].month == calendar.month &&
+                          (
+                            calculateDate(i,j).getDay() === 1 ||
+                            calculateDate(i,j).getDay() === 2 ||
+                            calculateDate(i,j).getDay() === 4 ||
+                            calculateDate(i,j).getDay() === 5)
+                        ">
+                        <input type="radio" class="btn-check" name="options" 
+                              :id="calculateDate(i,j).setHours(20, 0, 0, 0)" autocomplete="off" 
+                              v-if="bookedTime.indexOf(calculateDate(i,j).setHours(20, 0, 0, 0)) == -1" 
+                              :value="calculateDate(i,j).setHours(20, 0, 0, 0)" v-model="this.tempOrder.user.address"> 
+                        <label class="btn btn-sm btn-outline-primary session-btn" :for="calculateDate(i,j).setHours(20, 0, 0, 0)"
+                              v-if="bookedTime.indexOf(calculateDate(i,j).setHours(20, 0, 0, 0)) == -1">20:00</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 mb-3">
+                <label for="sessionTime" class="form-label text-white">時段</label>
+                <v-field id="sessionTime" name="時段" type="text" class="form-control " :class="{'is-invalid': errors['時段']}" placeholder="請在上方月曆點選時段" rules="required" v-model="this.selectedTime" :readonly="true"></v-field>
+                <error-message name="時段" class="invalid-feedback"></error-message>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="inputName" class="form-label text-white">姓名</label>
+                <v-field id="inputName" name="姓名" type="text" class="form-control " :class="{ 'is-invalid': errors['姓名'] }" placeholder="請輸入姓名" rules="required" v-model="this.tempOrder.user.name"></v-field>
+                <error-message name="姓名" class="invalid-feedback"></error-message>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="inputTel" class="form-label text-white">手機號碼</label>
+                <v-field id="inputTel" name="電話" type="tel" class="form-control" :class="{ 'is-invalid': errors['電話'] }" placeholder="請輸入電話" rules="required"  v-model="this.tempOrder.user.tel"></v-field>
+                <error-message name="電話" class="invalid-feedback"></error-message>
+              </div>
+              <div class="col-12 mb-3">
+                <label for="email" class="form-label text-white">email</label>
+                <v-field id="email" name="email" type="email" class="form-control" :class="{ 'is-invalid': errors['email'] }" placeholder="請輸入 Email" rules="required|email" v-model="this.tempOrder.user.email"></v-field>
+                <error-message name="email" class="invalid-feedback"></error-message>
+              </div>
+              <div class="col-12 mb-3">
+                <label for="formNote" class="form-label text-white">備註 (Line ID、帳號末5碼)</label>
+                <textarea class="form-control" id="formNote" rows="3" required v-model="this.tempOrder.message"></textarea>
+                <div id="formNoteHelp" class="form-text text-light">
+                  匯款資訊：台新銀行 812   敦南分行 <br>
+                  帳號：28881004008118   <br>
+                  戶名：沈家舟</div>
+              </div>
+              <div class="col-12">
+                <button type="submit" class="btn btn-beige text-primary w-100" >送出</button>
+              </div>
+            </v-form>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
-</section>
-</div>
 </template>
 
 <script>
@@ -502,10 +498,35 @@ export default {
   background-color: #ddd8;
 
 }
+.form-control.is-invalid{
+  border-color: #F55
+}
+.invalid-feedback{
+  color: #F55
+}
+#inputName, #sessionTime, #inputTel, #email, #formNote {
+  color: white;
+}
+#inputName::placeholder, #sessionTime::placeholder, #inputTel::placeholder, #email::placeholder, #formNote:focus{
+  color: var(--bs-light)
+}
+#inputName:focus, #sessionTime:focus, #inputTel:focus, #email:focus, #formNote:focus{
+  background-color: #FFF8;
+  color: var(--bs-primary)
+}
 
-// *{
-//   outline: 1px solid #AAA
-// }
+input:-webkit-autofill{
+  border: 1px solid white;
+  -webkit-text-fill-color: white;
+  -webkit-box-shadow: 0 0 0px 1000px var(--bs-primary) inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+input:-webkit-autofill:focus{
+  border: 1px solid white;
+  -webkit-text-fill-color:  var(--bs-light);
+  -webkit-box-shadow: 0 0 0px 1000px var(--bs-secondary) inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
 
 </style>
 
