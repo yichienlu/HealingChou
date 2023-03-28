@@ -24,7 +24,7 @@
       </div>    
     </div>
   </section> -->
-  <section class="py-40 py-lg-80 container">
+  <section class="py-40 py-lg-80 container px-3">
     <div class="row justify-content-center">
       <ul class="list-unstyled col-xl-9">
         <li class="mb-4" v-for="article in articles" :key="article.id">
