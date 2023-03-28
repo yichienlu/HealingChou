@@ -62,12 +62,15 @@ export default defineStore('adminCoursesStore', {
         // alert(err.data.message)
       })
     },
-    deleteCourse(id){
+    deleteCourse(category, id){
       if(window.confirm("確定要刪除?")){
-        // console.log(id)
         axios.delete(`${VITE_URL}/api/${VITE_PATH}/admin/product/${id}`)
         .then(()=>{
-          this.getAdminCourses()
+          if(category=='service'){
+            this.getAdminServices()
+          } else if(category=='course') {
+            this.getAdminCourses()
+          }
         })
         .catch((err)=>{
           console.dir(err)

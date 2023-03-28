@@ -117,13 +117,15 @@ const router = createRouter({
       path: '/:pathMatch(.*)*',
       component: () => import('../views/ErrorView.vue')
     }
-  ]
+  ],
+  scrollBehavior(to, from, savedPosition) {
+    return { top: 0 }
+  },
 })
 
 // router 命名
 router.beforeEach((to, from, next) => {
   window.document.title = to.meta.title;
-  window.scrollTo(0,0);
   next()
 })
 

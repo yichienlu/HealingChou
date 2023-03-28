@@ -35,7 +35,7 @@
               <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#adminCourseModal" @click="selectTempCourse(JSON.parse(JSON.stringify(service)))">
                 編輯
               </button>
-              <button type="button" class="btn btn-outline-danger btn-sm" @click="selectTempCourse(service)">
+              <button type="button" class="btn btn-outline-danger btn-sm" @click="deleteCourse(service.category, service.id)">
                 刪除
               </button>
             </div>
@@ -82,7 +82,7 @@
               <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#adminCourseModal" @click="selectTempCourse(JSON.parse(JSON.stringify(course)))">
                 編輯
               </button>
-              <button type="button" class="btn btn-outline-danger btn-sm" @click="deleteCourse(course.id)">
+              <button type="button" class="btn btn-outline-danger btn-sm" @click="deleteCourse(course.category, course.id)">
                 刪除
               </button>
             </div>

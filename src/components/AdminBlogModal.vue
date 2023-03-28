@@ -15,52 +15,6 @@
       </div>
       <div class="modal-body">
         <div class="row">
-          <div class="col-sm-4">
-            <div class="mb-3">
-              <label for="title" class="form-label">標題</label>
-              <input
-                type="text"
-                class="form-control"
-                id="title"
-                v-model="tempArticle.title"
-                placeholder="請輸入標題"
-              />
-            </div>
-            <div class="mb-3">
-              <label for="image" class="form-label">輸入圖片網址</label>
-              <input
-                type="text"
-                class="form-control"
-                id="image"
-                v-model="tempArticle.imageUrl"
-                placeholder="請輸入圖片連結"
-              />
-            </div>
-            <!-- <div class="mb-3">
-              <label for="images" class="form-label">更多圖??</label>
-              <input
-                type="text"
-                class="form-control"
-                id="images"
-                v-model="tempArticle.images"
-                placeholder=""
-              />
-            </div> -->
-            <div class="mb-3">
-              <label for="author" class="form-label">分類</label>
-              <input
-                type="text"
-                class="form-control"
-                id="author"
-                v-model="tempArticle.author"
-                placeholder="請輸入標題"
-              />
-            </div>
-            <div class="mb-3">
-              <label for="create_at">文章建立日期</label>
-              <input type="date" class="form-control" id="create_at" v-model="this.create_at"/>
-            </div>
-          </div>
           <div class="col-sm-8">
             <label for="tag" class="form-label">標籤</label>
             <div class="row gx-1 mb-3">
@@ -128,6 +82,52 @@
                   是否公開
                 </label>
               </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="mb-3">
+              <label for="title" class="form-label">標題</label>
+              <input
+                type="text"
+                class="form-control"
+                id="title"
+                v-model="tempArticle.title"
+                placeholder="請輸入標題"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="image" class="form-label">輸入圖片網址</label>
+              <input
+                type="text"
+                class="form-control"
+                id="image"
+                v-model="tempArticle.imageUrl"
+                placeholder="請輸入圖片連結"
+              />
+            </div>
+            <!-- <div class="mb-3">
+              <label for="images" class="form-label">更多圖??</label>
+              <input
+                type="text"
+                class="form-control"
+                id="images"
+                v-model="tempArticle.images"
+                placeholder=""
+              />
+            </div> -->
+            <div class="mb-3">
+              <label for="author" class="form-label">分類</label>
+              <input
+                type="text"
+                class="form-control"
+                id="author"
+                v-model="tempArticle.author"
+                placeholder="請輸入標題"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="create_at">文章建立日期</label>
+              <input type="date" class="form-control" id="create_at" v-model="this.create_at"/>
             </div>
           </div>
         </div>
