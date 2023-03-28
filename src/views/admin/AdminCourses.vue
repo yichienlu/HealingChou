@@ -1,7 +1,8 @@
 <template>
   <div class="container">
     <div class="text-end mt-4">
-      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#adminCourseModal" @click="selectTempCourse({imagesUrl:[''], category:'service', description:'', content:'', origin_price: 0, })">
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#adminCourseModal" 
+              @click="selectTempCourse({imagesUrl:[''], category:'service', description:'', content:'', origin_price: 0, })">
         建立新的服務
       </button>
     </div>
@@ -48,7 +49,7 @@
 
   <div class="container">
     <div class="text-end mt-4">
-      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#adminCourseModal" @click="selectTempCourse({imagesUrl:[''], category:'course', description:'', content:'', origin_price: 0})">
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#adminCourseModal" @click="selectTempCourse({imagesUrl:[''], category:'course', description:'', content:'', origin_price: 0})">
         建立新的課程
       </button>
     </div>

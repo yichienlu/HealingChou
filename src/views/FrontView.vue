@@ -13,14 +13,11 @@
           <img src="../assets/images/logo-primary.svg" alt="Logo" height="20" class="d-inline-block me-2">
           <span>舟舟療心室</span>
         </RouterLink>
-        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <button type="button" class="navbar-toggler border-0" data-bs-toggle="collapse" data-bs-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse " id="navbarMenu">
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0 text-center">
-            <!-- <li class="nav-item">
-              <RouterLink to="/news" class="nav-link py-1 px-2 rounded-4">最新消息</RouterLink>
-            </li> -->
             <li class="nav-item ms-lg-4" @click="this.navbarToggle.hide()">
               <RouterLink to="/about" class="nav-link py-1 px-2 rounded-4">關於舟舟</RouterLink>
             </li>

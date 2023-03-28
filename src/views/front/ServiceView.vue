@@ -26,7 +26,7 @@
                     <label for="inputTime" class="form-label text-white">選擇療癒時間</label>
                     <div class="calendar text-center pt-3">
               <div class="month">
-                <button class="btn btn-outline-primary prev" @click="adjustMonth(-1)">
+                <button type="button" class="btn btn-outline-primary prev" @click="adjustMonth(-1)">
                   <i class="fas fa-angle-left"></i>
                 </button>
                 <div class="date">

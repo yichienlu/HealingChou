@@ -3,7 +3,7 @@
   <div class="container py-80">
     <div class="calendar text-center">
       <div class="month">
-        <button class="btn btn-outline-primary prev" @click="adjustMonth(-1)">
+        <button type="button" class="btn btn-outline-primary prev" @click="adjustMonth(-1)">
           <i class="fas fa-angle-left"></i>
         </button>
         <div class="date">

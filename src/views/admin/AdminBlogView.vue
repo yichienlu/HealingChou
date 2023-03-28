@@ -1,7 +1,8 @@
 <template>
   <div>
      <div class="text-end mt-4">
-       <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#articleModal" @click="selectTempArticle({tag:[]})">
+       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#articleModal" 
+              @click="selectTempArticle({tag:[], content:''})">
          建立新的頁面
        </button>
      </div>
