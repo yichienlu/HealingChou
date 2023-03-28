@@ -91,13 +91,6 @@ const router = createRouter({
           },
         },
         {
-          path: 'services',
-          component: () => import('../views/admin/AdminServices.vue'),
-          meta: {
-            title: '舟舟療心室 | 療癒服務管理'
-          },
-        },
-        {
           path: 'courses',
           component: () => import('../views/admin/AdminCourses.vue'),
           meta: {

@@ -141,19 +141,16 @@
           </div>
           <div class="col-md-6 mb-3">
             <label for="inputName" class="form-label text-white">姓名</label>
-            <!-- <input type="text" class="form-control" id="inputName" required v-model="this.tempOrder.user.name"> -->
             <v-field id="inputName" name="姓名" type="text" class="form-control" :class="{ 'is-invalid': errors['姓名'] }" placeholder="請輸入姓名" rules="required" v-model="this.tempOrder.user.name"></v-field>
             <error-message name="姓名" class="invalid-feedback"></error-message>
           </div>
           <div class="col-md-6 mb-3">
             <label for="inputTel" class="form-label text-white">手機號碼</label>
-            <!-- <input type="tel" class="form-control" id="inputTel" required  v-model="this.tempOrder.user.tel"> -->
             <v-field id="inputTel" name="電話" type="tel" class="form-control" :class="{ 'is-invalid': errors['電話'] }" placeholder="請輸入電話" rules="required"  v-model="this.tempOrder.user.tel"></v-field>
         <error-message name="電話" class="invalid-feedback text-danger"></error-message>
           </div>
           <div class="col-12 mb-3">
             <label for="email" class="form-label text-white">email</label>
-            <!-- <input type="email" class="form-control" id="email" required  v-model="this.tempOrder.user.email"> -->
             <v-field id="email" name="email" type="email" class="form-control" :class="{ 'is-invalid': errors['email'] }" placeholder="請輸入 Email" rules="required|email" v-model="this.tempOrder.user.email"></v-field>
             <error-message name="email" class="invalid-feedback"></error-message>
           </div>
@@ -344,7 +341,6 @@ export default {
       this.tempOrder.user.address = selected
 
       const f = new Intl.DateTimeFormat('zh-TW', { dateStyle: 'full', timeStyle: 'short', hour12: false});
-
       this.$http.post(`${VITE_URL}/api/${VITE_PATH}/order`, { data })
       .then(() => {
           this.$swal.fire({
@@ -358,7 +354,8 @@ export default {
         })
         
         resetForm()
-        this.getBooked()
+        // this.getBooked()
+        this.$router.push('/services')
       })
       .catch((err) => {
         console.log(err)

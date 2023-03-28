@@ -36,11 +36,9 @@ export default {
     login () {
       this.$http.post(`${VITE_URL}/admin/signin`, this.user)
         .then((res) => {
-          // console.log(res.data)
           const { token, expired } = res.data
           document.cookie = `hexToken=${token}; expired=${new Date(expired)}`
           alert(res.data.message)
-          // console.log(token)
           this.$router.push('/admin')
         })
         .catch((err) => {
@@ -51,8 +49,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-
-</style>
-
