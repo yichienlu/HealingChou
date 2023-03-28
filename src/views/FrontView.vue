@@ -45,7 +45,7 @@
       </p>
     </section>
     <section class="section-contact py-5">
-      <div class="container">
+      <div class="container px-3">
         <div class="row">
           <div class="col-md-6 text-center align-self-center">
               <img src="../assets/images/logo-primary.svg" alt="Chou" class="d-inline-block mx-auto" width="120" 
