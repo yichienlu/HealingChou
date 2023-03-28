@@ -13,11 +13,9 @@
               {{ service.title }}</h2>  
             <div class=" mb-0 p-4 pt-3 mt-auto  healing-item-description">
               <div v-html="service.description"></div>
-              <!-- {{ service.description }} -->
-              </div>       
+            </div>
           </RouterLink>
         </div>
-        
       </div>
     </section>
   </div>
@@ -43,15 +41,10 @@ export default {
     LoaderComponent
   },
   mounted() {
-    // loader
     this.isLoading = true
-    // setTimeout(()=>{
-    //   this.isLoading = false
-    // },1000)
 
     this.$http.get(`${VITE_URL}/api/${VITE_PATH}/products?category=service`)
     .then((res) => {
-      // console.log(res.data)
       this.services = res.data.products
     })
     .catch((err) => {
@@ -65,8 +58,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-
-</style>
-
