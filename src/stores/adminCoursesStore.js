@@ -59,7 +59,6 @@ export default defineStore('adminCoursesStore', {
       })
       .catch((err)=>{
         console.dir(err)
-        // alert(err.data.message)
       })
     },
     deleteCourse(category, id){
@@ -76,7 +75,6 @@ export default defineStore('adminCoursesStore', {
           console.dir(err)
         })
       }
-
     },
     uploadImage(){
       const imageUrl = document.querySelector('#imageUpload')
@@ -99,7 +97,6 @@ export default defineStore('adminCoursesStore', {
 
       axios.post(`${VITE_URL}/api/${VITE_PATH}/admin/upload`, formData)
       .then((res)=>{
-        // console.log(res)
         this.tempCourse.imagesUrl[index] = res.data.imageUrl
       })
       .catch((err)=>{
@@ -117,7 +114,6 @@ export default defineStore('adminCoursesStore', {
     },
     selectTempCourse(course){
       this.tempCourse = course
-      // console.log(this.tempCourse)
     }
   }
 })

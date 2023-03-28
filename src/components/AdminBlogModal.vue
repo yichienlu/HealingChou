@@ -16,6 +16,90 @@
       <div class="modal-body">
         <div class="row">
           <div class="col-sm-8">
+            <div class="mb-3">
+              <label for="title" class="form-label">標題</label>
+              <input
+                type="text"
+                class="form-control"
+                id="title"
+                v-model="tempArticle.title"
+                placeholder="請輸入標題"
+              />
+            </div>            
+            <div class="row">
+              <div class="col">
+                <div class="mb-3">
+                  <label for="author" class="form-label">分類</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="author"
+                    v-model="tempArticle.author"
+                    placeholder="請輸入標題"
+                  />
+                </div>
+              </div>
+              <div class="col">
+                <div class="mb-3">
+                  <label for="create_at" class="form-label">文章建立日期</label>
+                  <input type="date" class="form-control" id="create_at" v-model="this.create_at"/>
+                </div>
+              </div>
+            </div>            
+            <div class="mb-3">
+              <label for="description" class="form-label">文章描述</label>
+              <textarea
+                type="text"
+                class="form-control"
+                id="description"
+                v-model="tempArticle.description"
+                placeholder="請輸入文章描述"
+              ></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="content" class="form-label">文章內容</label>
+              <editor v-model="tempArticle.content" :init="init"></editor>
+            </div>
+            <div class="mb-3">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  v-model="tempArticle.isPublic"
+                  id="isPublic"
+                />
+                <label class="form-check-label" for="isPublic">
+                  是否公開
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+
+            <div class="mb-3">
+              <label for="image" class="form-label">輸入圖片網址</label>
+              <input
+                type="text"
+                class="form-control"
+                id="imageUrl"
+                v-model="tempArticle.imageUrl"
+                placeholder="請輸入圖片連結"
+              />
+              <form enctype="multipart/form-data"  method="post">
+                <input type="file" name="file-to-upload" id="imageUpload" ref="file" placeholder="請選擇圖片" @change="uploadImage()" class="form-control">
+              </form>  
+              <img class="img-fluid" :src="tempArticle.imageUrl" alt="">
+            </div>
+            <!-- <div class="mb-3">
+              <label for="images" class="form-label">更多圖??</label>
+              <input
+                type="text"
+                class="form-control"
+                id="images"
+                v-model="tempArticle.images"
+                placeholder=""
+              />
+            </div> -->
             <label for="tag" class="form-label">標籤</label>
             <div class="row gx-1 mb-3">
               <div class="col-md-2 mb-1"
@@ -51,83 +135,6 @@
                   新增標籤
                 </button>
               </div>
-            </div>
-            <div class="mb-3">
-              <label for="description" class="form-label">文章描述</label>
-              <textarea
-                type="text"
-                class="form-control"
-                id="description"
-                v-model="tempArticle.description"
-                placeholder="請輸入文章描述"
-              ></textarea>
-            </div>
-            <div class="mb-3">
-              <!-- <ckeditor
-                :editor="editor"
-                :config="editorConfig"
-                v-model="tempArticle.content"
-              ></ckeditor> -->
-              <editor v-model="tempArticle.content" :init="init"></editor>
-            </div>
-            <div class="mb-3">
-              <div class="form-check">
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  v-model="tempArticle.isPublic"
-                  id="isPublic"
-                />
-                <label class="form-check-label" for="isPublic">
-                  是否公開
-                </label>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-4">
-            <div class="mb-3">
-              <label for="title" class="form-label">標題</label>
-              <input
-                type="text"
-                class="form-control"
-                id="title"
-                v-model="tempArticle.title"
-                placeholder="請輸入標題"
-              />
-            </div>
-            <div class="mb-3">
-              <label for="image" class="form-label">輸入圖片網址</label>
-              <input
-                type="text"
-                class="form-control"
-                id="image"
-                v-model="tempArticle.imageUrl"
-                placeholder="請輸入圖片連結"
-              />
-            </div>
-            <!-- <div class="mb-3">
-              <label for="images" class="form-label">更多圖??</label>
-              <input
-                type="text"
-                class="form-control"
-                id="images"
-                v-model="tempArticle.images"
-                placeholder=""
-              />
-            </div> -->
-            <div class="mb-3">
-              <label for="author" class="form-label">分類</label>
-              <input
-                type="text"
-                class="form-control"
-                id="author"
-                v-model="tempArticle.author"
-                placeholder="請輸入標題"
-              />
-            </div>
-            <div class="mb-3">
-              <label for="create_at">文章建立日期</label>
-              <input type="date" class="form-control" id="create_at" v-model="this.create_at"/>
             </div>
           </div>
         </div>
@@ -169,6 +176,8 @@
   // TinyMCE-Vue
   import Editor from '@tinymce/tinymce-vue'
   
+  const { VITE_URL, VITE_PATH } = import.meta.env
+
   export default {
     data(){
       return {
@@ -220,6 +229,21 @@
         this.tempArticle.create_at = Math.floor(new Date(this.create_at) / 1000);
       },
   
+    },
+    methods:{
+      uploadImage(){
+        const imageUrl = document.querySelector('#imageUpload')
+        const file = imageUrl.files[0]
+        const formData = new FormData();
+        formData.append('file-to-upload', file)
+        this.$http.post(`${VITE_URL}/api/${VITE_PATH}/admin/upload`, formData)
+        .then((res)=>{
+          this.tempArticle.imageUrl = res.data.imageUrl
+        })
+        .catch((err)=>{
+          console.log(err.response)
+        })
+      },
     },
     mounted(){
       tinymce.init({})
