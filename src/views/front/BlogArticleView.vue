@@ -68,12 +68,12 @@
         <div class="position-relative">
           <swiper class="swiper blog-swiper" :slidesPerView="1" :spaceBetween="30" :loop="true"  :modules="modules"  
           :breakpoints=" {
-          320: {
-            slidesPerView: 2.2,
+          380: {
+            slidesPerView: 2,
             spaceBetween: 20
           },
           576: {
-            slidesPerView: 2.7,
+            slidesPerView: 2.6,
             spaceBetween: 20
           },
           768: {

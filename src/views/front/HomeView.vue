@@ -11,7 +11,7 @@
     </section>
 
     <section class="index-theta py-80 bg-image">
-      <div class="container">
+      <div class="container px-3">
         <div class="text-md-center text-primary">
           <h2>希塔療癒</h2>
           <p class="fw-bold">ThetaHealingⓇ</p>
@@ -56,7 +56,7 @@
     </section>
 
 <section class="index-about bg-secondary text-white">
-  <div class="container">
+  <div class="container px-3">
     <div class="row justify-content-between">
       <div class="col-md-5">
         <h2 class="fw-bold fs-3 mb-2">我是舟舟</h2>

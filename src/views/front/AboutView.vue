@@ -3,8 +3,9 @@
 
 <section class="bg-fixed bg-image" :style="{ backgroundImage: `url(${about_bg})` }">
   
-  <div class="container pt-5 pb-sm-5">
-    <div class="row justify-content-center ">
+  <div class="container pt-5 pb-sm-5 px-3">
+    <div class="row justify-content-center">
+
       <div class="about-chou col-lg-5 mb-5">
         <div class="position-relative text-white">
           <div class="about-chou-content bg-primary ps-5 pt-5 pb-5">
@@ -33,7 +34,10 @@
           <div class="about-profilePic-deco position-absolute end-0 border-top border-end border-3 border-secondary"></div>
         </div>
       </div>
-      <div class="col-lg-7 border-end border-3 border-primary bg-light p-5">
+
+
+      
+      <div class="d-none d-lg-block col-lg-7 border-end border-3 border-primary bg-light p-5">
         <div class="row">
           <div class="col-5 text-end fw-bold">助人工作者</div>
           <div class="col-7">
@@ -81,7 +85,57 @@
         </div>
       </div>
     </div>
+
+
+
   </div>
+  <div class="d-lg-none border-end border-3 border-primary bg-light p-5">
+        <div class="row">
+          <div class="col-5 text-end fw-bold">助人工作者</div>
+          <div class="col-7">
+            <ul class="list-unstyled">
+              <li>生輔員</li>
+              <li>社工員</li>
+              <li>個案管理師</li>
+            </ul>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-5 text-end fw-bold">
+            國際認證<br class="d-md-none">
+            希塔療癒師
+          </div>
+          <div class="col-7">
+            <ul class="list-unstyled">
+              <li>基礎DNA</li>
+              <li>進階DNA</li>
+              <li>深度挖掘</li>
+              <li>靈魂伴侶</li>
+              <li>豐盛與顯化</li>
+              <li>神與我</li>
+              <li>內圈與我</li>
+            </ul>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-5 text-end fw-bold">
+            國際認證<br class="d-md-none">
+            療癒講師
+          </div>
+          <div class="col-7">
+            <ul class="list-unstyled">
+              <li>希塔療癒基礎DNA導師</li>
+              <li>希塔療癒進階DNA導師</li>
+              <li>希塔療癒深度挖掘導師</li>
+              <li>臼井靈氣一階療癒師</li>
+              <li>托特塔羅療癒師</li>
+              <li>大天使神諭占卜卡解牌師</li>
+              <li>天使陪伴班講師</li>
+              <li>金錢靈氣執行師及導師</li>
+            </ul>
+          </div>
+        </div>
+      </div>
 </section>
 
 </template>
