@@ -11,13 +11,13 @@
         <div v-html="service.content"></div>
       </div>
     </section>
-    <section class="healing_reserve bg-image" :style="{ backgroundImage: `url(${order_bg})` }" v-if="service.origin_price">
+    <section class="healing_reserve bg-image" :style="{ backgroundImage: `url(${order_bg})` }">
       <div class="container py-5">
         <h2 class="text-center text-white mb-4">
           <img src="@/assets/images/tarot-card-icon.png" alt="">
           預約療癒
         </h2>
-        <div class="row justify-content-center">
+        <div class="row justify-content-center" v-if="service.origin_price">
           <div class="col">
             <v-form ref="form" class="row service-form"  v-slot="{ errors }" @submit="addToCart" >
               <div class="col-12 mb-3">
@@ -162,6 +162,25 @@
                 <button type="submit" class="btn btn-beige text-primary w-100" >送出</button>
               </div>
             </v-form>
+          </div>
+        </div>
+        <div class="d-flex justify-content-center" v-else>
+          <div class="d-inline-block p-3" style="background-color: #fffA;">
+            <p>請聯繫舟舟報名</p>
+            <ul class="list-unstyled">
+              <li class="mb-2 d-flex justify-content-between">
+                <span class="me-4">Facebook: </span>
+                <a href="https://www.facebook.com/healingchou" target="_blank" class="text-decoration-underline">healingchou</a>
+              </li>
+              <li class="mb-2 d-flex justify-content-between">
+                <span>Instagram:</span>
+                <a href="https://www.instagram.com/chouhealer/" target="_blank" class="text-decoration-underline">chouhealer</a>
+              </li>
+              <li class="mb-2 d-flex justify-content-between">
+                <span>Line: </span>
+                <a href="https://line.me/R/ti/p/%40655bistu" target="_blank" class="text-decoration-underline">@655bistu</a>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
