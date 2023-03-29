@@ -18,15 +18,11 @@
               <div class="row">
                 <div class="mb-3 col-md-6">
                   <label for="title" class="form-label">標題</label>
-                  <!-- <input id="title" type="text" class="form-control" placeholder="請輸入標題" v-model="tempCourse.title"> -->
                   <v-field id="title" type="text" name="標題" class="form-control" :class="{ 'is-invalid': errors['標題'] }" placeholder="請輸入標題" v-model="tempCourse.title" rules="required"></v-field>
                   <error-message name="標題" class="invalid-feedback"></error-message>
-
                 </div>
-
                 <div class="mb-3 col-md-6">
                   <label for="price" class="form-label">圖示</label> (<a href="https://fonts.google.com/icons?icon.platform=android" target="_blank" class="text-decoration-underline">圖示庫</a>)
-                  <!-- <input id="unit" type="text" class="form-control" placeholder="請輸入圖示名稱" v-model="tempCourse.unit"> -->
                   <v-field id="unit" type="text" name="圖示" class="form-control" :class="{ 'is-invalid': errors['圖示'] }" placeholder="請輸入圖示名稱" v-model="tempCourse.unit" rules="required"></v-field>
                   <span class="material-symbols-outlined ">{{ tempCourse.unit }}</span>
                   <error-message name="圖示" class="invalid-feedback"></error-message>
@@ -35,26 +31,21 @@
               <div class="row">
                 <div class="mb-3 col-md-6">
                   <label for="price" class="form-label">價格</label>
-                  <!-- <input id="price" type="number" min="0" class="form-control" placeholder="請輸入價格" v-model="tempCourse.price"> -->
                   <v-field id="price" type="number" min="0" name="價格" class="form-control" :class="{ 'is-invalid': errors['價格'] }" placeholder="請輸入價格" v-model="tempCourse.price" rules="required"></v-field>
                   <error-message name="價格" class="invalid-feedback"></error-message>
                 </div>
               </div>
               <hr>
-
               <div class="mb-3">
                 <label for="description" class="form-label">簡述</label>
                 <editor name="簡述" v-model="tempCourse.description" :class="{ 'is-invalid': errors['簡述'] }" :init="init" rules="required"></editor>
-
-                <error-message name="簡述" class="invalid-feedback"></error-message>
+                <error-message name="簡述" class="invalid-feedback"></error-message> // FIXME: TinyMCE 驗證
               </div>
               <div class="mb-3">
                 <label for="content" class="form-label">說明內容</label>
                 <editor v-model="tempCourse.content" :init="init"></editor>
               </div>
-
             </div>
-
             <div class="col-lg-4 mb-4">
               <div class="mb-2">
                 <div class="mb-3">
