@@ -44,6 +44,12 @@
         學會認識自己、更愛自己以及療癒自己。
       </p>
     </section>
+    <section class="bg-secondary py-4">
+      <h3 class="container px-3 text-center text-white">
+        <div>想獲得更多希塔療癒、塔羅占卜的訊息？</div>
+        <div>來與舟舟聊療吧！</div>
+      </h3>
+    </section>
     <section class="section-contact py-5">
       <div class="container px-3">
         <div class="row">
@@ -79,8 +85,7 @@
         <p class="fw-thin"><small>
           本網站所提及「療癒」一詞，不等同「治癒」、「治療」，課程所教授的療癒方式、探討方式和技巧無意用來做為診斷、處方或取代醫生或治療。
         </small></p>
-        <p>Copyright © 2022 舟舟療心室. All rights reserved.</p>       
-        <RouterLink to="/admin" class="">admin</RouterLink>
+        <div>Copyright © 2022 舟舟療心室. All rights reserved.<RouterLink to="/admin" class="">admin</RouterLink></div>       
       </div>
     </footer>
   </div>
