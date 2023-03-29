@@ -1,18 +1,61 @@
 <template>
-  <div class="modal-dialog modal-xl">
-    <div class="modal-content border-0">
-      <div class="modal-header bg-dark text-white">
-        <h5 id="courseModalLabel" class="modal-title">
-          <span v-if="tempCourse.id&&tempCourse.category=='service'">編輯服務</span>
-          <span v-else-if="tempCourse.id&&tempCourse.category=='course'">編輯課程</span>
-          <span v-else-if="!tempCourse.id&&tempCourse.category=='service'">新增服務</span>
-          <span v-else>新增課程</span>
-        </h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="clearInputs()"></button>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-          <div class="col-sm-4 mb-4">
+  <v-form  ref="form" class="row service-form"  v-slot="{ errors }">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content border-0">
+        <div class="modal-header bg-dark text-white">
+          <h5 id="courseModalLabel" class="modal-title">
+            <span v-if="tempCourse.id&&tempCourse.category=='service'">編輯服務</span>
+            <span v-else-if="tempCourse.id&&tempCourse.category=='course'">編輯課程</span>
+            <span v-else-if="!tempCourse.id&&tempCourse.category=='service'">新增服務</span>
+            <span v-else>新增課程</span>
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="clearInputs()"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+
+            <div class="col-lg-8 mb-4">
+              <div class="row">
+                <div class="mb-3 col-md-6">
+                  <label for="title" class="form-label">標題</label>
+                  <!-- <input id="title" type="text" class="form-control" placeholder="請輸入標題" v-model="tempCourse.title"> -->
+                  <v-field id="title" type="text" name="標題" class="form-control" :class="{ 'is-invalid': errors['標題'] }" placeholder="請輸入標題" v-model="tempCourse.title" rules="required"></v-field>
+                  <error-message name="標題" class="invalid-feedback"></error-message>
+
+                </div>
+
+                <div class="mb-3 col-md-6">
+                  <label for="price" class="form-label">圖示</label> (<a href="https://fonts.google.com/icons?icon.platform=android" target="_blank" class="text-decoration-underline">圖示庫</a>)
+                  <!-- <input id="unit" type="text" class="form-control" placeholder="請輸入圖示名稱" v-model="tempCourse.unit"> -->
+                  <v-field id="unit" type="text" name="圖示" class="form-control" :class="{ 'is-invalid': errors['圖示'] }" placeholder="請輸入圖示名稱" v-model="tempCourse.unit" rules="required"></v-field>
+                  <span class="material-symbols-outlined ">{{ tempCourse.unit }}</span>
+                  <error-message name="圖示" class="invalid-feedback"></error-message>
+                </div>
+              </div>
+              <div class="row">
+                <div class="mb-3 col-md-6">
+                  <label for="price" class="form-label">價格</label>
+                  <!-- <input id="price" type="number" min="0" class="form-control" placeholder="請輸入價格" v-model="tempCourse.price"> -->
+                  <v-field id="price" type="number" min="0" name="價格" class="form-control" :class="{ 'is-invalid': errors['價格'] }" placeholder="請輸入價格" v-model="tempCourse.price" rules="required"></v-field>
+                  <error-message name="價格" class="invalid-feedback"></error-message>
+                </div>
+              </div>
+              <hr>
+
+              <div class="mb-3">
+                <label for="description" class="form-label">簡述</label>
+                <editor name="簡述" v-model="tempCourse.description" :class="{ 'is-invalid': errors['簡述'] }" :init="init" rules="required"></editor>
+
+                <error-message name="簡述" class="invalid-feedback"></error-message>
+              </div>
+              <div class="mb-3">
+                <label for="content" class="form-label">說明內容</label>
+                <editor v-model="tempCourse.content" :init="init"></editor>
+              </div>
+
+            </div>
+
+            <div class="col-lg-4 mb-4">
               <div class="mb-2">
                 <div class="mb-3">
                   <h6>列表圖片</h6>
@@ -44,74 +87,38 @@
                   新增次要圖片
                 </button>
               </div>
-          </div>
-          <div class="col-sm-8">
-            <div class="row">
-              <div class="mb-3 col-md-6">
-                <label for="title" class="form-label">標題</label>
-                <input id="title" type="text" class="form-control" placeholder="請輸入標題" v-model="tempCourse.title">
+
+            </div>
+            <div class="col">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="needSession" 
+                          :true-value="1" :false-value="0" v-model="tempCourse.origin_price">
+                  <label class="form-check-label" for="needSession">須預約時段</label>
+                </div>
+                <div class="form-check">
+                  <input id="is_enabled" class="form-check-input" type="checkbox"
+                          :true-value="1" :false-value="0" v-model="tempCourse.is_enabled">
+                  <label class="form-check-label" for="is_enabled">是否啟用</label>
+                </div>
               </div>
 
-              <div class="mb-3 col-md-6">
-                <label for="price" class="form-label">小圖示</label> (<a href="https://fonts.google.com/icons?icon.platform=android" target="_blank" class="text-decoration-underline">圖示庫</a>)
-                <input id="unit" type="text" class="form-control" placeholder="請輸入圖示名稱" v-model="tempCourse.unit">
-                <span class="material-symbols-outlined ">{{ tempCourse.unit }}</span>
-              </div>
-            </div>
-
-            <div class="row">
-
-              <div class="mb-3 col-md-6">
-                <label for="price" class="form-label">價格</label>
-                <input id="price" type="number" min="0" class="form-control"
-                        placeholder="請輸入價格" v-model="tempCourse.price">
-              </div>
-              <!-- <div class="mb-3 col-md-6">
-                <label for="price" class="form-label">origin價格</label>
-                <input id="price" type="number" min="0" class="form-control"
-                        placeholder="請輸入價格" v-model="tempCourse.origin_price">
-              </div> -->
-            </div>
-            <hr>
-
-            <div class="mb-3">
-              <label for="description" class="form-label">簡述</label>
-              <editor v-model="tempCourse.description" :init="init"></editor>
-            </div>
-            <div class="mb-3">
-              <label for="content" class="form-label">說明內容</label>
-              <editor v-model="tempCourse.content" :init="init"></editor>
-            </div>
-            <div class="mb-3">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="needSession" 
-                        :true-value="1" :false-value="0" v-model="tempCourse.origin_price">
-                <label class="form-check-label" for="needSession">
-                  須預約時段
-                </label>
-              </div>
-              <div class="form-check">
-                <input id="is_enabled" class="form-check-input" type="checkbox"
-                        :true-value="1" :false-value="0" v-model="tempCourse.is_enabled">
-                <label class="form-check-label" for="is_enabled">是否啟用</label>
-              </div>
-            </div>
           </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" @click="clearInputs(); selectTempCourse({imagesUrl:['']})">
-          取消
-        </button>
-        <button type="button" class="btn btn-primary" v-if="tempCourse.id" @click="editCourse(tempCourse, adminCourseModal)">
-          確認編輯
-        </button>
-        <button type="button" class="btn btn-primary" v-else @click="addCourse(tempCourse, adminCourseModal)">
-          確認新增
-        </button>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" @click="clearInputs(); selectTempCourse({imagesUrl:['']})">
+            取消
+          </button>
+          <button type="button" class="btn btn-primary" v-if="tempCourse.id" @click="editCourse(tempCourse, adminCourseModal)">
+            確認編輯
+          </button>
+          <button type="submit" class="btn btn-primary" v-else @click="addCourse(tempCourse, adminCourseModal)">
+          <!-- <button type="button" class="btn btn-primary" v-else @click="addCourse(tempCourse, adminCourseModal)"> -->
+            確認新增
+          </button>
+        </div>
       </div>
     </div>
-  </div>
+  </v-form>
 </template>
 
 <script>
