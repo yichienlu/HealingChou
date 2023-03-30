@@ -1,6 +1,5 @@
 <template>
-<LoaderComponent :class="{'d-none': !isLoading}" class="loader"></LoaderComponent>
-
+<LoaderComponent :class="{'d-none': !isLoading}" class="loader" />
 <div>
     <h2 class="text-center fs-1 py-40 py-lg-80 bg-image text-white"  :style="{ backgroundImage: `url(${banner_bg})` }">療癒服務</h2>
     <section class="container py-40 py-lg-80 px-3">

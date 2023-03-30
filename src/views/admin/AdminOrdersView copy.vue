@@ -61,7 +61,6 @@
           <label for="" class="col-sm-2 col-form-label"></label>
           <div class="col-sm-10">
             <select class="form-select" aria-label="Default select example">
-              <!-- <option value="1">One</option> -->
             </select>
           </div>
         </div>
@@ -90,10 +89,7 @@
           </div>
         </div>
         <div class="mb-3 row">
-
         </div>
-
-        
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-outline-danger me-auto" data-bs-dismiss="modal">刪除預約</button>

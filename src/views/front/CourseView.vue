@@ -1,5 +1,5 @@
 <template>
-<LoaderComponent :class="{'d-none': !isLoading}" class="loader"></LoaderComponent>  
+<LoaderComponent :class="{'d-none': !isLoading}" class="loader" />  
 <div class="course_Theta position-relative">
     <h1 class="text-white text-center fs-1 pt-40 pt-lg-80 pb-40 pb-lg-80 lh-1 mb-0 bg-image" :style="{ backgroundImage: `url(${banner_bg})` }" >
       療癒課程 <br>
@@ -80,18 +80,8 @@ export default {
     }
   },
   mounted(){
-    // loader
     this.isLoading = true
-    // setTimeout(()=>{
-    //   this.isLoading = false
-    // },1000)
-
     this.getCourse()
   }
 }
 </script>
-
-<style lang="scss">
-// *{outline: 1px solid #A00}
-</style>
-

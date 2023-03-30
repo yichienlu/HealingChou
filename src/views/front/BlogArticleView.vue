@@ -1,6 +1,5 @@
 <template>
-<LoaderComponent :class="{'d-none': !isLoading}" class="loader"></LoaderComponent>
-
+<LoaderComponent :class="{'d-none': !isLoading}" class="loader" />
   <div class="position-relative user-select-none">
     <h1 class="text-white bg-image text-center fs-1 py-40 py-lg-80 lh-1 mb-0" :style="{ backgroundImage: `url(${banner_bg})` }">
       舟舟小療
@@ -25,7 +24,6 @@
         </div>
       </div>
     </section>
-
     <section class="py-40 py-lg-80">
       <div class="container">
         <div class="row justify-content-center">
@@ -103,7 +101,6 @@
               </RouterLink>
             </swiper-slide>
           </swiper>
-
         </div>
       </div>
     </section>

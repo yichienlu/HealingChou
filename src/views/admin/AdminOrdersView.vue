@@ -1,5 +1,5 @@
 <template>
-  <LoaderComponent :class="{'d-none': !isLoading}" class="loader"></LoaderComponent>
+  <LoaderComponent :class="{'d-none': !isLoading}" class="loader" />
   <div class="container py-80">
     <div class="calendar text-center">
       <div class="month">
@@ -219,7 +219,6 @@
                       id: item.product.id
                     }
                   })"
-
                 v-if="timestamp == calculateDate(i,j).valueOf()"
               >
                 {{ item.shownTime + ':00' }} 

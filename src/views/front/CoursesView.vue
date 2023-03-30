@@ -1,5 +1,5 @@
 <template>
-  <LoaderComponent :class="{'d-none': !isLoading}" class="loader"></LoaderComponent>
+  <LoaderComponent :class="{'d-none': !isLoading}" class="loader" />
   <div>
     <h2 class="text-center fs-1 py-40 py-lg-80 text-white bg-image" 
     :style="{ backgroundImage: 'url('+ banner_image +')' }">療癒課程</h2>
@@ -20,7 +20,6 @@
               </div>
           </RouterLink>
         </div>
-
       </div>
     </section>
   </div>
@@ -71,8 +70,4 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-
-</style>
 

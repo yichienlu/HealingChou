@@ -1,29 +1,9 @@
 <template>
-<LoaderComponent :class="{'d-none': !isLoading}" class="loader"></LoaderComponent>
+<LoaderComponent :class="{'d-none': !isLoading}" class="loader" />
 <div class="position-relative">
   <h1 class="text-center fs-1 py-40 py-lg-80 lh-1 mb-0 bg-image text-white" :style="{ backgroundImage: `url(${banner_bg})` }">
     舟舟小療
   </h1>
-  <!-- <section class="bg-primary blog-navbar text-center d-none">
-    <div class="container">
-      <div class="row justify-content-center">
-        <ul class="nav col-lg-9">
-          <li class="nav-item">
-            <RouterLink to="" class="nav-link active" aria-current="page">全部文章</RouterLink>
-          </li>
-          <li class="nav-item">
-            <RouterLink to="" class="nav-link">靈性知識庫</RouterLink>
-          </li>
-          <li class="nav-item">
-            <RouterLink to="" class="nav-link">靈性生活分享</RouterLink>
-          </li>
-          <li class="nav-item">
-            <RouterLink to="" class="nav-link">水手回饋</RouterLink>
-          </li>
-        </ul>
-      </div>    
-    </div>
-  </section> -->
   <section class="py-40 py-lg-80 container px-3">
     <div class="row justify-content-center">
       <ul class="list-unstyled col-xl-9">
@@ -50,7 +30,7 @@
           </RouterLink>
         </li>
       </ul>    
-      <pagination :pages="pagination"  @change-page="getArticles"></pagination>
+      <Pagination :pages="pagination"  @change-page="getArticles" />
     </div>
   </section>
 </div>
@@ -103,8 +83,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-
-</style>
-

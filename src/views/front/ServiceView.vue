@@ -9,6 +9,7 @@
       <div class="container pt-5 pb-5 position-relative">
         <h2>{{ service.title }}</h2>
         <div v-html="service.content"></div>
+        <div>收費：{{ service.price }} / 1-1.5小時</div>
       </div>
     </section>
     <section class="healing_reserve bg-image" :style="{ backgroundImage: `url(${order_bg})` }">
@@ -153,9 +154,12 @@
               <label for="formNote" class="form-label text-white">備註 (Line ID、帳號末5碼)</label>
               <textarea class="form-control" id="formNote" rows="3" required v-model="this.tempOrder.message"></textarea>
               <div id="formNoteHelp" class="form-text text-light">
-                匯款資訊：台新銀行 812   敦南分行 <br>
-                帳號：28881004008118   <br>
-                戶名：沈家舟</div>
+                <div class="fw-bold">收費： {{ service.price }} 元 / 1-1.5小時</div>
+                <div>
+                  匯款資訊：台新銀行 812   敦南分行 <br>
+                  帳號：28881004008118   <br>
+                  戶名：沈家舟</div>                  
+                </div>
             </div>
             <div class="">
               <button type="submit" class="btn btn-beige text-primary w-100" >送出</button>

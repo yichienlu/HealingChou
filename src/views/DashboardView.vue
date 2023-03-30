@@ -10,7 +10,7 @@
       <router-link to="/">回前台</router-link> |
       <a href="#" @click.prevent="logout()">登出</a>
     </div>    
-    <router-view></router-view>
+    <RouterView />
 
   </div>
 

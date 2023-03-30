@@ -50,8 +50,7 @@
      <pagination :pages="pagination" @change-page="getAdminArticles"></pagination>
    </div>
    <div id="articleModal" ref="articleModal" class="modal fade" tabindex="-1" aria-labelledby="articleModalLabel" aria-hidden="true">
-     <admin-blog-modal :article="tempArticle" :article-modal="articleModal" @edit-article="editArticle" @add-article="addArticle">
-    </admin-blog-modal>
+     <AdminBlogModal :article="tempArticle" :article-modal="articleModal" @edit-article="editArticle" @add-article="addArticle" />
    </div>
  </template>
 

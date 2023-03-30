@@ -48,7 +48,7 @@
  
    </div>
    <div id="couponModal" ref="couponModal" class="modal fade" tabindex="-1" aria-labelledby="couponModalLabel" aria-hidden="true">
-     <coupon-modal :coupon="tempCoupon" :coupon-modal="couponModal" @edit-coupon="editCoupon" @add-coupon="addCoupon"></coupon-modal>
+     <CouponModal :coupon="tempCoupon" :coupon-modal="couponModal" @edit-coupon="editCoupon" @add-coupon="addCoupon" />
    </div>
  </template>
  
