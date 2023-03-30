@@ -142,7 +142,7 @@
             </div>
             <div class="col-md-6 mb-3">
               <label for="inputTel" class="form-label text-white">手機號碼</label>
-              <v-field id="inputTel" name="電話" type="tel" class="form-control" :class="{ 'is-invalid': errors['電話'] }" placeholder="請輸入電話" rules="required"  v-model="this.tempOrder.user.tel"></v-field>
+              <v-field id="inputTel" name="電話" type="tel" class="form-control" :class="{ 'is-invalid': errors['電話'] }" placeholder="請輸入電話"  :rules="isPhone"  v-model="this.tempOrder.user.tel"></v-field>
               <error-message name="電話" class="invalid-feedback"></error-message>
             </div>              
             <div class="mb-3">
@@ -288,7 +288,6 @@ export default {
       this.orders = this.orders.sort(
         (a, b) => a.user.address - b.user.address
       )
-      // console.log(this.orders)
     },
     async getBookedPages(page){
       return new Promise((resolve)=>{
@@ -345,19 +344,16 @@ export default {
       }
       this.$http.post(`${VITE_URL}/api/${VITE_PATH}/cart`, { data })
       .then((res) => {
-        console.log(res.data)
         this.addOrder(resetForm)
       })
       .catch((err) => {
         console.log(err)
-        console.log(value)
       })
     },
     addOrder(resetForm){
       const data = this.tempOrder
       const selected = document.querySelector('input[name="options"]:checked').value
       this.tempOrder.user.address = selected
-
       const f = new Intl.DateTimeFormat('zh-TW', { dateStyle: 'full', timeStyle: 'short', hour12: false});
       this.$http.post(`${VITE_URL}/api/${VITE_PATH}/order`, { data })
       .then(() => {
@@ -378,8 +374,11 @@ export default {
       .catch((err) => {
         console.log(err)
       })
+    },
+    isPhone (value) {
+      const phoneNumber = /^(09)[0-9]{8}$/
+      return phoneNumber.test(value) ? true : '需要正確的手機號碼'
     }
-
   },
   computed:{
     calendarFirstDay() {
