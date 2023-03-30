@@ -26,7 +26,7 @@
               <RouterLink to="/services" class="d-block index-theta-image bg-image rounded-4 mb-2 position-relative">
                 <div class="position-absolute top-0 bottom-0 start-0 end-0 index-theta-screen"></div>
               </RouterLink>
-              <h3>療癒服務</h3>
+              <RouterLink to="/services"><h3>療癒服務</h3></RouterLink>
               <RouterLink to="/services" class="btn">
                 more 
                 <svg width="127" height="9" viewBox="0 0 127 9" fill="none" xmlns="http://www.w3.org/2000/svg" class="ms-2">
@@ -40,7 +40,7 @@
               <RouterLink to="/courses" class="d-block index-theta-image bg-image rounded-4 mb-2 position-relative">
                 <div class="position-absolute top-0 bottom-0 start-0 end-0 index-theta-screen"></div>
               </RouterLink>
-              <h3>療癒課程</h3>
+              <RouterLink to="/courses"><h3>療癒課程</h3></RouterLink>
               <RouterLink to="/courses" class="btn">
                 more 
                 <svg width="127" height="9" viewBox="0 0 127 9" fill="none" xmlns="http://www.w3.org/2000/svg" class="ms-2">
