@@ -6,7 +6,7 @@
       <!-- <router-link to="/admin/services">療癒服務管理</router-link> | -->
       <router-link to="/admin/courses">服務/課程管理</router-link> |
       <router-link to="/admin/blog">部落格管理</router-link> |
-      <!-- <router-link to="/admin/news">最新消息管理</router-link> | -->
+      <router-link to="/admin/coupons">優惠券管理</router-link> |
       <router-link to="/">回前台</router-link> |
       <a href="#" @click.prevent="logout()">登出</a>
     </div>    

@@ -103,6 +103,10 @@ const router = createRouter({
           meta: {
             title: '舟舟療心室 | 部落格管理'
           },
+        },
+        {
+          path: 'coupons',
+          component: () => import('../views/admin/AdminCouponsView.vue')
         }
       ]
     },
