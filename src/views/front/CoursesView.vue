@@ -95,10 +95,7 @@ export default {
     }
   },
   mounted(){
-    // loader
     this.isLoading = true
-
-    
     this.getCourses()
   }
 }
