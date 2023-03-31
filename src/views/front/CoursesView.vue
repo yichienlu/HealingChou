@@ -26,7 +26,7 @@
     <section class="bg-beige py-40">
       <div class="container">
         <h3 class="py-20">預約流程</h3>
-        <div class="d-md-flex justify-content-between align-items-center">
+        <div class="d-md-flex justify-content-center justify-content-lg-between align-items-center">
           <div class="p-3 border border-2 border-primary rounded-4">
             選擇想要的課程
           </div>
