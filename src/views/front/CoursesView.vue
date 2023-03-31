@@ -11,7 +11,7 @@
           :style="{backgroundImage: 'url('+ course.imageUrl+')'}" 
           >
             <div class="position-absolute top-0 bottom-0 start-0 end-0 healing-item-screen"></div>
-            <h2 class="text-center mb-0">
+            <h2 class="text-center mb-0 pt-120">
               <span class="material-symbols-outlined fs-48">
                 {{ course.unit }}</span> <br>
                 {{ course.title }}</h2>

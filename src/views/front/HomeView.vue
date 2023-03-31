@@ -36,18 +36,18 @@
             </div>
           </div>
           <div class="col-md-6 ">
-            <div class="index-courses">
-              <RouterLink to="/courses" class="d-block index-theta-image bg-image rounded-4 mb-2 position-relative">
+            <RouterLink to="/courses" class="index-courses">
+              <div class="d-block index-theta-image bg-image rounded-4 mb-2 position-relative">
                 <div class="position-absolute top-0 bottom-0 start-0 end-0 index-theta-screen"></div>
-              </RouterLink>
-              <RouterLink to="/courses"><h3>療癒課程</h3></RouterLink>
-              <RouterLink to="/courses" class="btn">
+              </div>
+              <h3>療癒課程</h3>
+              <button type="button" class="btn">
                 more 
                 <svg width="127" height="9" viewBox="0 0 127 9" fill="none" xmlns="http://www.w3.org/2000/svg" class="ms-2">
                   <path d="M126.354 4.85355C126.549 4.65829 126.549 4.34171 126.354 4.14645L123.172 0.964466C122.976 0.769204 122.66 0.769204 122.464 0.964466C122.269 1.15973 122.269 1.47631 122.464 1.67157L125.293 4.5L122.464 7.32843C122.269 7.52369 122.269 7.84027 122.464 8.03553C122.66 8.2308 122.976 8.2308 123.172 8.03553L126.354 4.85355ZM0 5H126V4H0V5Z" fill="currentColor"/>
-                  </svg>
-              </RouterLink>
-            </div>
+                </svg>
+              </button>
+            </RouterLink>
           </div>   
         </div>
       </div>
