@@ -19,12 +19,12 @@
     background-clip: border-box;
     border: 2px solid $primary;
 
-    .index-theta-screen{
+    .index-theta-screen {
       background-color: #0000;
-      transition: .3s;
+      transition: 0.3s;
     }
 
-    &:hover .index-theta-screen{
+    &:hover .index-theta-screen {
       background-color: #0003;
     }
   }
@@ -34,19 +34,19 @@
   .index-courses .index-theta-image {
     background-image: url(../images/tarot-card-on-hand.jpg);
   }
-   .btn {
-    color:$primary;
+  .btn {
+    color: $primary;
     &:hover {
       background-color: $primary;
-      color:white;
+      color: white;
       svg {
-        fill: #FFF
+        fill: #fff;
       }
     }
     &:active {
       background-color: $secondary;
     }
-   }
+  }
 }
 
 .index-about {
@@ -66,9 +66,9 @@
     }
     &:active {
       background-color: $primary;
-      color:white;
+      color: white;
       svg {
-        fill: #FFF
+        fill: #fff;
       }
     }
   }
@@ -78,7 +78,7 @@
     background-size: cover;
     background-position: center;
     @include md {
-      position:absolute;
+      position: absolute;
       top: 54px;
       bottom: 0;
       left: 0;
@@ -86,11 +86,9 @@
     }
   }
 
-  
-  .index-about-shadow{
-
+  .index-about-shadow {
     @include md {
-      position:absolute;
+      position: absolute;
       top: 0;
       bottom: 54px;
       left: 72px;
@@ -98,10 +96,8 @@
     }
   }
   .index-about-title {
-
     font-size: 80px;
     font-weight: 700;
-    font-family: 'Cormorant', serif;
-
+    font-family: "Cormorant", serif;
   }
 }
