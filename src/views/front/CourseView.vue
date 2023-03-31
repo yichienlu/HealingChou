@@ -13,7 +13,7 @@
   <section class="healing_reserve bg-image" :style="{ backgroundImage: `url(${order_bg})` }">
     <div class="container pt-5 pb-5">
       <h2 class="text-center text-white mb-4">
-        <img src="@/assets/images/tarot-card-icon.png" alt="">
+        <img src="@/assets/images/tarot-card-icon.png" alt="報名課程">
         報名課程
       </h2>
       <div class="d-flex justify-content-center">

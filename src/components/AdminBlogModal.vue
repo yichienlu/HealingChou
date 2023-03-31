@@ -75,7 +75,6 @@
             </div>
           </div>
           <div class="col-sm-4">
-
             <div class="mb-3">
               <label for="image" class="form-label">輸入圖片網址</label>
               <input
@@ -88,18 +87,8 @@
               <form enctype="multipart/form-data"  method="post">
                 <input type="file" name="file-to-upload" id="imageUpload" ref="file" placeholder="請選擇圖片" @change="uploadImage()" class="form-control">
               </form>  
-              <img class="img-fluid" :src="tempArticle.imageUrl" alt="">
+              <img class="img-fluid" :src="tempArticle.imageUrl" alt="文章圖片">
             </div>
-            <!-- <div class="mb-3">
-              <label for="images" class="form-label">更多圖??</label>
-              <input
-                type="text"
-                class="form-control"
-                id="images"
-                v-model="tempArticle.images"
-                placeholder=""
-              />
-            </div> -->
             <label for="tag" class="form-label">標籤</label>
             <div class="row gx-1 mb-3">
               <div class="col-md-2 mb-1"

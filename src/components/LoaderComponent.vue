@@ -5,7 +5,7 @@
       <div class="loader-tarot card-3"></div>
       <div class="loader-tarot card-2"></div>
       <div class="loader-tarot card-1">
-        <img src="../assets/images/logo-light.svg" class="top-50 start-50 translate-middle">
+        <img src="../assets/images/logo-light.svg" alt="Chou logo" class="top-50 start-50 translate-middle">
       </div>
   </div>
 </template>

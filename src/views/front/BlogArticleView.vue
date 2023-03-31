@@ -41,7 +41,7 @@
             </nav>
             <h2 class="mt-4">{{ article.title }}</h2>
             <div class="fs-14 mb-4">{{ article.created_at }}</div>
-            <img :src="article.imageUrl" alt="" />
+            <img :src="article.imageUrl" :alt="item.title" />
             <div v-html="article.content"></div>
             <div>
               <span class="badge rounded-pill bg-secondary fw-thin">{{ article.author }}</span>
@@ -95,7 +95,7 @@
             <swiper-slide class="swiper-slide align-self-stretch" v-for="item in articles" :key="item.id">
               <RouterLink :to="`/blog/${item.id}`" class="blog-more-item d-flex">
                 <div class="p-2 mx-auto">
-                    <img :src="item.imageUrl" class="d-block blog-more-item-image mb-2  mx-auto object-fit-cover" alt="">
+                    <img :src="item.imageUrl" class="d-block blog-more-item-image mb-2  mx-auto object-fit-cover" :alt="item.title">
                   <h3 class="fs-6">{{ item.title }}</h3>
                 </div>
               </RouterLink>

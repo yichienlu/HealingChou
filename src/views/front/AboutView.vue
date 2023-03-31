@@ -27,7 +27,7 @@
               </a>
             </div>
           </div>
-          <img src="@/assets/images/profile-pic-square.jpg" alt="" class="about-profilePic  position-absolute border border-white border-5">
+          <img src="@/assets/images/profile-pic-square.jpg" alt="舟舟" class="about-profilePic  position-absolute border border-white border-5">
           <div class="about-profilePic-deco position-absolute end-0 border-top border-end border-3 border-secondary"></div>
         </div>
       </div>

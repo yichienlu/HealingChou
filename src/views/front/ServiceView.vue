@@ -15,7 +15,7 @@
     <section class="healing_reserve bg-image" :style="{ backgroundImage: `url(${order_bg})` }">
       <div class=" py-5">
         <h2 class="text-center text-white mb-4">
-          <img src="@/assets/images/tarot-card-icon.png" alt="">
+          <img src="@/assets/images/tarot-card-icon.png" alt="預約療癒">
           預約療癒
         </h2>
         <div class="container px-3" v-if="service.origin_price">

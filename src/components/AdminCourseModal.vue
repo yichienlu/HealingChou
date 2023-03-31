@@ -56,7 +56,7 @@
                     <!-- <input type="submit" value="上傳"> -->
                   </form>  
                 </div>
-                <img class="img-fluid" :src="tempCourse.imageUrl" alt="">
+                <img class="img-fluid" :src="tempCourse.imageUrl" alt="列表圖片">
               </div>
               <div class="mb-2">
                 <h6>內容圖片</h6>
@@ -67,7 +67,7 @@
                           <input type="file" name="file-to-upload" :id="`imagesUpload-${index}`" class="form-control imagesUpload" ref="file" placeholder="請選擇圖片" @change="uploadImages(index)">
                         </form>  
                     </div>
-                    <img class="img-fluid" :src="image" alt="">
+                    <img class="img-fluid" :src="image" alt="內容圖片">
                   </div>
               </div>
               <div>
