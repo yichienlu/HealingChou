@@ -3,7 +3,7 @@
   <div>
     <h2 class="text-center fs-1 py-40 py-lg-80 text-white bg-image" 
     :style="{ backgroundImage: 'url('+ banner_image +')' }">療癒課程</h2>
-    <section class="container py-40 py-lg-80 px-3">
+    <section class="container py-40 px-3">
       <div class="row" v-if="courses.length">
         <div class="col-md-6 col-lg-4 col-xxl-3 mb-4" v-for="course in courses" :key="course.id">
           <RouterLink :to="`/course/${course.id}`" 
@@ -14,11 +14,33 @@
             <h2 class="text-center mb-0 pt-120">
               <span class="material-symbols-outlined fs-48">
                 {{ course.unit }}</span> <br>
-                {{ course.title }}</h2>
-              <div class=" mb-0 p-4 pt-3 mt-auto flex healing-item-description">
-              <div v-html="course.description"></div>
-              </div>
+              {{ course.title }}
+            </h2>
+            <div class=" mb-0 p-4 pt-3 mt-auto flex healing-item-description">
+            <div v-html="course.description"></div>
+            </div>
           </RouterLink>
+        </div>
+      </div>
+    </section>
+    <section class="bg-beige py-40">
+      <div class="container">
+        <h3 class="py-20">預約流程</h3>
+        <div class="d-md-flex justify-content-between align-items-center">
+          <div class="p-3 border border-2 border-primary rounded-4">
+            選擇想要的課程
+          </div>
+          <div class="p-3 border border-2 border-primary rounded-4">
+            與舟舟聯繫預約時段及確認價格
+          </div>
+          <div class="p-3 border border-2 border-primary rounded-4">
+            <p>匯款至</p>
+            <small class="">
+                匯款資訊：台新銀行 812   敦南分行 <br>
+                帳號：28881004008118   <br>
+                戶名：沈家舟 
+            </small>
+          </div>
         </div>
       </div>
     </section>

@@ -17,6 +17,38 @@
         </div>
       </div>
     </section>
+    <section class="bg-beige py-40">
+      <div class="container px-3">
+        <h3 class="py-4">報名流程</h3>
+        <div class="row justify-content-between">
+          <div class="col-md-3 mb-3 mb-md-0 p-3 border border-2 border-primary rounded-4 position-relative">
+            <div class="position-absolute top-50 start-50 translate-middle">選擇想要的服務</div>
+          </div>
+          <div class="col-1 mb-3 mb-md-0 text-center position-relative">
+            <span class="d-none d-lg-inline position-absolute top-50 start-50 translate-middle material-symbols-outlined fs-48">arrow_forward</span>
+            <span class="d-lg-none position-absolute top-50 start-50 translate-middle material-symbols-outlined fs-48">arrow_downward</span>
+
+          </div>
+          <div class="col-md-3 mb-3 mb-md-0 p-3 border border-2 border-primary rounded-4 position-relative">
+            <div class="position-absolute top-50 start-50 translate-middle">
+              填寫預約時段及預約資料
+            </div>
+          </div>
+          <div class="col-1 mb-3 mb-md-0 text-center  position-relative">
+            <span class="d-none d-lg-inline position-absolute top-50 start-50 translate-middle  material-symbols-outlined fs-48">arrow_forward</span>
+            <span class="d-lg-none position-absolute top-50 start-50 translate-middle  material-symbols-outlined fs-48">arrow_downward</span>
+          </div>
+          <div class="col-md-3 p-3 border border-2 border-primary rounded-4">
+            <p>匯款至</p>
+            <small class="d-block mx-auto">
+                匯款資訊：台新銀行 812   敦南分行 <br>
+                帳號：28881004008118   <br>
+                戶名：沈家舟 
+            </small>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
