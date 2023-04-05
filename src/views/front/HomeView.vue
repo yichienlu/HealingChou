@@ -4,16 +4,16 @@
     <section class="position-relative">
       <div class="index-banner d-flex justify-content-center align-items-center">
         <div class="text-center text-white">
-          <img src="@/assets/images/logo-white.svg" alt="logo" width="108">
-          <h3 class="fs-4 lh-base fw-500 m-0">舟舟療心室</h3>
-          <p class="fw-bolder mt-3 mb-0">希塔．塔羅．金錢靈氣</p>
+          <img src="@/assets/images/logo-white.svg" alt="logo" width="108" style="filter: drop-shadow(1px 1px 2px #0008);">
+          <h3 class="fs-4 lh-base fw-500 m-0" style="text-shadow: 1px 1px 2px #0008;">舟舟療心室</h3>
+          <p class="fw-bolder mt-3 mb-0" style="text-shadow: 1px 1px 2px #0008;">希塔．塔羅．金錢靈氣</p>
         </div>
       </div>
       <button type="button" class="home-btn position-absolute mb-80 start-50 translate-middle bottom-0 rounded-pill bg-transparent border border-4 border-white"  @click="scrollTo()">
         <span class="material-symbols-outlined fs-1 text-white">keyboard_double_arrow_down</span>
       </button>
     </section>
-    <section class="index-theta py-80 bg-image">
+    <section class="index-theta py-80 bg-image bg-fixed">
       <div class="container px-3">
         <div class="text-md-center text-primary">
           <h2>希塔療癒</h2>
@@ -85,8 +85,8 @@
           </div>
           <div class="col-md-6  position-relative">
             <div class="index-about-shadow d-none d-md-block bg-primary rounded-4"></div>
-            <div class="index-about-image border border-primary rounded-4 mt-4"></div>
-            <p class="index-about-title position-absolute end-0 bottom-0 pe-3 text-white text-end" >Theta<br>Healing</p>
+            <div class="index-about-image border border-primary rounded-4 mt-4 "></div>
+            <p class="index-about-title position-absolute end-0 bottom-0 pe-3 text-white text-end"  style="text-shadow: 1px 1px 2px #0008;">Theta<br>Healing</p>
           </div>
         </div>
       </div>
@@ -129,9 +129,27 @@ export default {
   transition: .3s;
   padding-top: 0;
   padding-bottom: 40px;
+
   &:hover {
     padding-bottom: 0;
     padding-top: 40px;
+    span {
+      animation: none;
+    }
+  }
+
+  & span{
+    transform: translate(0, 5px);
+    animation: home-btn .8s linear infinite;
+  }
+}
+
+@keyframes home-btn {
+  0% {
+    transform: translateY(5px);
+  }
+  50% {
+    transform: translateY(10px);
   }
 }
 </style>
