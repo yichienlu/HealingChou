@@ -11,7 +11,7 @@
           <RouterLink :to="`/blog/${article.id}`" class="blog-border d-block">
             <div class="row align-items-stretch">
               <div class="col-lg-3 col-md-4">
-                <div class="d-block blog-list-item-image bg-image" :style="{backgroundImage: `url(${article.imageUrl})`}"></div>
+                <div class="d-block blog-list-item-image bg-image border-end border-light" :style="{backgroundImage: `url(${article.imageUrl})`}"></div>
               </div>
               <div class="col-lg-9 col-md-8">
                 <div class="px-2 ps-md-0 py-2 d-flex flex-column">
