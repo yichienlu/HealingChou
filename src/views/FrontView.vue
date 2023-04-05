@@ -44,7 +44,7 @@
         學會認識自己、更愛自己以及療癒自己。
       </p>
     </section>
-    <section class=" py-4">
+    <section class=" py-4" style="box-shadow: inset 0 1px 20px #0003;">
       <h4 class="container px-3 text-center text-primary">
         <div class="mb-3">想更了解自己？想解決各種問題？</div>
         <div>點擊下方連結，與舟舟聊療吧！</div>

@@ -20,7 +20,7 @@
     <section class="bg-beige py-40">
       <div class="container px-3">
         <h3 class="py-4">報名流程</h3>
-        <div class="row justify-content-center justify-content-lg-between ">
+        <div class="row justify-content-center justify-content-lg-between px-3">
           <div class="col-md-3 mb-3 mb-md-0 p-3 border border-4 border-primary rounded-12 shadow bg-white  d-flex flex-column justify-content-center align-items-center">
             <div class="text-center">選擇想要的服務</div>
           </div>

@@ -5,24 +5,7 @@
     height: 100%;
   }
 }
-.blog-navbar {
-  z-index: 10;
-  position: sticky;
-  top: 56px;
 
-  .nav-link {
-    color: #FFF;
-    &:hover {
-      color: $light;
-    }
-    &:active {
-      color: $secondary;
-    }
-    &.active {
-      font-weight: bold;
-    }
-  }
-}
 .blog-border {
   border: 1px solid $light;
   &:hover {

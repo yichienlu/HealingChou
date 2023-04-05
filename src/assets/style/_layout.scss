@@ -3,23 +3,19 @@ body {
   color: $primary;
 }
 
-.navbar .nav-item .nav-link {
-  &:hover {
-    background: $secondary;
-    color: #FFF;
-  }
-  &:active {
-    background: $primary;
-    color: #FFF;
-  }
-  &.active {
-    background: $primary;
-    color: #FFF;
-  }
-}
 .navbar {
   .nav-item {
     border-radius: 4px;
+  }
+  & .nav-link {
+    color: $primary;
+    &.router-link-active{
+      color: $secondary
+    }
+    &:hover {
+      background: $secondary;
+      color: #FFF;
+    }
   }
 }
 .section-contact {
