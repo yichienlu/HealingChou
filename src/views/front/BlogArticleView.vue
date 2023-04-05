@@ -32,7 +32,6 @@
               <ol class="breadcrumb">
                 <li class="breadcrumb-item">
                   <RouterLink to="/blog">舟舟小療</RouterLink>
-                  <!-- <a href="./blog.html"></a> -->
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
                   <RouterLink :to="`/blog/${article.id}`">{{ article.title }}</RouterLink>
@@ -154,11 +153,6 @@ export default {
         })
     },
     getArticles(id){
-      // 重整 swiper
-      // this.swiperKey +=1
-      // this.swiper.destroy(true,true)
-      // this.swiper = new Swiper('.swiper', this.swiperOptions)
-
       this.$http.get(`${VITE_URL}/api/${VITE_PATH}/articles`)
       .then((res) => {
           this.articles = res.data.articles
@@ -184,14 +178,10 @@ export default {
     }
   },
   mounted() {
-    // console.log(Swiper);
-    // this.swiper = new Swiper('.swiper', this.swiperOptions)
-
     const { id } = this.$route.params
     this.getArticle(id)
   }
 }
-//
 </script>
 
 <style lang="scss">
