@@ -1,13 +1,17 @@
-
 <template>
-<LoaderComponent :class="{'d-none': !isLoading}" class="loader" />
+  <LoaderComponent :class="{'d-none': !isLoading}" class="loader" />
   <main>
-    <section class="index-banner d-flex justify-content-center align-items-center">
-      <div class="text-center text-white">
-        <img src="@/assets/images/logo-white.svg" alt="logo" width="108">
-        <h3 class="fs-4 lh-base fw-500 m-0">舟舟療心室</h3>
-        <p class="fw-bolder mt-3 mb-0">希塔．塔羅．金錢靈氣</p>
+    <section class="position-relative">
+      <div class="index-banner d-flex justify-content-center align-items-center">
+        <div class="text-center text-white">
+          <img src="@/assets/images/logo-white.svg" alt="logo" width="108">
+          <h3 class="fs-4 lh-base fw-500 m-0">舟舟療心室</h3>
+          <p class="fw-bolder mt-3 mb-0">希塔．塔羅．金錢靈氣</p>
+        </div>
       </div>
+      <button type="button" class="home-btn position-absolute mb-80 start-50 translate-middle bottom-0 rounded-pill bg-transparent border border-4 border-white"  @click="scrollTo()">
+        <span class="material-symbols-outlined fs-1 text-white">keyboard_double_arrow_down</span>
+      </button>
     </section>
     <section class="index-theta py-80 bg-image">
       <div class="container px-3">
@@ -50,6 +54,11 @@
             </RouterLink>
           </div>   
         </div>
+      </div>
+    </section>
+    <section class="">
+      <div class="container">
+        
       </div>
     </section>
     <section class="index-about bg-secondary text-white">
@@ -99,8 +108,13 @@ export default {
     RouterLink,
     LoaderComponent
   },
+  methods:{
+    scrollTo() {
+      document.body.scrollTop = window.innerHeight;
+      document.documentElement.scrollTop = window.innerHeight;
+    }
+  },
   mounted(){
-    // loader
     this.isLoading = true
     setTimeout(()=>{
       this.isLoading = false
@@ -109,3 +123,15 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.home-btn {
+  transition: .3s;
+  padding-top: 0;
+  padding-bottom: 40px;
+  &:hover {
+    padding-bottom: 0;
+    padding-top: 40px;
+  }
+}
+</style>
