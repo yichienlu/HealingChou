@@ -19,7 +19,7 @@
               </ol>
             </nav>
             <h2 class="mt-4">{{ article.title }}</h2>
-            <div class="fs-14 mb-4">{{ article.created_at }}</div>
+            <div class="fs-14 mb-4">{{ $filters.date(article.create_at) }}</div>
             <img :src="article.imageUrl" :alt="article.title" />
             <div v-html="article.content"></div>
             <div>
@@ -125,11 +125,6 @@ export default {
         .catch((err) => {
           console.log(err)
         })
-        .finally(()=>{
-          setTimeout(()=>{
-            this.isLoading = false
-          },1000)
-        })
     },
     getArticles(id){
       this.$http.get(`${VITE_URL}/api/${VITE_PATH}/articles`)
@@ -140,6 +135,11 @@ export default {
         })
         .catch((err) => {
           console.log(err)
+        })
+        .finally(()=>{
+          setTimeout(()=>{
+            this.isLoading = false
+          },1000)
         })
     }
   },

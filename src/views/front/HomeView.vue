@@ -56,11 +56,6 @@
         </div>
       </div>
     </section>
-    <section class="">
-      <div class="container">
-        
-      </div>
-    </section>
     <section class="index-about bg-secondary text-white">
       <div class="container px-3">
         <div class="row justify-content-between">
@@ -91,17 +86,46 @@
         </div>
       </div>
     </section>
+    <section class="py-40">
+      <h3 class="container mb-3">最新文章</h3>
+      <div class="container px-3">
+        <div class="row justify-content-center">
+          <div class="col-sm-10 col-lg-8">
+            <table class="table table-hover col-lg-5">
+              <tbody>
+                <tr v-for="article in articles" :key="article.id" class="border-bottom">
+                  <RouterLink :to="`/blog/${article.id}`" class="d-block">
+                    <td>
+                      <div class="d-none d-lg-block mb-1 fs-14 fw-thin">{{ $filters.date(article.create_at) }}</div>
+                    </td>
+                    <td class="px-3">
+                      <div class="mb-1 fs-14 fw-thin d-lg-none">{{ $filters.date(article.create_at) }}</div>                
+                      <h3 class="fs-4 fs-sm-3 text-primary">{{ article.title }}</h3>
+                      <p class="text-primary">
+                        {{ article.description }}
+                      </p>
+                    </td>
+                  </RouterLink>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 </template>
 
 <script>
 import LoaderComponent from '@/components/LoaderComponent.vue'
 import { RouterLink } from 'vue-router'
+const { VITE_URL, VITE_PATH } = import.meta.env
 
 export default {
   data(){
     return {
-      isLoading: false
+      isLoading: false,
+      articles:[]
     }
   },
   components: {
@@ -112,14 +136,25 @@ export default {
     scrollTo() {
       document.body.scrollTop = window.innerHeight;
       document.documentElement.scrollTop = window.innerHeight;
-    }
+    },
+    getArticles(){
+      this.$http.get(`${VITE_URL}/api/${VITE_PATH}/articles`)
+      .then((res) => {
+          this.articles = res.data.articles.sort((a,b)=> b.create_at - a.create_at).splice(0,3)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+        .finally(()=>{
+          setTimeout(()=>{
+            this.isLoading = false
+          },1000)
+        })
+      }
   },
   mounted(){
     this.isLoading = true
-    setTimeout(()=>{
-      this.isLoading = false
-    },1000)
-
+    this.getArticles()
   }
 }
 </script>
@@ -137,7 +172,6 @@ export default {
       animation: none;
     }
   }
-
   & span{
     transform: translate(0, 5px);
     animation: home-btn .8s linear infinite;
