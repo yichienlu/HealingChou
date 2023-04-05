@@ -192,12 +192,10 @@
 </template>
 
 <script>
-// import { RouterLink } from 'vue-router'
 import order_bg from '@/assets/images/tarot-stack.jpg'
 import banner_bg from '@/assets/images/meditation-banner.jpg'
 import LoaderComponent from '@/components/LoaderComponent.vue'
-// import { useForm } from 'vee-validate';
-// const { handleSubmit } = useForm();
+
 const { VITE_URL, VITE_PATH } = import.meta.env
 
 
@@ -343,7 +341,7 @@ export default {
         qty:1
       }
       this.$http.post(`${VITE_URL}/api/${VITE_PATH}/cart`, { data })
-      .then((res) => {
+      .then(() => {
         this.addOrder(resetForm)
       })
       .catch((err) => {
