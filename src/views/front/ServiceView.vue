@@ -9,7 +9,7 @@
       <div class="container pt-5 pb-5 position-relative">
         <h2>{{ service.title }}</h2>
         <div v-html="service.content"></div>
-        <div>收費：{{ service.price }} / {{ service.unit }}</div>
+        <div>收費：{{ $filters.currency(service.price) }} / {{ service.unit }}</div>
       </div>
     </section>
     <section class="healing_reserve bg-image" :style="{ backgroundImage: `url(${order_bg})` }">
@@ -131,22 +131,22 @@
               </div>
             </div>
             <div class="mb-3">
-              <label for="sessionTime" class="form-label text-white">時段</label>
+              <label for="sessionTime" class="form-label text-white">時段<span>*</span></label>
               <v-field id="sessionTime" name="時段" type="text" class="form-control " :class="{'is-invalid': errors['時段']}" placeholder="請在上方月曆點選時段" rules="required" v-model="this.selectedTime" :readonly="true"></v-field>
               <error-message name="時段" class="invalid-feedback"></error-message>
             </div>
             <div class="col-md-6 mb-3">
-              <label for="inputName" class="form-label text-white">姓名</label>
+              <label for="inputName" class="form-label text-white">姓名<span>*</span></label>
               <v-field id="inputName" name="姓名" type="text" class="form-control " :class="{ 'is-invalid': errors['姓名'] }" placeholder="請輸入姓名" rules="required" v-model="this.tempOrder.user.name"></v-field>
               <error-message name="姓名" class="invalid-feedback"></error-message>
             </div>
             <div class="col-md-6 mb-3">
-              <label for="inputTel" class="form-label text-white">手機號碼</label>
+              <label for="inputTel" class="form-label text-white">手機號碼<span>*</span></label>
               <v-field id="inputTel" name="電話" type="tel" class="form-control" :class="{ 'is-invalid': errors['電話'] }" placeholder="請輸入電話"  :rules="isPhone"  v-model="this.tempOrder.user.tel"></v-field>
               <error-message name="電話" class="invalid-feedback"></error-message>
             </div>              
             <div class="mb-3">
-              <label for="email" class="form-label text-white">email</label>
+              <label for="email" class="form-label text-white">email<span>*</span></label>
               <v-field id="email" name="email" type="email" class="form-control" :class="{ 'is-invalid': errors['email'] }" placeholder="請輸入 Email" rules="required|email" v-model="this.tempOrder.user.email"></v-field>
               <error-message name="email" class="invalid-feedback"></error-message>
             </div>

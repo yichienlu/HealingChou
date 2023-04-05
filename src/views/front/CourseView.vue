@@ -8,7 +8,7 @@
     <div class="container py-40 py-lg-80 position-relative">
       <h2>{{ course.title }}</h2>
       <div v-html="course.content"></div>
-      <div>收費：{{ service.price }} / {{ service.unit }}</div>
+      <div>收費：{{  $filters.currency(course.price) }} 元 / {{ course.unit }}</div>
     </div>
   </section>
   <section class="healing_reserve bg-image" :style="{ backgroundImage: `url(${order_bg})` }">

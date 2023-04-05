@@ -26,7 +26,7 @@
         <tr v-for="service in services" :key="service.id">
           <td>{{ service.title }}</td>
           <td>{{ service.description }}</td>
-          <td class="text-end">{{ service.price }}</td>
+          <td class="text-end">{{ $filters.currency(service.price) }}</td>
           <td>
             <span class="text-success" v-if="service.is_enabled == 1">啟用</span>
             <span v-else>未啟用</span>
@@ -73,7 +73,7 @@
         <tr v-for="course in courses" :key="course.id">
           <td>{{ course.title }}</td>
           <td>{{ course.description }}</td>
-          <td class="text-end">{{ course.price }}</td>
+          <td class="text-end">{{ $filters.currency(course.price) }}</td>
           <td>
             <span class="text-success" v-if="course.is_enabled == 1">啟用</span>
             <span v-else>未啟用</span>
