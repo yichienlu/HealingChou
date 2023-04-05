@@ -90,25 +90,29 @@
       <h3 class="container mb-3">最新文章</h3>
       <div class="container px-3">
         <div class="row justify-content-center">
-          <div class="col-sm-10 col-lg-8">
-            <table class="table table-hover col-lg-5">
-              <tbody>
-                <tr v-for="article in articles" :key="article.id" class="border-bottom">
-                  <RouterLink :to="`/blog/${article.id}`" class="d-block">
-                    <td>
-                      <div class="d-none d-lg-block mb-1 fs-14 fw-thin">{{ $filters.date(article.create_at) }}</div>
-                    </td>
-                    <td class="px-3">
-                      <div class="mb-1 fs-14 fw-thin d-lg-none">{{ $filters.date(article.create_at) }}</div>                
-                      <h3 class="fs-4 fs-sm-3 text-primary">{{ article.title }}</h3>
-                      <p class="text-primary">
-                        {{ article.description }}
-                      </p>
-                    </td>
-                  </RouterLink>
-                </tr>
-              </tbody>
-            </table>
+          <div class="col-sm-10 col-lg-8 px-3">
+            <ul class="list-unstyled mb-3">
+              <li v-for="article in articles" :key="article.id" class="border-bottom home-article p-3">
+                <RouterLink :to="`/blog/${article.id}`" class="row align-items-center">
+                  <div class="col-2 d-none d-lg-block mb-1 fs-14 fw-thin text-center">
+                    {{ $filters.date(article.create_at) }}
+                  </div>
+                  <div class="col-2 p-0">
+                    <img :src="article.imageUrl" alt="">
+                  </div>
+                  <div class="col-10 col-lg-8">
+                    <div class="mb-1 fs-14 fw-thin d-lg-none">{{ $filters.date(article.create_at) }}</div>                
+                    <div class="fs-4 fs-sm-3 text-primary">{{ article.title }}</div>
+                    <div class="text-primary">
+                      {{ article.description }}
+                    </div>                    
+                  </div>
+                </RouterLink>                
+              </li>
+            </ul>
+            <p class="text-end">
+              <RouterLink to="/blog">...more</RouterLink>
+            </p>
           </div>
         </div>
       </div>
@@ -186,4 +190,11 @@ export default {
     transform: translateY(10px);
   }
 }
+
+.home-article{
+  &:hover {
+    background-color: var(--bs-light);
+  }
+}
+// *{outline: 1px solid #AAA}
 </style>
