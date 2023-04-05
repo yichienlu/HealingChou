@@ -70,7 +70,6 @@ export default {
   },
   mounted() {
     this.isLoading = true
-
     this.$http.get(`${VITE_URL}/api/${VITE_PATH}/products?category=service`)
     .then((res) => {
       this.services = res.data.products

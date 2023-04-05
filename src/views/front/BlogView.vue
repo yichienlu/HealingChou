@@ -74,7 +74,6 @@ export default {
           },1000)
         })
     }
-
   },
   mounted(){
     this.isLoading = true

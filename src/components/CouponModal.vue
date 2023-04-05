@@ -13,12 +13,12 @@
           <div class="mb-3">
             <label for="title">標題</label>
             <input type="text" class="form-control" id="title" v-model="tempCoupon.title"
-                   placeholder="請輸入標題">
+                  placeholder="請輸入標題">
           </div>
           <div class="mb-3">
             <label for="coupon_code">優惠碼</label>
             <input type="text" class="form-control" id="coupon_code" v-model="tempCoupon.code"
-                   placeholder="請輸入優惠碼">
+                  placeholder="請輸入優惠碼">
           </div>
           <div class="mb-3">
             <label for="due_date">到期日</label>

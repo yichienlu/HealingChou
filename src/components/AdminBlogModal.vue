@@ -150,19 +150,14 @@
   
   <script>
   import tinymce from 'tinymce/tinymce.js'
-  // 外觀
   import 'tinymce/skins/ui/oxide/skin.css'
   import 'tinymce/themes/silver'
-  // Icon
   import 'tinymce/icons/default'
-  // 用到的外掛
   import 'tinymce/plugins/emoticons';
   import 'tinymce/plugins/emoticons/js/emojis.js';
   import 'tinymce/plugins/table';
   import 'tinymce/plugins/quickbars';
-  // 語言包
   import 'tinymce-i18n/langs5/zh_TW.js'
-  // TinyMCE-Vue
   import Editor from '@tinymce/tinymce-vue'
   
   const { VITE_URL, VITE_PATH } = import.meta.env
@@ -205,7 +200,6 @@
           ' bold italic underline strikethrough | fontsizeselect | forecolor backcolor | alignleft aligncenter alignright alignjustify|bullist numlist |outdent indent blockquote | undo redo | axupimgs | removeformat | emoticons |table',
       },
     },
-  
     watch: {
       article(){
         this.tempArticle = this.article;
@@ -215,7 +209,6 @@
       create_at() {
         this.tempArticle.create_at = Math.floor(new Date(this.create_at) / 1000);
       },
-  
     },
     methods:{
       uploadImage(){

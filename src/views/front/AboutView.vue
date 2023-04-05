@@ -132,7 +132,6 @@
 </template>
 
 <script>
-// import { RouterLink } from 'vue-router'
 import about_bg from '@/assets/images/index_theta.jpg'
 import LoaderComponent from '@/components/LoaderComponent.vue'
 
@@ -147,12 +146,10 @@ export default {
     LoaderComponent
   },
   mounted(){
-    // loader
     this.isLoading = true
     setTimeout(()=>{
       this.isLoading = false
     },1000)
-
   }
 }
 </script>

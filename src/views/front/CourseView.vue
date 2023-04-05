@@ -1,6 +1,6 @@
 <template>
-<LoaderComponent :class="{'d-none': !isLoading}" class="loader" />  
-<div class="course_Theta position-relative">
+  <LoaderComponent :class="{'d-none': !isLoading}" class="loader" />  
+  <div class="course_Theta position-relative">
     <h1 class="text-white text-center fs-1 pt-40 pt-lg-80 pb-40 pb-lg-80 lh-1 mb-0 bg-image" :style="{ backgroundImage: `url(${banner_bg})` }" >
       療癒課程 <br>
     </h1>
@@ -38,12 +38,10 @@
       </div>
     </div>
   </section>
-
 </div>
 </template>
 
 <script>
-// import { RouterLink } from 'vue-router'
 import order_bg from '@/assets/images/tarot-stack.jpg'
 import banner_bg from '@/assets/images/banner-tarot-05.jpg'
 import LoaderComponent from '@/components/LoaderComponent.vue'

@@ -1,12 +1,8 @@
 <template>
   <div class="position-relative">
-    <!-- back to top -->
     <a href="#" @click.prevent="this.topFunction" id="backToTop" class="back-to-top">
-      <span class="material-symbols-outlined">
-        arrow_upward
-        </span>
+      <span class="material-symbols-outlined">arrow_upward</span>
     </a>   
-
     <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom border-primary sticky-top">
       <div class="container">
         <RouterLink to="/" class="navbar-brand text-primary d-flex align-items-center">
@@ -34,9 +30,7 @@
         </div>
       </div>
     </nav>
-
     <RouterView />
-
     <section class="layout-banner">
       <p class="container text-center text-md-end text-primary" >
         當你在生活、感情、工作路上迷惘， <br><br>
@@ -54,21 +48,17 @@
       <div class="container px-3">
         <div class="row">
           <div class="col-md-6 text-center align-self-center">
-              <img src="../assets/images/logo-primary.svg" alt="Chou" class="d-inline-block mx-auto" width="120" 
-              >
+              <img src="../assets/images/logo-primary.svg" alt="Chou" class="d-inline-block mx-auto" width="120">
               <h1 class="fs-5 lh-base fw-500 mb-2" 
               >舟舟療心室</h1>
             <div class="d-flex justify-content-center fs-2">
-              <a href="https://www.facebook.com/healingchou" target="_blank" 
-              >
+              <a href="https://www.facebook.com/healingchou" target="_blank" >
                 <i class="fa-brands fa-square-facebook"></i>
               </a>
-              <a href="https://www.instagram.com/chouhealer/" target="_blank" class="mx-4"  
-              >
+              <a href="https://www.instagram.com/chouhealer/" target="_blank" class="mx-4"  >
                 <i class="fa-brands fa-instagram"></i>
               </a>
-              <a href="https://line.me/R/ti/p/%40655bistu" target="_blank"  
-              >
+              <a href="https://line.me/R/ti/p/%40655bistu" target="_blank">
                 <i class="fa-brands fa-line"></i>
               </a>
             </div>
@@ -93,7 +83,6 @@
 
 <script>
 import { RouterLink, RouterView } from 'vue-router'
-// const { VITE_URL, VITE_PATH } = import.meta.env
 import { Collapse } from 'bootstrap'
 
 export default {
@@ -123,16 +112,12 @@ export default {
     this.navbarToggle = new Collapse('#navbarMenu',{
       toggle: false
     })
-
-    // loader
     this.isLoading = true
     setTimeout(()=>{
       this.isLoading = false
     },1000)
 
-    // 回頂部
     window.addEventListener('scroll', this.scrollFunction)
-
   }
 }
 </script>

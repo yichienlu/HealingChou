@@ -1,7 +1,3 @@
-// * {
-//   outline: 1px solid #AAA
-// }
-
 body {
   overflow-x: hidden;
 }
@@ -18,7 +14,6 @@ input::-webkit-inner-spin-button {
 //   -moz-appearance: textfield;
 // }
 
-
 .bg-image {
   background-size: cover;
   background-position: center;
@@ -28,9 +23,7 @@ input::-webkit-inner-spin-button {
 }
 img {
   max-width: 100%;
-  // height: auto;
 }
-
 
 a.link-light {
   color: $white;

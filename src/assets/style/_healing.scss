@@ -27,15 +27,14 @@
       background-color: #FFFC;
     }
   }
-
 }
 
 
- .healing-feedback-item {
+.healing-feedback-item {
   border: 1px solid $secondary;
   border-radius: 8px;
   padding: 16px;
- }
+}
 
 .healing_Theta {
   .healing-banner {
@@ -70,7 +69,6 @@
   }
 
 }
-
 
 .healing_reserve {
   input, textarea {
@@ -116,6 +114,5 @@
   }
   @include xxl {
     width: 400px;
-
   }
 }

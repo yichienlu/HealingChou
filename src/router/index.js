@@ -30,7 +30,6 @@ const router = createRouter({
           } 
         },
         {
-          // path: 'service',
           path: 'service/:id',
           component: () => import('../views/front/ServiceView.vue'),
           meta: {
@@ -45,7 +44,6 @@ const router = createRouter({
           } 
         },
         {
-          // path: 'course',
           path: 'course/:id',
           component: () => import('../views/front/CourseView.vue'),
           meta: {
@@ -60,7 +58,6 @@ const router = createRouter({
           } 
         },
         {
-          // path: 'blog_article',
           path: 'blog/:id',
           component: () => import('../views/front/BlogArticleView.vue'),
           meta: {
@@ -120,7 +117,6 @@ const router = createRouter({
   },
 })
 
-// router 命名
 router.beforeEach((to, from, next) => {
   window.document.title = to.meta.title;
   next()

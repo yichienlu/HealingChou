@@ -329,7 +329,6 @@
 </div>
 </template>
 <script>
-// import { RouterLink } from 'vue-router'c
 import LoaderComponent from '@/components/LoaderComponent.vue'
 
 const { VITE_URL, VITE_PATH } = import.meta.env
@@ -382,11 +381,9 @@ export default {
       services:[],
       closed:[],
       total_pages: 0
-
     }
   },
   components: {
-    // RouterLink
     LoaderComponent
   },
   methods: {
@@ -401,15 +398,15 @@ export default {
         })
     },
     async processBooked(){
-          for(let i=1; i<= this.total_pages; i++){
-            await this.getBookedPages(i)
-          }
-          this.orders = this.orders.sort(
-            (a, b) => a.user.address - b.user.address
-          )
-          setTimeout(() => {
-            this.isLoading = false            
-          }, 1000);
+      for(let i=1; i<= this.total_pages; i++){
+        await this.getBookedPages(i)
+      }
+      this.orders = this.orders.sort(
+        (a, b) => a.user.address - b.user.address
+      )
+      setTimeout(() => {
+        this.isLoading = false            
+      }, 1000);
     },
     async getBookedPages(page) {
       return new Promise((resolve)=>{

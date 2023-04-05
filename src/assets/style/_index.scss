@@ -1,5 +1,4 @@
 .index-banner {
-  // height: 682px;
   height: 100vh;
   background-image: url(../images/index_banner.jpg);
   background-size: cover;
@@ -23,7 +22,6 @@
       background-color: #0000;
       transition: 0.3s;
     }
-
     &:hover .index-theta-screen {
       background-color: #0003;
     }

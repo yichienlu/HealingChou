@@ -22,11 +22,6 @@
 
 <script>
   export default {
-    data(){
-      return {
-        
-      }
-    },
     props:['pages'],
     methods: {
       changePage (page) {

@@ -198,7 +198,6 @@ import LoaderComponent from '@/components/LoaderComponent.vue'
 
 const { VITE_URL, VITE_PATH } = import.meta.env
 
-
 export default {
   data(){
     return {
@@ -361,7 +360,6 @@ export default {
           `,
           footer: '到時見囉！'    
         })
-        
         resetForm()
         this.$router.push('/services')
       })
@@ -408,7 +406,6 @@ export default {
       return data
     },
     bookedTime() {
-      // 已經被預定的時間
       const time = []
       for (const item of this.orders) {
         time.push(item.user.address * 1)
@@ -448,11 +445,9 @@ export default {
 .month i {
   cursor: pointer;
 }
-
 .day {
   font-size: 0.3rem;
   width: calc(100% / 7);
-
 }
 .day button, .day .session-btn {
   font-size: 0.3rem;
@@ -465,7 +460,6 @@ export default {
 .day .btn-check:checked+.session-btn {
   background-color: var(--bs-primary);
 }
-
 .day .booked {
   cursor: pointer;
   text-decoration: underline;
@@ -501,7 +495,6 @@ export default {
   color: #000000;
   background-color: #ece4d888;
 }
-
 .sunday {
   color:#A00
 }
@@ -511,9 +504,7 @@ export default {
 .other {
   color: #bbb;
   background-color: #ddd8;
-
 }
-
 .service-form {
   .form-control.is-invalid{
     border-color: #F55
@@ -531,7 +522,6 @@ export default {
     background-color: #FFF8;
     color: var(--bs-primary)
   }
-
   input:-webkit-autofill{
     border: 1px solid white;
     -webkit-text-fill-color: white;
@@ -544,7 +534,6 @@ export default {
     -webkit-box-shadow: 0 0 0px 1000px var(--bs-secondary) inset;
     transition: background-color 5000s ease-in-out 0s;
   }
-
 }
 </style>
 

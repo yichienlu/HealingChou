@@ -13,7 +13,6 @@
         </div>
         <div class="modal-body">
           <div class="row">
-
             <div class="col-lg-8 mb-4">
               <div class="row">
                 <div class="mb-3 col-md-6">
@@ -59,7 +58,6 @@
                   <input id="imageUrl" v-model="tempCourse.imageUrl" type="text" class="form-control form-control-sm mb-2" placeholder="請輸入圖片連結">
                   <form enctype="multipart/form-data"  method="post">
                     <input type="file" name="file-to-upload" id="imageUpload" ref="file" placeholder="請選擇圖片" @change="uploadImage()" class="form-control">
-                    <!-- <input type="submit" value="上傳"> -->
                   </form>  
                 </div>
                 <img class="img-fluid" :src="tempCourse.imageUrl" alt="列表圖片">
@@ -84,7 +82,6 @@
                   新增次要圖片
                 </button>
               </div>
-
             </div>
             <div class="col">
                 <div class="form-check">
@@ -98,7 +95,6 @@
                   <label class="form-check-label" for="is_enabled">是否啟用</label>
                 </div>
               </div>
-
           </div>
         </div>
         <div class="modal-footer">
@@ -109,7 +105,6 @@
             確認編輯
           </button>
           <button type="submit" class="btn btn-primary" v-else @click="addCourse(tempCourse, adminCourseModal)">
-          <!-- <button type="button" class="btn btn-primary" v-else @click="addCourse(tempCourse, adminCourseModal)"> -->
             確認新增
           </button>
         </div>
@@ -119,17 +114,13 @@
 </template>
 
 <script>
-
 import adminCoursesStore from '@/stores/adminCoursesStore.js'
 import { mapState, mapActions } from "pinia";
 
 import tinymce from 'tinymce/tinymce.js'
-// 外觀
 import 'tinymce/skins/ui/oxide/skin.css'
 import 'tinymce/themes/silver'
-// Icon
 import 'tinymce/icons/default'
-// 用到的外掛
 import 'tinymce/plugins/emoticons';
 import 'tinymce/plugins/emoticons/js/emojis.js';
 import 'tinymce/plugins/table';
@@ -137,13 +128,8 @@ import 'tinymce/plugins/lists';
 import 'tinymce/plugins/advlist';
 import 'tinymce/plugins/quickbars';
 import 'tinymce/plugins/image';
-// import 'tinymce/plugins/editimage';
-// 語言包
 import 'tinymce-i18n/langs5/zh_TW.js'
-// TinyMCE-Vue
 import Editor from '@tinymce/tinymce-vue'
-
-// https://www.tiny.cloud/docs/tinymce/6/image/
 
 export default {
   data(){
@@ -190,5 +176,4 @@ export default {
     tinymce.init({})
   }
 }
-
 </script>

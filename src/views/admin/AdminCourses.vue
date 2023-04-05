@@ -93,8 +93,7 @@
     </table>
     <pagination :pages="course_pagination"  @change-page="getAdminCourses"></pagination>
   </div>
-
-
+  
   <div id="adminCourseModal" ref="adminCourseModal" class="modal fade" tabindex="-1" aria-labelledby="courseModalLabel" aria-hidden="true">
     <admin-course-modal :admin-course-modal="adminCourseModal" ></admin-course-modal>
   </div>
