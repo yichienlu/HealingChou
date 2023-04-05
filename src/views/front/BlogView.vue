@@ -22,8 +22,7 @@
                   <h3 class="">{{ article.title }}</h3>
                   <div class="d-none d-sm-block">
                     <div v-html="article.description"></div>
-                  </div>
-                  <div class="text-end d-none d-md-block mt-auto">...more</div>                
+                  </div>             
                 </div>
               </div>
             </div>
