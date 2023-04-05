@@ -9,13 +9,11 @@ export default defineStore('adminCoursesStore', {
     services:[],
     service_pagination: {},
     course_pagination: {},
-    
   }),
   actions: {
     getAdminServices(page = 1){
       axios.get(`${VITE_URL}/api/${VITE_PATH}/admin/products?page=${page}&category=service`)
       .then((res)=>{
-        console.log(res.data.products)
         this.services = res.data.products
         this.service_pagination = res.data.pagination
       })
@@ -26,8 +24,6 @@ export default defineStore('adminCoursesStore', {
     getAdminCourses(page = 1){
       axios.get(`${VITE_URL}/api/${VITE_PATH}/admin/products?page=${page}&category=course`)
       .then((res)=>{
-        console.log(res.data.products)
-
         this.courses = res.data.products
         this.course_pagination = res.data.pagination
       })
