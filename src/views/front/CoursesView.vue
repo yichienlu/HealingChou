@@ -13,7 +13,7 @@
             <div class="position-absolute top-0 bottom-0 start-0 end-0 healing-item-screen"></div>
             <h2 class="text-center mb-0 pt-120">
               <span class="material-symbols-outlined fs-48">
-                {{ course.unit }}</span> <br>
+                {{ course.icon }}</span> <br>
               {{ course.title }}
             </h2>
             <div class=" mb-0 p-4 pt-3 mt-auto flex healing-item-description">
@@ -27,14 +27,14 @@
       <div class="container px-3">
         <h3 class="py-4">預約流程</h3>
         <div class="row justify-content-center justify-content-lg-between ">
-          <div class="col-md-3 mb-3 mb-md-0 p-3 border border-2 border-primary rounded-4  d-flex flex-column justify-content-center align-items-center">
+          <div class="col-md-3 mb-3 mb-md-0 p-3 border border-4 border-primary rounded-12 shadow bg-white d-flex flex-column justify-content-center align-items-center">
             <div class="text-center">選擇想要的課程</div>
           </div>
           <div class="col-1 mb-3 mb-md-0 d-flex flex-column justify-content-center align-items-center">
             <span class="d-none d-md-block  material-symbols-outlined fs-48">arrow_forward</span>
             <span class="d-md-none  material-symbols-outlined fs-48">arrow_downward</span>
           </div>
-          <div class="col-md-3 mb-3 mb-md-0 p-3 border border-2 border-primary rounded-4  d-flex flex-column justify-content-center align-items-center">
+          <div class="col-md-3 mb-3 mb-md-0 p-3 border border-4 border-primary rounded-12 shadow bg-white d-flex flex-column justify-content-center align-items-center">
             <div class="text-center">
               與舟舟聯繫<br>
               <span class=" text-nowrap">預約時段及確認價格</span>
@@ -44,7 +44,7 @@
             <span class="d-none d-md-block  material-symbols-outlined fs-48">arrow_forward</span>
             <span class="d-md-none  material-symbols-outlined fs-48">arrow_downward</span>
           </div>
-          <div class="col-md-4 p-3 border border-2 border-primary rounded-4 d-flex flex-column justify-content-center align-items-center">
+          <div class="col-md-4 p-3 border border-4 border-primary rounded-12 shadow bg-white d-flex flex-column justify-content-center align-items-center">
             <p>匯款至</p>
             <small class="d-block mx-auto">
                 銀行：台新銀行 812 敦南分行 <br>

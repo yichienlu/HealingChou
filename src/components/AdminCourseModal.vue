@@ -23,8 +23,8 @@
                 </div>
                 <div class="mb-3 col-md-6">
                   <label for="price" class="form-label">圖示</label> (<a href="https://fonts.google.com/icons?icon.platform=android" target="_blank" class="text-decoration-underline">圖示庫</a>)
-                  <v-field id="unit" type="text" name="圖示" class="form-control" :class="{ 'is-invalid': errors['圖示'] }" placeholder="請輸入圖示名稱" v-model="tempCourse.unit" rules="required"></v-field>
-                  <span class="material-symbols-outlined ">{{ tempCourse.unit }}</span>
+                  <v-field id="icon" type="text" name="圖示" class="form-control" :class="{ 'is-invalid': errors['圖示'] }" placeholder="請輸入圖示名稱" v-model="tempCourse.icon" rules="required"></v-field>
+                  <span class="material-symbols-outlined ">{{ tempCourse.icon }}</span>
                   <error-message name="圖示" class="invalid-feedback"></error-message>
                 </div>
               </div>
@@ -34,12 +34,18 @@
                   <v-field id="price" type="number" min="0" name="價格" class="form-control" :class="{ 'is-invalid': errors['價格'] }" placeholder="請輸入價格" v-model="tempCourse.price" rules="required"></v-field>
                   <error-message name="價格" class="invalid-feedback"></error-message>
                 </div>
+                <div class="mb-3 col-md-6">
+                  <label for="price" class="form-label">價格單位</label>
+                  <v-field id="unit" type="text" name="價格單位" class="form-control" :class="{ 'is-invalid': errors['價格單位'] }" placeholder="請輸入價格單位" v-model="tempCourse.unit" rules="required"></v-field>
+                  <error-message name="圖示" class="invalid-feedback"></error-message>
+                </div>
               </div>
               <hr>
               <div class="mb-3">
                 <label for="description" class="form-label">簡述</label>
                 <editor name="簡述" v-model="tempCourse.description" :class="{ 'is-invalid': errors['簡述'] }" :init="init" rules="required"></editor>
-                <error-message name="簡述" class="invalid-feedback"></error-message> // FIXME: TinyMCE 驗證
+                <error-message name="簡述" class="invalid-feedback"></error-message> 
+                <!-- FIXME: TinyMCE 驗證 -->
               </div>
               <div class="mb-3">
                 <label for="content" class="form-label">說明內容</label>

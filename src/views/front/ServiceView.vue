@@ -9,7 +9,7 @@
       <div class="container pt-5 pb-5 position-relative">
         <h2>{{ service.title }}</h2>
         <div v-html="service.content"></div>
-        <div>收費：{{ service.price }} / 1-1.5小時</div>
+        <div>收費：{{ service.price }} / {{ service.unit }}</div>
       </div>
     </section>
     <section class="healing_reserve bg-image" :style="{ backgroundImage: `url(${order_bg})` }">
@@ -154,7 +154,7 @@
               <label for="formNote" class="form-label text-white">備註 (Line ID、帳號末5碼)</label>
               <textarea class="form-control" id="formNote" rows="3" required v-model="this.tempOrder.message"></textarea>
               <div id="formNoteHelp" class="form-text text-light">
-                <div class="fw-bold">收費： {{ service.price }} 元 / 1-1.5小時</div>
+                <div class="fw-bold">收費： {{ service.price }} 元 / {{ service.unit }}</div>
                 <div>
                   匯款資訊：台新銀行 812   敦南分行 <br>
                   帳號：28881004008118   <br>
@@ -517,35 +517,38 @@ export default {
   background-color: #ddd8;
 
 }
-.form-control.is-invalid{
-  border-color: #F55
-}
-.invalid-feedback{
-  color: #F55
-}
-#inputName, #sessionTime, #inputTel, #email, #formNote {
-  color: white;
-}
-#inputName::placeholder, #sessionTime::placeholder, #inputTel::placeholder, #email::placeholder, #formNote:focus{
-  color: var(--bs-light)
-}
-#inputName:focus, #sessionTime:focus, #inputTel:focus, #email:focus, #formNote:focus{
-  background-color: #FFF8;
-  color: var(--bs-primary)
-}
 
-input:-webkit-autofill{
-  border: 1px solid white;
-  -webkit-text-fill-color: white;
-  -webkit-box-shadow: 0 0 0px 1000px var(--bs-primary) inset;
-  transition: background-color 5000s ease-in-out 0s;
-}
-input:-webkit-autofill:focus{
-  border: 1px solid white;
-  -webkit-text-fill-color:  var(--bs-light);
-  -webkit-box-shadow: 0 0 0px 1000px var(--bs-secondary) inset;
-  transition: background-color 5000s ease-in-out 0s;
-}
+.service-form {
+  .form-control.is-invalid{
+    border-color: #F55
+  }
+  .invalid-feedback{
+    color: #F55
+  }
+  #inputName, #sessionTime, #inputTel, #email, #formNote {
+    color: white;
+  }
+  #inputName::placeholder, #sessionTime::placeholder, #inputTel::placeholder, #email::placeholder, #formNote:focus{
+    color: var(--bs-light)
+  }
+  #inputName:focus, #sessionTime:focus, #inputTel:focus, #email:focus, #formNote:focus{
+    background-color: #FFF8;
+    color: var(--bs-primary)
+  }
 
+  input:-webkit-autofill{
+    border: 1px solid white;
+    -webkit-text-fill-color: white;
+    -webkit-box-shadow: 0 0 0px 1000px var(--bs-primary) inset;
+    transition: background-color 5000s ease-in-out 0s;
+  }
+  input:-webkit-autofill:focus{
+    border: 1px solid white;
+    -webkit-text-fill-color:  var(--bs-light);
+    -webkit-box-shadow: 0 0 0px 1000px var(--bs-secondary) inset;
+    transition: background-color 5000s ease-in-out 0s;
+  }
+
+}
 </style>
 

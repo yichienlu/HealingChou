@@ -15,15 +15,24 @@ export default defineStore('adminCoursesStore', {
     getAdminServices(page = 1){
       axios.get(`${VITE_URL}/api/${VITE_PATH}/admin/products?page=${page}&category=service`)
       .then((res)=>{
+        console.log(res.data.products)
         this.services = res.data.products
         this.service_pagination = res.data.pagination
+      })
+      .catch((err)=>{
+        alert(err.response.data.message)
       })
     },
     getAdminCourses(page = 1){
       axios.get(`${VITE_URL}/api/${VITE_PATH}/admin/products?page=${page}&category=course`)
       .then((res)=>{
+        console.log(res.data.products)
+
         this.courses = res.data.products
         this.course_pagination = res.data.pagination
+      })
+      .catch((err)=>{
+        alert(err.response.data.message)
       })
     },
     addCourse(tempCourse, modal){
@@ -40,17 +49,17 @@ export default defineStore('adminCoursesStore', {
         }
       })
       .catch((err)=>{
-        // alert(err.response.data.message)
-        console.log(err.response.data)
+        alert(err.response.data.message)
       })
     },
     editCourse(tempCourse, modal){
+      tempCourse.price = parseInt(tempCourse.price)
       axios.put(`${VITE_URL}/api/${VITE_PATH}/admin/product/${tempCourse.id}`,{"data":tempCourse})
       .then((res)=>{
-        // console.log(res.data)
         this.clearInputs()
         modal.hide();
         alert(res.data.message);
+
         this.tempCourse = {imagesUrl:['']}
         if(tempCourse.category=='service'){
           this.getAdminServices()
@@ -59,7 +68,7 @@ export default defineStore('adminCoursesStore', {
         }
       })
       .catch((err)=>{
-        console.dir(err)
+        alert(err.response.data.message)
       })
     },
     deleteCourse(category, id){
