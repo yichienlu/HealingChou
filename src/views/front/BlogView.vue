@@ -62,7 +62,6 @@ export default {
     getArticles(page=1) {
       this.$http.get(`${VITE_URL}/api/${VITE_PATH}/articles?page=${page}`)
         .then((res) => {
-          console.log(res.data)
           this.articles = res.data.articles.sort((a,b)=>b.create_at - a.create_at)
           this.pagination = res.data.pagination
         })

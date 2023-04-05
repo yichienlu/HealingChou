@@ -4,26 +4,6 @@
     <h1 class="text-white bg-image text-center fs-1 py-40 py-lg-80 lh-1 mb-0" :style="{ backgroundImage: `url(${banner_bg})` }">
       舟舟小療
     </h1>
-    <section class="bg-primary blog-navbar text-center d-none">
-      <div class="container">
-        <div class="row justify-content-center">
-          <ul class="nav col-lg-9">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">全部文章</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">靈性知識庫</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">靈性生活分享</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">水手回饋</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </section>
     <section class="py-40 py-lg-80">
       <div class="container">
         <div class="row justify-content-center">
@@ -40,7 +20,7 @@
             </nav>
             <h2 class="mt-4">{{ article.title }}</h2>
             <div class="fs-14 mb-4">{{ article.created_at }}</div>
-            <img :src="article.imageUrl" :alt="item.title" />
+            <img :src="article.imageUrl" :alt="article.title" />
             <div v-html="article.content"></div>
             <div>
               <span class="badge rounded-pill bg-secondary fw-thin">{{ article.author }}</span>
@@ -139,7 +119,6 @@ export default {
       this.$http.get(`${VITE_URL}/api/${VITE_PATH}/article/${id}`)
         .then((res) => {
           this.isLoading = true
-          // console.log(res.data)
           this.article = res.data.article
           this.getArticles(this.article.id)
         })
