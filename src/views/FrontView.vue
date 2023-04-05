@@ -44,11 +44,11 @@
         學會認識自己、更愛自己以及療癒自己。
       </p>
     </section>
-    <section class="bg-primary py-4">
-      <h3 class="container px-3 text-center text-white">
-        <div>想獲得更多希塔療癒、塔羅占卜的訊息？</div>
-        <div>來與舟舟聊療吧！</div>
-      </h3>
+    <section class=" py-4">
+      <h4 class="container px-3 text-center text-primary">
+        <div class="mb-3">想更了解自己？想解決各種問題？</div>
+        <div>點擊下方連結，與舟舟聊療吧！</div>
+      </h4>
     </section>
     <section class="section-contact py-5">
       <div class="container px-3">
