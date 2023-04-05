@@ -211,8 +211,6 @@
         this.tempArticle = this.article;
         var date = new Date(this.tempArticle.create_at*1000)
         this.create_at = `${date.getFullYear()}-${ date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1}-${date.getDate() < 10 ? '0'+(date.getDate()) : date.getDate()}` ;
-        // this.create_at  = date.toISOString().split('T')[0]
-        // console.log(this.create_at)
       },
       create_at() {
         this.tempArticle.create_at = Math.floor(new Date(this.create_at) / 1000);

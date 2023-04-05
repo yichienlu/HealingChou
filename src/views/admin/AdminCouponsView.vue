@@ -75,7 +75,6 @@
      getAdminCoupons(page=1){
        this.$http.get(`${VITE_URL}/api/${VITE_PATH}/admin/coupons/?page=${page}`)
          .then((res) => {
-           // console.log(res)
            this.coupons = res.data.coupons
            this.pagination = res.data.pagination
          })

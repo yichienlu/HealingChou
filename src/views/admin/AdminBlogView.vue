@@ -77,7 +77,6 @@ export default {
     getAdminArticles(page=1){
       this.$http.get(`${VITE_URL}/api/${VITE_PATH}/admin/articles?page=${page}`)
         .then((res) => {
-          // console.log(res.data)
           this.articles = res.data.articles
           this.pagination = res.data.pagination
         })

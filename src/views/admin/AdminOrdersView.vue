@@ -410,7 +410,6 @@ export default {
           setTimeout(() => {
             this.isLoading = false            
           }, 1000);
-          // console.log(this.orders)
     },
     async getBookedPages(page) {
       return new Promise((resolve)=>{
@@ -431,7 +430,6 @@ export default {
 
     },
     selectTempOrder(timestamp,order) {
-      // console.log(order)
       let day
       switch(new Date(timestamp).getDay()){
         case 1: day='(一)'; break;
@@ -501,10 +499,8 @@ export default {
         product_id: this.tempOrder.product.id,
         qty: 1
       }
-      // console.log({ data })
       this.$http.post(`${VITE_URL}/api/${VITE_PATH}/cart`, { data })
       .then(() => {
-        // console.log(res.data)
         this.addOrder()
       })
       .catch((err) => {
@@ -512,8 +508,6 @@ export default {
       })
     },
     addOrder(){
-      // console.log(this.tempOrder)
-      // 送出訂單
       const data = {
         user:{
           name: this.tempOrder.name,
@@ -523,10 +517,8 @@ export default {
         },
         message:this.tempOrder.message
       }
-      // console.log({ data })
       this.$http.post(`${VITE_URL}/api/${VITE_PATH}/order`, { data })
       .then(() => {
-        // console.log(res.data)
         alert("已成功預約")
         this.getBooked()
       })
@@ -541,7 +533,6 @@ export default {
       if(window.confirm("確定要刪除?")){
         this.$http.delete(`${VITE_URL}/api/${VITE_PATH}/admin/order/${id}`)
         .then(() => {
-          // console.log(res.data)
           alert("預約已刪除")
           this.isLoading = true
           this.getBooked()

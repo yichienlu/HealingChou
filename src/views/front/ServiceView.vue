@@ -247,7 +247,6 @@ export default {
     }
     },
   components: {
-    // RouterLink
     LoaderComponent
   },
   methods: {
@@ -255,7 +254,6 @@ export default {
       const { id } = this.$route.params
       this.$http.get(`${VITE_URL}/api/${VITE_PATH}/product/${id}`)
       .then((res) => {
-        // console.log(res.data.product)
         this.service = res.data.product
       })
       .catch((err) => {
@@ -314,7 +312,6 @@ export default {
       this.calendar.year += fix
     },
     adjustMonth(fix) {
-      // this.calendar.month += fix 範圍
       let month = this.calendar.month + fix
       if (month > 11) {
         this.adjustYear(1)
@@ -366,7 +363,6 @@ export default {
         })
         
         resetForm()
-        // this.getBooked()
         this.$router.push('/services')
       })
       .catch((err) => {

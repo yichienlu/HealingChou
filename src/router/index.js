@@ -115,7 +115,7 @@ const router = createRouter({
       component: () => import('../views/ErrorView.vue')
     }
   ],
-  scrollBehavior(to, from, savedPosition) {
+  scrollBehavior() {
     return { top: 0 }
   },
 })

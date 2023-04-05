@@ -67,7 +67,6 @@ export default {
       const { id } = this.$route.params
       this.$http.get(`${VITE_URL}/api/${VITE_PATH}/product/${id}`)
       .then((res) => {
-        // console.log(res.data.product)
         this.course = res.data.product
       })
       .catch((err) => {

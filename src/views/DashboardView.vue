@@ -41,11 +41,9 @@ export default {
       this.$http.defaults.headers.common.Authorization = token
       this.$http.post(`${VITE_URL}/api/user/check`)
         .then(() => {
-          // console.log(res)
           this.isLogin = true
         })
-        .catch((err) => {
-          console.log(err)
+        .catch(() => {
           this.$router.push('/login')
         })
     }

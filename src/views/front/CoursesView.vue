@@ -81,7 +81,6 @@ export default {
     getCourses(){
       this.$http.get(`${VITE_URL}/api/${VITE_PATH}/products?category=course`)
       .then((res) => {
-        // console.log(res.data.products)
         this.courses = res.data.products
       })
       .catch((err) => {
