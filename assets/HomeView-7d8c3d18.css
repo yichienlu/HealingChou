@@ -1,0 +1,1 @@
+.home-btn{transition:.3s;padding-top:0;padding-bottom:40px}.home-btn:hover{padding-bottom:0;padding-top:40px}.home-btn:hover span{animation:none}.home-btn span{transform:translateY(5px);animation:home-btn .8s linear infinite}@keyframes home-btn{0%{transform:translateY(5px)}50%{transform:translateY(10px)}}.home-article:hover{background-color:var(--bs-light)}
