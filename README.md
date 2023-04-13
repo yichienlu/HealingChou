@@ -1,39 +1,24 @@
-# vite-project
+# 舟舟療心室 HealingChou
 
-This template should help get you started developing with Vue 3 in Vite.
+希塔療癒、塔羅占卜工作室
 
-## Recommended IDE Setup
+<hr />
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+## 簡介
 
-## Customize configuration
+## 使用技術
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+## UX 開發流程
 
-## Project Setup
+### User Story 使用者需求
 
-```sh
-npm install
-```
+### Function Map 頁面功能架構
 
-### Compile and Hot-Reload for Development
+### Wireframe 線稿圖
 
-```sh
-npm run dev
-```
+### Mockup 視覺設計稿
 
-### Compile and Minify for Production
 
-```sh
-npm run build
-```
 
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
-
-## 部署至 Github
-在 vite.config.js 修改儲存庫名稱
-用 Git Bash 執行 sh deploy.sh
+## 聲明
+本作品所有內容、圖片皆為個人前端開發練習使用，不做任何商業用途。
