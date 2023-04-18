@@ -9,9 +9,8 @@
 - Pinia
 - Javascript
 - Bootstrap 5 / SCSS
+- Swiper
 
-### 套件
-- 
 <hr />
 
 ## UX 開發流程
