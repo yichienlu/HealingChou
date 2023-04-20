@@ -23,16 +23,16 @@
             <div class=" mb-3">
               <label for="inputTime" class="form-label text-white">選擇療癒時間</label>
               <div class="calendar text-center pt-3">
-                <div class="month">
+                <div class="month d-flex justify-content-between align-items-center text-center px-3">
                   <button type="button" class="btn btn-outline-primary prev" @click="adjustMonth(-1)">
-                    <i class="fas fa-angle-left"></i>
+                    <i class="fas fa-angle-left pointer"></i>
                   </button>
                   <div class="date">
                     <h1>{{ calendar.year }}</h1>
                     <h2>{{ months[calendar.month] }}</h2>
                   </div>
                   <div class="btn btn-outline-primary next" @click="adjustMonth(1)">
-                    <i class="fas fa-angle-right"></i>
+                    <i class="fas fa-angle-right pointer"></i>
                   </div>
                 </div>
                 <div class="weekDay  d-flex">
@@ -232,7 +232,6 @@ export default {
     },
     getBooked(){
       this.isLoading = true
-
       this.$http.get(`${VITE_URL}/api/${VITE_PATH}/orders`)
         .then((res) => {
           this.total_pages = res.data.pagination.total_pages
@@ -405,17 +404,7 @@ export default {
 .calendar{
   background-color: #fff5;
 }
-.month {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 2rem;
-  text-align: center;
 
-}
-.month i {
-  cursor: pointer;
-}
 .day {
   font-size: 0.3rem;
   width: calc(100% / 7);
@@ -430,18 +419,6 @@ export default {
 }
 .day .btn-check:checked+.session-btn {
   background-color: var(--bs-primary);
-}
-.day .booked {
-  cursor: pointer;
-  text-decoration: underline;
-  &:hover {
-    text-decoration: none;
-    background-color: var(--bs-light);
-  }
-}
-.prev-date,
-.next-date {
-  opacity: 0.5;
 }
 .weekDay,
 .week {

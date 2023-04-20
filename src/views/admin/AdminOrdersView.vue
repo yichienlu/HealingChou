@@ -4,14 +4,14 @@
     <div class="calendar text-center">
       <div class="month">
         <button type="button" class="btn btn-outline-primary prev" @click="adjustMonth(-1)">
-          <i class="fas fa-angle-left"></i>
+          <i class="fas fa-angle-left poiner"></i>
         </button>
         <div class="date">
           <h1>{{ calendar.year }}</h1>
           <h2>{{ months[calendar.month] }}</h2>
         </div>
         <div class="btn btn-outline-primary next" @click="adjustMonth(1)">
-          <i class="fas fa-angle-right"></i>
+          <i class="fas fa-angle-right pointer"></i>
         </div>
       </div>
       <div class="weekDay d-flex">
@@ -105,7 +105,7 @@
           <!-- 已預約時段 -->
           <template v-for="(it, timestamp) in formatOrder" :key="timestamp">
             <template v-for="(item, index) in formatOrder[timestamp]" :key="'serve' + index">
-              <a href="#" class="booked d-block"
+              <a href="#" class="booked d-block pointer"
                 :class="[
                   item.user.name=='closed' && calculateDate(i,j) > Date.now() ? 'text-muted text-decoration-none' : '' ,
                   calculateDate(i,j) > Date.now() ? '' : 'text-danger' 
@@ -362,7 +362,6 @@ export default {
       this.calendar.year += fix
     },
     adjustMonth(fix) {
-      // this.calendar.month += fix 範圍
       let month = this.calendar.month + fix
       if (month > 11) {
         this.adjustYear(1)
@@ -530,12 +529,7 @@ export default {
   align-items: center;
   padding: 0 2rem;
   text-align: center;
-
 }
-.month i {
-  cursor: pointer;
-}
-
 .day {
   font-size: 0.3rem;
   width: calc(100% / 7);
@@ -546,16 +540,11 @@ export default {
   margin-bottom: 5px;
 }
 .day .booked {
-  cursor: pointer;
   text-decoration: underline;
   &:hover {
     text-decoration: none;
     background-color: var(--bs-light);
   }
-}
-.prev-date,
-.next-date {
-  opacity: 0.5;
 }
 .weekDay,
 .week {
