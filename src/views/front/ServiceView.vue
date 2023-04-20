@@ -36,15 +36,9 @@
                   </div>
                 </div>
                 <div class="weekDay  d-flex">
-                  <div>日</div>
-                  <div>一</div>
-                  <div>二</div>
-                  <div>三</div>
-                  <div>四</div>
-                  <div>五</div>
-                  <div>六</div>
+                  <div>日</div><div>一</div><div>二</div><div>三</div><div>四</div><div>五</div><div>六</div>
                 </div>
-                <div class="week d-flex" v-for="i in 6" :key="'aaa' + i">
+                <div class="week d-flex" v-for="i in 6" :key="'aaa' + i"> 
                   <div
                     class="day text-start ps-1"
                     v-for="j in 7"
@@ -64,9 +58,7 @@
                     }"
                   >
                     <!-- 日期數字 -->
-                    <p>
-                      {{ calendarMonth[(i - 1) * 7 + j - 1].date }}
-                    </p>
+                    <p>{{ calendarMonth[(i - 1) * 7 + j - 1].date }}</p>
                     
                     <!-- 週六時段 -->
                     <div
@@ -77,34 +69,13 @@
                         calculateDate(i,j).getDay() === 6
                       "
                     >
-                      <input type="radio" class="btn-check" name="options" :id="calculateDate(i,j).setHours(10, 0, 0, 0)" autocomplete="off" 
-                            v-if="bookedTime.indexOf(calculateDate(i,j).setHours(10, 0, 0, 0)) == -1"
-                            :value="calculateDate(i,j).setHours(10, 0, 0, 0)" v-model="this.tempOrder.user.address"
-                            >
-                      <label class="btn btn-sm btn-outline-primary session-btn me-1" :for="calculateDate(i,j).setHours(10, 0, 0, 0)"
-                            v-if="bookedTime.indexOf(calculateDate(i,j).setHours(10, 0, 0, 0)) == -1">10:00</label>
-                      
-                      <input type="radio" class="btn-check" name="options" :id="calculateDate(i,j).setHours(14, 0, 0, 0)" autocomplete="off" 
-                            v-if="bookedTime.indexOf(calculateDate(i,j).setHours(14, 0, 0, 0)) == -1"
-                            :value="calculateDate(i,j).setHours(14, 0, 0, 0)" v-model="this.tempOrder.user.address"
-                            >
-                      <label class="btn btn-sm btn-outline-primary session-btn me-1" :for="calculateDate(i,j).setHours(14, 0, 0, 0)"
-                            v-if="bookedTime.indexOf(calculateDate(i,j).setHours(14, 0, 0, 0)) == -1">14:00</label>
-                      
-                      <input type="radio" class="btn-check" name="options" :id="calculateDate(i,j).setHours(16, 0, 0, 0)" autocomplete="off" 
-                            v-if="bookedTime.indexOf(calculateDate(i,j).setHours(16, 0, 0, 0)) == -1"
-                            :value="calculateDate(i,j).setHours(16, 0, 0, 0)" v-model="this.tempOrder.user.address"
-                            >
-                      <label class="btn btn-sm btn-outline-primary session-btn me-1" :for="calculateDate(i,j).setHours(16, 0, 0, 0)"
-                            v-if="bookedTime.indexOf(calculateDate(i,j).setHours(16, 0, 0, 0)) == -1">16:00</label>
-
-                      <input type="radio" class="btn-check" name="options" :id="calculateDate(i,j).setHours(20, 0, 0, 0)" autocomplete="off" 
-                            v-if="bookedTime.indexOf(calculateDate(i,j).setHours(20, 0, 0, 0)) == -1"
-                            :value="calculateDate(i,j).setHours(20, 0, 0, 0)" v-model="this.tempOrder.user.address"
-
-                            >
-                      <label class="btn btn-sm btn-outline-primary session-btn" :for="calculateDate(i,j).setHours(20, 0, 0, 0)"
-                            v-if="bookedTime.indexOf(calculateDate(i,j).setHours(20, 0, 0, 0)) == -1">20:00</label>
+                    <template v-for="hour in [10,14,16,20]" :key="calculateDate(i,j).setHours(hour, 0, 0, 0)">
+                      <span v-if="bookedTime.indexOf(calculateDate(i,j).setHours(hour, 0, 0, 0)) == -1">
+                        <input type="radio" class="btn-check" name="options" :id="calculateDate(i,j).setHours(hour, 0, 0, 0)"
+                              :value="calculateDate(i,j).setHours(hour, 0, 0, 0)" v-model="this.tempOrder.user.address">
+                        <label class="btn btn-sm btn-outline-primary session-btn me-1" :for="calculateDate(i,j).setHours(hour, 0, 0, 0)">{{hour}}:00</label>
+                      </span>
+                    </template>
                     </div>
 
                     <!-- 週間時段(一二四五) -->
@@ -119,12 +90,12 @@
                           calculateDate(i,j).getDay() === 4 ||
                           calculateDate(i,j).getDay() === 5)
                       ">
-                      <input type="radio" class="btn-check" name="options" 
-                            :id="calculateDate(i,j).setHours(20, 0, 0, 0)" autocomplete="off" 
-                            v-if="bookedTime.indexOf(calculateDate(i,j).setHours(20, 0, 0, 0)) == -1" 
-                            :value="calculateDate(i,j).setHours(20, 0, 0, 0)" v-model="this.tempOrder.user.address"> 
-                      <label class="btn btn-sm btn-outline-primary session-btn" :for="calculateDate(i,j).setHours(20, 0, 0, 0)"
-                            v-if="bookedTime.indexOf(calculateDate(i,j).setHours(20, 0, 0, 0)) == -1">20:00</label>
+                      <span v-if="bookedTime.indexOf(calculateDate(i,j).setHours(20, 0, 0, 0)) == -1" >
+                        <input type="radio" class="btn-check" name="options" 
+                              :id="calculateDate(i,j).setHours(20, 0, 0, 0)"
+                              :value="calculateDate(i,j).setHours(20, 0, 0, 0)" v-model="this.tempOrder.user.address"> 
+                        <label class="btn btn-sm btn-outline-primary session-btn" :for="calculateDate(i,j).setHours(20, 0, 0, 0)">20:00</label>
+                      </span>
                     </div>
                   </div>
                 </div>

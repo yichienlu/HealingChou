@@ -15,13 +15,7 @@
         </div>
       </div>
       <div class="weekDay d-flex">
-        <div>日</div>
-        <div>一</div>
-        <div>二</div>
-        <div>三</div>
-        <div>四</div>
-        <div>五</div>
-        <div>六</div>
+        <div>日</div><div>一</div><div>二</div><div>三</div><div>四</div><div>五</div><div>六</div>
       </div>
       <div class="week d-flex" v-for="i in 6" :key="'aaa' + i">
         <div
@@ -29,9 +23,7 @@
           v-for="j in 7"
           :key="'aaa' + j"
           :data-date="calendarMonth[(i - 1) * 7 + j - 1].date"
-          :data-timestamp="
-            this.calculateDate(i,j).valueOf()
-          "
+          :data-timestamp="this.calculateDate(i,j).valueOf()"
           :class="{
             other: calendarMonth[(i - 1) * 7 + j - 1].month !== calendar.month,
             saturday: calendarMonth[(i - 1) * 7 + j - 1].day == 6,
@@ -43,20 +35,7 @@
           }"
         >
           <!-- 日期數字 -->
-          <p>
-            {{ calendarMonth[(i - 1) * 7 + j - 1].date }}
-           <span class="d-sm-none">
-           {{ 
-              calendarMonth[(i - 1) * 7 + j - 1].day == 0 ? '(日)' : 
-              calendarMonth[(i - 1) * 7 + j - 1].day == 1 ? '(一)' : 
-              calendarMonth[(i - 1) * 7 + j - 1].day == 2 ? '(二)' : 
-              calendarMonth[(i - 1) * 7 + j - 1].day == 3 ? '(三)' : 
-              calendarMonth[(i - 1) * 7 + j - 1].day == 4 ? '(四)' : 
-              calendarMonth[(i - 1) * 7 + j - 1].day == 5 ? '(五)' : 
-              '(六)'
-            }}
-          </span>
-          </p>
+          <p>{{ calendarMonth[(i - 1) * 7 + j - 1].date }}</p>
           
           <!-- 週六時段 -->
           <div
@@ -65,94 +44,29 @@
               calculateDate(i,j).getDay() === 6
             "
           >
-            <button
-              v-if="calculateDate(i,j) > Date.now() &&
-              bookedTime.indexOf(calculateDate(i,j).setHours(10, 0, 0, 0)) == -1"
-              type="button"
-              :data-session="
-                calculateDate(i,j).setHours(10, 0, 0, 0)
-              "
-              class="btn btn-sm btn-outline-primary"
-              data-bs-toggle="modal"
-              data-bs-target="#orderModal"
-              @click.prevent="this.selectTempOrder(
-                calculateDate(i,j).setHours(10, 0, 0, 0), {
-                  product: {
-                    category: 'closed',
-                    title: 'closed'
-                  },
-                  time: calculateDate(i,j).setHours(10, 0, 0, 0)
-                })"
-            >
-              10:00
-            </button>
-            <button
-              v-if="calculateDate(i,j) > Date.now() &&
-                bookedTime.indexOf(
-                  calculateDate(i,j).setHours(14, 0, 0, 0)
-                ) == -1
-              "
-              type="button"
-              :data-session="calculateDate(i,j).setHours(14, 0, 0, 0)"
-              class="btn btn-sm btn-outline-primary"
-              data-bs-toggle="modal"
-              data-bs-target="#orderModal"
-              @click.prevent="this.selectTempOrder(
-                calculateDate(i,j).setHours(14, 0, 0, 0),{
-                  product: {
-                    category: 'closed',
-                    title: 'closed'
-                  },
-                  time: calculateDate(i,j).setHours(14, 0, 0, 0)
-                })"
-            >
-              14:00
-            </button>
-            <button
-              v-if="calculateDate(i,j) > Date.now() &&
-                bookedTime.indexOf(
-                  calculateDate(i,j).setHours(16, 0, 0, 0)
-                ) == -1
-              "
-              type="button"
-              :data-session="calculateDate(i,j).setHours(16, 0, 0, 0)"
-              class="btn btn-sm btn-outline-primary"
-              data-bs-toggle="modal"
-              data-bs-target="#orderModal"
-              @click.prevent="
-                this.selectTempOrder(
-                  calculateDate(i,j).setHours(16, 0, 0, 0), {
-                  product: {
-                    category: 'closed',
-                    title: 'closed'
-                  },
-                  time: calculateDate(i,j).setHours(16, 0, 0, 0)
-                })"
-            >
-              16:00
-            </button>
-            <button
-              v-if="calculateDate(i,j) > Date.now() &&
-                bookedTime.indexOf(calculateDate(i,j).setHours(20, 0, 0, 0)) == -1
-              "
-              type="button"
-              :data-session="calculateDate(i,j).setHours(20, 0, 0, 0)"
-              class="btn btn-sm btn-outline-primary"
-              data-bs-toggle="modal"
-              data-bs-target="#orderModal"
-              @click.prevent="
-                this.selectTempOrder(
-                  calculateDate(i,j).setHours(20, 0, 0, 0), {
-                  product: {
-                    category: 'closed',
-                    title: 'closed'
-                  },
-                  time: calculateDate(i,j).setHours(20, 0, 0, 0)
-                })"
-            >
-              20:00
-            </button>
-          </div>
+            <template v-for="hour in [10, 14, 16, 20]" :key="calculateDate(i,j).setHours(hour, 0, 0, 0)">
+              <button
+                v-if="calculateDate(i,j) > Date.now() &&
+                bookedTime.indexOf(calculateDate(i,j).setHours(hour, 0, 0, 0)) == -1"
+                type="button"
+                :data-session="
+                  calculateDate(i,j).setHours(hour, 0, 0, 0)
+                "
+                class="btn btn-sm btn-outline-primary"
+                data-bs-toggle="modal"
+                @click.prevent="this.selectTempOrder(
+                  calculateDate(i,j).setHours(hour, 0, 0, 0), {
+                    product: {
+                      category: 'closed',
+                      title: 'closed'
+                    },
+                    time: calculateDate(i,j).setHours(hour, 0, 0, 0)
+                  })"
+              >
+                {{hour}}:00
+              </button>
+            </template>
+          </div> 
 
           <!-- 週間時段(一二四五) -->
           <div
@@ -168,17 +82,12 @@
             <button
               v-if="
                 calculateDate(i,j) > Date.now() &&
-                bookedTime.indexOf(
-                  calculateDate(i,j).setHours(20, 0, 0, 0)
-                ) == -1
-              "
+                bookedTime.indexOf(calculateDate(i,j).setHours(20, 0, 0, 0)) == -1
+                "
               type="button"
               class="btn btn-sm btn-outline-primary"
-              :data-session="
-                calculateDate(i,j).setHours(20, 0, 0, 0)
-              "
+              :data-session="calculateDate(i,j).setHours(20, 0, 0, 0)"
               data-bs-toggle="modal"
-              data-bs-target="#orderModal"
               @click.prevent="
                 this.selectTempOrder(
                   calculateDate(i,j).setHours(20, 0, 0, 0), {
@@ -202,7 +111,6 @@
                   calculateDate(i,j) > Date.now() ? '' : 'text-danger' 
                 ]"
                 data-bs-toggle="modal"
-                data-bs-target="#orderModal"
                 @click.prevent="
                   this.selectTempOrder(new Date (parseInt(timestamp)).setHours(item.shownTime, 0, 0, 0), {
                     shownTime: new Date (parseInt(timestamp)).setHours(item.shownTime, 0, 0, 0),
@@ -224,7 +132,6 @@
                 {{ item.shownTime + ':00' }} 
                 <span class="d-none d-md-inline">{{ item.user.name }} </span> 
                 <span class="d-none d-sm-inline">{{ item.product.title }}</span>
-                
               </a>
             </template>
           </template>
@@ -234,7 +141,7 @@
   </div>
 
   <!-- Modal -->
-  <div class="modal fade" id="orderModal" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
+  <div class="modal fade" id="orderModal" ref="orderModal" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -330,6 +237,7 @@
 </template>
 <script>
 import LoaderComponent from '@/components/LoaderComponent.vue'
+import { Modal } from 'bootstrap'
 
 const { VITE_URL, VITE_PATH } = import.meta.env
 export default {
@@ -380,7 +288,8 @@ export default {
       courses:[],
       services:[],
       closed:[],
-      total_pages: 0
+      total_pages: 0,
+      orderModal:null
     }
   },
   components: {
@@ -440,6 +349,7 @@ export default {
         ...order,
         shownTime
       }
+      this.orderModal.show()
     },
     setToday() {
       const date = new Date()
@@ -491,7 +401,6 @@ export default {
 
     },
     addToCart(){
-      // 加入購物車
       const data = {
         product_id: this.tempOrder.product.id,
         qty: 1
@@ -595,7 +504,6 @@ export default {
       return newOrders
     },
     bookedTime() {
-      // 已經被預定的時間
       const time = []
       for (const item of this.orders) {
         time.push(item.user.address * 1)
@@ -609,6 +517,8 @@ export default {
     this.setToday()
     this.getBooked()
     this.getProducts()
+
+    this.orderModal = new Modal("#orderModal")
   }
 }
 </script>
@@ -649,7 +559,6 @@ export default {
 }
 .weekDay,
 .week {
-  // display: flex;
   border-bottom: 1px solid #ddd;
 }
 .weekDay > div {
@@ -671,24 +580,16 @@ export default {
   color: #000000;
   background-color: #ece4d8;
 }
-
 .sunday {
-  // background-color: #fff5f5;
   color:#A00
 }
 .saturday {
-  // background-color: #f5fff5;
   color: #080
 }
 .other {
   color: #bbb;
   background-color: #ddd;
+}
 
-}
-@media (max-width < 576px){
-  .other {
-    display: none !important;
-  }
-}
 
 </style>
