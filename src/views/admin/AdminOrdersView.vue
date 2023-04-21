@@ -53,7 +53,6 @@
                   calculateDate(i,j).setHours(hour, 0, 0, 0)
                 "
                 class="btn btn-sm btn-outline-primary"
-                data-bs-toggle="modal"
                 @click.prevent="this.selectTempOrder(
                   calculateDate(i,j).setHours(hour, 0, 0, 0), {
                     product: {
@@ -87,7 +86,6 @@
               type="button"
               class="btn btn-sm btn-outline-primary"
               :data-session="calculateDate(i,j).setHours(20, 0, 0, 0)"
-              data-bs-toggle="modal"
               @click.prevent="
                 this.selectTempOrder(
                   calculateDate(i,j).setHours(20, 0, 0, 0), {
@@ -110,7 +108,6 @@
                   item.user.name=='closed' && calculateDate(i,j) > Date.now() ? 'text-muted text-decoration-none' : '' ,
                   calculateDate(i,j) > Date.now() ? '' : 'text-danger' 
                 ]"
-                data-bs-toggle="modal"
                 @click.prevent="
                   this.selectTempOrder(new Date (parseInt(timestamp)).setHours(item.shownTime, 0, 0, 0), {
                     shownTime: new Date (parseInt(timestamp)).setHours(item.shownTime, 0, 0, 0),
@@ -124,7 +121,8 @@
                     product: {
                       category: item.product.category,
                       title: item.product.title,
-                      id: item.product.id
+                      id: item.product.id,
+                      key: item.key
                     }
                   })"
                 v-if="timestamp == calculateDate(i,j).valueOf()"
@@ -313,13 +311,13 @@ export default {
       this.orders = this.orders.sort(
         (a, b) => a.user.address - b.user.address
       )
+      console.log(this.orders)
       setTimeout(() => {
         this.isLoading = false            
       }, 1000);
     },
-    async getBookedPages(page) {
+    getBookedPages(page) {
       return new Promise((resolve)=>{
-
       this.$http.get(`${VITE_URL}/api/${VITE_PATH}/admin/orders?page=${page}`)
         .then((res) => {
           if(page==1){
@@ -327,13 +325,12 @@ export default {
           } else {
             this.orders = this.orders.concat(res.data.orders)
           }
-            resolve();
+          resolve();
         })
         .catch((err) => {
           console.log(err)
         })
       })
-
     },
     selectTempOrder(timestamp,order) {
       let day
@@ -432,7 +429,27 @@ export default {
       })
     },
     editOrder(){
-
+      let key = this.tempOrder.product.key
+      const data =  {
+        "create_at": this.tempOrder.time/1000,
+        "is_paid": this.tempOrder.is_paid,
+        "message": this.tempOrder.message,
+        "products": {
+          key: {
+            "id": this.tempOrder.product.id,
+            "product_id": this.tempOrder.product.id,
+            "qty": "1"
+          }
+        },
+        "user": {
+          "address": this.tempOrder.time.toString(),
+          "email": this.tempOrder.email,
+          "name": this.tempOrder.name,
+          "tel": this.tempOrder.phone
+        },
+        "num": 2
+      }
+      console.log(this.tempOrder)
     },
     deleteOrder(id){
       if(window.confirm("確定要刪除?")){
@@ -493,6 +510,7 @@ export default {
         newOrders[day].push({
           id: item.id,
           product: product,
+          key: key,
           user: item.user,
           message: item.message,
           time: item.user.address,
