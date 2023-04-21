@@ -435,7 +435,7 @@ export default {
         "is_paid": this.tempOrder.is_paid,
         "message": this.tempOrder.message,
         "products": {
-          key: {
+          [key]: {
             "id": this.tempOrder.product.id,
             "product_id": this.tempOrder.product.id,
             "qty": "1"
