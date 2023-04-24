@@ -101,26 +101,9 @@
           </div>
 
           <!-- 已預約時段 -->
-          <template v-for="(orders, day) in formatOrder" :key="day">
-            <template v-if="calculateDate(i,j).valueOf()==day">
-              <a v-for="item in orders" :key="item.id" href="#" class="booked d-block pointer" 
-                  :class="[
-                    item.user.name=='closed' && calculateDate(i,j) > Date.now() ? 'text-muted text-decoration-none' : '' ,
-                    calculateDate(i,j) > Date.now() ? '' : 'text-danger' 
-                  ]"
-                  @click.prevent="
-                  this.selectTempOrder(item)"
-                  >
-                  {{ new Date(Number(item.user.address)).getHours() }}:00
-                  {{ item.user.name }}
-                  {{ item.products.product.title }}
-                  <!-- {{ item }} -->
-              </a>
-            </template>
-
-            <!-- <template v-for="(item, index) in formatOrder[timestamp]" :key="'serve' + index"> -->
-              <!-- <a v-if="timestamp == calculateDate(i,j).valueOf()"
-               href="#" class="booked d-block pointer"
+          <template v-for="(it, timestamp) in formatOrder" :key="timestamp">
+            <template v-for="(item, index) in formatOrder[timestamp]" :key="'serve' + index">
+              <a href="#" class="booked d-block pointer"
                 :class="[
                   item.user.name=='closed' && calculateDate(i,j) > Date.now() ? 'text-muted text-decoration-none' : '' ,
                   calculateDate(i,j) > Date.now() ? '' : 'text-danger' 
@@ -143,17 +126,19 @@
                     },
                     num: item.num
                   })"
+                v-if="timestamp == calculateDate(i,j).valueOf()"
               >
                 {{ item.shownTime + ':00' }} 
                 <span class="d-none d-md-inline">{{ item.user.name }} </span> 
                 <span class="d-none d-sm-inline">{{ item.product.title }}</span>
-              </a> -->
-            <!-- </template> -->
+              </a>
+            </template>
           </template>
         </div>
       </div>
     </div>
   </div>
+
   <!-- Modal -->
   <div class="modal fade" id="orderModal" ref="orderModal" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -167,74 +152,74 @@
         <div class="mb-3 row">
           <legend class="col-form-label col-sm-2 pt-0">類別</legend>
           <div class="col-sm-10">
-            <!-- <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="flexRadio" id="flexRadio1" value="closed" v-model="this.tempOrder.products.product.category">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="flexRadio" id="flexRadio1" value="closed" v-model="this.tempOrder.product.category">
               <label class="form-check-label" for="flexRadio1">關閉時段</label>
             </div>
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="flexRadio" id="flexRadio2" value="service" v-model="this.tempOrder.products.product.category">
+              <input class="form-check-input" type="radio" name="flexRadio" id="flexRadio2" value="service" v-model="this.tempOrder.product.category">
               <label class="form-check-label" for="flexRadio2">服務</label>
             </div>
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="flexRadio" id="flexRadio3" value="course" v-model="this.tempOrder.products.product.category">
+              <input class="form-check-input" type="radio" name="flexRadio" id="flexRadio3" value="course" v-model="this.tempOrder.product.category">
               <label class="form-check-label" for="flexRadio3">課程</label>
-            </div> -->
+            </div>
           </div>
         </div>
         <div class="mb-3 row">
           <label for="" class="col-sm-2 col-form-label"></label>
           <div class="col-sm-10">
-            <!-- <select class="form-select" v-if="this.tempOrder.product.category=='closed'" v-model="this.tempOrder.products.product.id">
-              <option :value="closed[0].id"  :selected="this.tempOrder.products.product.id==closed[0].id">closed</option>
+            <select class="form-select" v-if="this.tempOrder.product.category=='closed'" v-model="this.tempOrder.product.id">
+              <option :value="closed[0].id"  :selected="this.tempOrder.product.id==closed[0].id">closed</option>
             </select>
-            <select class="form-select" v-else-if="this.tempOrder.product.category=='service'" v-model="this.tempOrder.products.product.id">
-              <option :value="service.id" v-for="service in services" :key="service.id" :selected="this.tempOrder.products.product.id==service.id">
+            <select class="form-select" v-else-if="this.tempOrder.product.category=='service'" v-model="this.tempOrder.product.id">
+              <option :value="service.id" v-for="service in services" :key="service.id" :selected="this.tempOrder.product.id==service.id">
                 {{ service.title }}
               </option>
             </select>
-            <select class="form-select" v-else-if="this.tempOrder.products.product.category=='course'" v-model="this.tempOrder.products.product.id">
-              <option :value="course.id" v-for="course in courses" :key="course.id" :selected="this.tempOrder.products.product.id==course.id">{{ course.title }}</option>
-            </select> -->
+            <select class="form-select" v-else-if="this.tempOrder.product.category=='course'" v-model="this.tempOrder.product.id">
+              <option :value="course.id" v-for="course in courses" :key="course.id" :selected="this.tempOrder.product.id==course.id">{{ course.title }}</option>
+            </select>
           </div>
         </div>
         <div class="mb-3 row">
           <label for="orderTime" class="col-sm-2 col-form-label">時段</label>
           <div class="col-sm-10">
-            <!-- <input 
+            <input 
               type="text" 
               class="form-control-plaintext" 
               readonly
               id="orderTime"
-              v-model="this.tempOrder.user.address"
-            > -->
+              v-model="this.tempOrder.shownTime"
+            >
           </div>
         </div>
         <div class="mb-3 row">
           <label for="userName" class="col-sm-2 col-form-label">名字</label>
           <div class="col-sm-10">
-            <!-- <input type="text" class="form-control" id="userName" v-model="this.tempOrder.user.name"> -->
+            <input type="text" class="form-control" id="userName" v-model="this.tempOrder.name">
           </div>
         </div>
         <div class="mb-3 row">
           <label for="userPhone" class="col-sm-2 col-form-label">電話</label>
           <div class="col-sm-10">
-            <!-- <input type="tel" class="form-control" id="userPhone" v-model="this.tempOrder.user.phone"> -->
+            <input type="tel" class="form-control" id="userPhone" v-model="this.tempOrder.phone">
           </div>
         </div>
         <div class="mb-3 row">
           <label for="userEmail" class="col-sm-2 col-form-label">Email</label>
           <div class="col-sm-10">
-            <!-- <input type="email" class="form-control" id="userEmail" v-model="this.tempOrder.user.email"> -->
+            <input type="email" class="form-control" id="userEmail" v-model="this.tempOrder.email">
           </div>
         </div>
         <div class="mb-3 row">
           <label for="message" class="col-sm-2 col-form-label">備註</label>
           <div class="col-sm-10">
-            <!-- <input type="text" class="form-control" id="message" v-model="this.tempOrder.message"> -->
+            <input type="text" class="form-control" id="message" v-model="this.tempOrder.message">
           </div>
         </div>
         <div class="mb-3 form-check">
-          <!-- <input class="form-check-input" type="checkbox" value="" id="isPaid" v-model="this.tempOrder.is_paid"> -->
+          <input class="form-check-input" type="checkbox" value="" id="isPaid" v-model="this.tempOrder.is_paid">
           <label class="form-check-label" for="isPaid">
             確認付款
           </label>
@@ -347,23 +332,20 @@ export default {
         })
       })
     },
-    selectTempOrder(order) {
-      console.log(order)
-
-      // let day
-      // switch(new Date(timestamp).getDay()){
-      //   case 1: day='(一)'; break;
-      //   case 2: day='(二)'; break;
-      //   case 4: day='(四)'; break;
-      //   case 5: day='(五)'; break;
-      //   case 6: day='(六)'; break;
-      // }
-      // let shownTime = new Date(timestamp).toLocaleDateString()+ day+' '+  new Date(timestamp).toLocaleTimeString("en-GB")
-      // this.tempOrder = {
-      //   ...order,
-      //   shownTime
-      // }
-      this.tempOrder = order
+    selectTempOrder(timestamp,order) {
+      let day
+      switch(new Date(timestamp).getDay()){
+        case 1: day='(一)'; break;
+        case 2: day='(二)'; break;
+        case 4: day='(四)'; break;
+        case 5: day='(五)'; break;
+        case 6: day='(六)'; break;
+      }
+      let shownTime = new Date(timestamp).toLocaleDateString()+ day+' '+  new Date(timestamp).toLocaleTimeString("en-GB")
+      this.tempOrder = {
+        ...order,
+        shownTime
+      }
       this.orderModal.show()
     },
     setToday() {
@@ -446,15 +428,25 @@ export default {
       })
     },
     editOrder(id){
+      let key = this.tempOrder.product.key
       const data =  {
-        "create_at": this.tempOrder.create_at,
-        "id": this.tempOrder.id,
+        "create_at": this.tempOrder.time/1000,
         "is_paid": this.tempOrder.is_paid,
+        "message": this.tempOrder.message,
         "products": {
-          [this.tempOrder.products.id]: this.tempOrder.products
+          [key]: {
+            "id": this.tempOrder.product.id,
+            "product": this.tempOrder.product,
+            "product_id": this.tempOrder.product.id,
+            "qty": "1"
+          }
         },
-        "total": this.tempOrder.total,
-        "user": this.tempOrder.user,
+        "user": {
+          "address": this.tempOrder.time.toString(),
+          "email": this.tempOrder.email,
+          "name": this.tempOrder.name,
+          "tel": this.tempOrder.phone
+        },
         "num": this.tempOrder.num
       }
       this.$http.put(`${VITE_URL}/api/${VITE_PATH}/admin/order/${id}`, { data })
@@ -465,7 +457,7 @@ export default {
       .catch((err) => {
         console.log(err)
       })
-      // console.log(this.tempOrder)
+      console.log(this.tempOrder)
     },
     deleteOrder(id){
       if(window.confirm("確定要刪除?")){
@@ -517,24 +509,24 @@ export default {
     formatOrder() {
       const newOrders = {}
       for (const item of this.orders) {
-        // item.products = Object.values(item.products)
+        const key = Object.keys(item.products)[0]
+        const product = item.products[key].product
         const day = new Date(Number(item.user.address)).setHours(0, 0, 0, 0)
         if (!newOrders[day]) {
           newOrders[day] = []
         }
         newOrders[day].push({
-          "create_at": item.create_at,
-          "id": item.id,
-          "is_paid": item.is_paid,
-          "products": Object.values(item.products)[0],
-          "total": item.total,
-          "user": item.user,
-          "message": item.message,
-          "num": item.num
+          id: item.id,
+          product: product,
+          key: key,
+          user: item.user,
+          message: item.message,
+          time: item.user.address,
+          shownTime: new Date(Number(item.user.address)).getHours(),
+          is_paid: item.is_paid,
+          num: item.num
         })
       }
-      console.log(newOrders)
-
       return newOrders
     },
     bookedTime() {
