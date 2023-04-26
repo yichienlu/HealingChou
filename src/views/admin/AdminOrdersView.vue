@@ -53,14 +53,18 @@
                   calculateDate(i,j).setHours(hour, 0, 0, 0)
                 "
                 class="btn btn-sm btn-outline-primary"
-                @click.prevent="this.selectTempOrder(
-                  calculateDate(i,j).setHours(hour, 0, 0, 0), {
+                @click.prevent="
+                this.selectTempOrder({
+                  products:{
                     product: {
                       category: 'closed',
                       title: 'closed'
-                    },
-                    time: calculateDate(i,j).setHours(hour, 0, 0, 0)
-                  })"
+                    }
+                  },
+                  user:{
+                    address: calculateDate(i,j).setHours(hour, 0, 0, 0)
+                  }
+                })"
               >
                 {{hour}}:00
               </button>
@@ -87,13 +91,16 @@
               class="btn btn-sm btn-outline-primary"
               :data-session="calculateDate(i,j).setHours(20, 0, 0, 0)"
               @click.prevent="
-                this.selectTempOrder(
-                  calculateDate(i,j).setHours(20, 0, 0, 0), {
-                  product: {
-                    category: 'closed',
-                    title: 'closed'
+                this.selectTempOrder({
+                  products:{
+                    product: {
+                      category: 'closed',
+                      title: 'closed'
+                    }
                   },
-                  time: calculateDate(i,j).setHours(20, 0, 0, 0)
+                  user:{
+                    address: calculateDate(i,j).setHours(20, 0, 0, 0)
+                  }
                 })"
             >
               20:00
@@ -111,44 +118,11 @@
                   @click.prevent="
                   this.selectTempOrder(item)"
                   >
-                  {{ new Date(Number(item.user.address)).getHours() }}:00
-                  {{ item.user.name }}
+                  <span class="d-none d-md-block">{{ new Date(Number(item.user.address)).getHours() }}:00</span>
+                  <span class="d-none d-sm-block">{{ item.user.name }}</span>
                   {{ item.products.product.title }}
-                  <!-- {{ item }} -->
               </a>
             </template>
-
-            <!-- <template v-for="(item, index) in formatOrder[timestamp]" :key="'serve' + index"> -->
-              <!-- <a v-if="timestamp == calculateDate(i,j).valueOf()"
-               href="#" class="booked d-block pointer"
-                :class="[
-                  item.user.name=='closed' && calculateDate(i,j) > Date.now() ? 'text-muted text-decoration-none' : '' ,
-                  calculateDate(i,j) > Date.now() ? '' : 'text-danger' 
-                ]"
-                @click.prevent="
-                  this.selectTempOrder(new Date (parseInt(timestamp)).setHours(item.shownTime, 0, 0, 0), {
-                    shownTime: new Date (parseInt(timestamp)).setHours(item.shownTime, 0, 0, 0),
-                    time: item.user.address,
-                    id: item.id,
-                    name: item.user.name,
-                    phone: item.user.tel,
-                    email: item.user.email,
-                    message: item.message,
-                    is_paid: item.is_paid,
-                    product: {
-                      category: item.product.category,
-                      title: item.product.title,
-                      id: item.product.id,
-                      key: item.key
-                    },
-                    num: item.num
-                  })"
-              >
-                {{ item.shownTime + ':00' }} 
-                <span class="d-none d-md-inline">{{ item.user.name }} </span> 
-                <span class="d-none d-sm-inline">{{ item.product.title }}</span>
-              </a> -->
-            <!-- </template> -->
           </template>
         </div>
       </div>
@@ -167,7 +141,7 @@
         <div class="mb-3 row">
           <legend class="col-form-label col-sm-2 pt-0">類別</legend>
           <div class="col-sm-10">
-            <!-- <div class="form-check form-check-inline">
+            <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" name="flexRadio" id="flexRadio1" value="closed" v-model="this.tempOrder.products.product.category">
               <label class="form-check-label" for="flexRadio1">關閉時段</label>
             </div>
@@ -178,28 +152,31 @@
             <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" name="flexRadio" id="flexRadio3" value="course" v-model="this.tempOrder.products.product.category">
               <label class="form-check-label" for="flexRadio3">課程</label>
-            </div> -->
+            </div>
           </div>
         </div>
         <div class="mb-3 row">
           <label for="" class="col-sm-2 col-form-label"></label>
           <div class="col-sm-10">
-            <!-- <select class="form-select" v-if="this.tempOrder.product.category=='closed'" v-model="this.tempOrder.products.product.id">
+            <select class="form-select" v-if="this.tempOrder.products.product.category=='closed'" v-model="this.tempOrder.products.product.id">
               <option :value="closed[0].id"  :selected="this.tempOrder.products.product.id==closed[0].id">closed</option>
             </select>
-            <select class="form-select" v-else-if="this.tempOrder.product.category=='service'" v-model="this.tempOrder.products.product.id">
+            <select class="form-select" v-else-if="this.tempOrder.products.product.category=='service'" v-model="this.tempOrder.products.product.id">
               <option :value="service.id" v-for="service in services" :key="service.id" :selected="this.tempOrder.products.product.id==service.id">
                 {{ service.title }}
               </option>
             </select>
             <select class="form-select" v-else-if="this.tempOrder.products.product.category=='course'" v-model="this.tempOrder.products.product.id">
               <option :value="course.id" v-for="course in courses" :key="course.id" :selected="this.tempOrder.products.product.id==course.id">{{ course.title }}</option>
-            </select> -->
+            </select>
           </div>
         </div>
         <div class="mb-3 row">
           <label for="orderTime" class="col-sm-2 col-form-label">時段</label>
           <div class="col-sm-10">
+            {{ new Date(+this.tempOrder.user.address).toLocaleDateString()}} 
+            ({{ ["日","一","二","三","四","五","六"][new Date(+this.tempOrder.user.address).getDay()] }})
+            {{ new Date(+this.tempOrder.user.address).toLocaleTimeString() }}
             <!-- <input 
               type="text" 
               class="form-control-plaintext" 
@@ -212,29 +189,29 @@
         <div class="mb-3 row">
           <label for="userName" class="col-sm-2 col-form-label">名字</label>
           <div class="col-sm-10">
-            <!-- <input type="text" class="form-control" id="userName" v-model="this.tempOrder.user.name"> -->
+            <input type="text" class="form-control" id="userName" v-model="this.tempOrder.user.name">
           </div>
         </div>
         <div class="mb-3 row">
           <label for="userPhone" class="col-sm-2 col-form-label">電話</label>
           <div class="col-sm-10">
-            <!-- <input type="tel" class="form-control" id="userPhone" v-model="this.tempOrder.user.phone"> -->
+            <input type="tel" class="form-control" id="userPhone" v-model="this.tempOrder.user.tel">
           </div>
         </div>
         <div class="mb-3 row">
           <label for="userEmail" class="col-sm-2 col-form-label">Email</label>
           <div class="col-sm-10">
-            <!-- <input type="email" class="form-control" id="userEmail" v-model="this.tempOrder.user.email"> -->
+            <input type="email" class="form-control" id="userEmail" v-model="this.tempOrder.user.email">
           </div>
         </div>
         <div class="mb-3 row">
           <label for="message" class="col-sm-2 col-form-label">備註</label>
           <div class="col-sm-10">
-            <!-- <input type="text" class="form-control" id="message" v-model="this.tempOrder.message"> -->
+            <input type="text" class="form-control" id="message" v-model="this.tempOrder.message">
           </div>
         </div>
         <div class="mb-3 form-check">
-          <!-- <input class="form-check-input" type="checkbox" value="" id="isPaid" v-model="this.tempOrder.is_paid"> -->
+          <input class="form-check-input" type="checkbox" value="" id="isPaid" v-model="this.tempOrder.is_paid">
           <label class="form-check-label" for="isPaid">
             確認付款
           </label>
@@ -275,16 +252,12 @@ export default {
       orders: [],
       tempOrder: {
         id:'',
-        name: '',
-        phone: '',
-        email: '',
-        message: '',
-        time: 0,
-        is_paid: false,
-        product: {
-          title: '',
-          category: '',
-          id: ''
+        products:{
+          product:{
+          }
+        },
+        user:{
+          address:""
         }
       },
       today: {
@@ -348,21 +321,6 @@ export default {
       })
     },
     selectTempOrder(order) {
-      console.log(order)
-
-      // let day
-      // switch(new Date(timestamp).getDay()){
-      //   case 1: day='(一)'; break;
-      //   case 2: day='(二)'; break;
-      //   case 4: day='(四)'; break;
-      //   case 5: day='(五)'; break;
-      //   case 6: day='(六)'; break;
-      // }
-      // let shownTime = new Date(timestamp).toLocaleDateString()+ day+' '+  new Date(timestamp).toLocaleTimeString("en-GB")
-      // this.tempOrder = {
-      //   ...order,
-      //   shownTime
-      // }
       this.tempOrder = order
       this.orderModal.show()
     },
@@ -533,8 +491,6 @@ export default {
           "num": item.num
         })
       }
-      console.log(newOrders)
-
       return newOrders
     },
     bookedTime() {

@@ -44,7 +44,6 @@
                 <label for="description" class="form-label">簡述</label>
                 <editor name="簡述" v-model="tempCourse.description" :class="{ 'is-invalid': errors['簡述'] }" :init="init" rules="required"></editor>
                 <error-message name="簡述" class="invalid-feedback"></error-message> 
-                <!-- FIXME: TinyMCE 驗證 -->
               </div>
               <div class="mb-3">
                 <label for="content" class="form-label">說明內容</label>
