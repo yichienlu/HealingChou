@@ -177,13 +177,6 @@
             {{ new Date(+this.tempOrder.user.address).toLocaleDateString()}} 
             ({{ ["日","一","二","三","四","五","六"][new Date(+this.tempOrder.user.address).getDay()] }})
             {{ new Date(+this.tempOrder.user.address).toLocaleTimeString() }}
-            <!-- <input 
-              type="text" 
-              class="form-control-plaintext" 
-              readonly
-              id="orderTime"
-              v-model="this.tempOrder.user.address"
-            > -->
           </div>
         </div>
         <div class="mb-3 row">
