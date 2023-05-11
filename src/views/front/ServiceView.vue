@@ -22,84 +22,7 @@
           <v-form ref="form" class="row service-form"  v-slot="{ errors }" @submit="addToCart" >
             <div class=" mb-3">
               <label for="inputTime" class="form-label text-white">選擇療癒時間</label>
-              <div class="calendar text-center pt-3">
-                <div class="month d-flex justify-content-between align-items-center text-center px-3">
-                  <button type="button" class="btn btn-outline-primary prev" @click="adjustMonth(-1)">
-                    <i class="fas fa-angle-left pointer"></i>
-                  </button>
-                  <div class="date">
-                    <h1>{{ calendar.year }}</h1>
-                    <h2>{{ months[calendar.month] }}</h2>
-                  </div>
-                  <div class="btn btn-outline-primary next" @click="adjustMonth(1)">
-                    <i class="fas fa-angle-right pointer"></i>
-                  </div>
-                </div>
-                <div class="weekDay  d-flex">
-                  <div>日</div><div>一</div><div>二</div><div>三</div><div>四</div><div>五</div><div>六</div>
-                </div>
-                <div class="week d-flex" v-for="i in 6" :key="'aaa' + i"> 
-                  <div
-                    class="day text-start ps-1"
-                    v-for="j in 7"
-                    :key="'aaa' + j"
-                    :data-date="calendarMonth[(i - 1) * 7 + j - 1].date"
-                    :data-timestamp="
-                      this.calculateDate(i,j).valueOf()
-                    "
-                    :class="{
-                      other: calendarMonth[(i - 1) * 7 + j - 1].month !== calendar.month,
-                      saturday: calendarMonth[(i - 1) * 7 + j - 1].day == 6,
-                      sunday: calendarMonth[(i - 1) * 7 + j - 1].day == 0,
-                      today:
-                        calendarMonth[(i - 1) * 7 + j - 1].year === today.year &&
-                        calendarMonth[(i - 1) * 7 + j - 1].month === today.month &&
-                        calendarMonth[(i - 1) * 7 + j - 1].date === today.date
-                    }"
-                  >
-                    <!-- 日期數字 -->
-                    <p>{{ calendarMonth[(i - 1) * 7 + j - 1].date }}</p>
-                    
-                    <!-- 週六時段 -->
-                    <div
-                      v-if="
-                        calculateDate(i,j) > Date.now() &&
-                        calculateDate(i,j) < Date.now()+86400000*60 &&
-                        calendarMonth[(i - 1) * 7 + j - 1].month == calendar.month &&
-                        calculateDate(i,j).getDay() === 6
-                      "
-                    >
-                    <template v-for="hour in [10,14,16,20]" :key="calculateDate(i,j).setHours(hour, 0, 0, 0)">
-                      <span v-if="bookedTime.indexOf(calculateDate(i,j).setHours(hour, 0, 0, 0)) == -1">
-                        <input type="radio" class="btn-check" name="options" :id="calculateDate(i,j).setHours(hour, 0, 0, 0)"
-                              :value="calculateDate(i,j).setHours(hour, 0, 0, 0)" v-model="this.tempOrder.user.address">
-                        <label class="btn btn-sm btn-outline-primary session-btn me-1" :for="calculateDate(i,j).setHours(hour, 0, 0, 0)">{{hour}}:00</label>
-                      </span>
-                    </template>
-                    </div>
-
-                    <!-- 週間時段(一二四五) -->
-                    <div
-                      v-else-if="
-                      calculateDate(i,j) > Date.now() &&
-                      calculateDate(i,j) < Date.now()+86400000*60 &&
-                        calendarMonth[(i - 1) * 7 + j - 1].month == calendar.month &&
-                        (
-                          calculateDate(i,j).getDay() === 1 ||
-                          calculateDate(i,j).getDay() === 2 ||
-                          calculateDate(i,j).getDay() === 4 ||
-                          calculateDate(i,j).getDay() === 5)
-                      ">
-                      <span v-if="bookedTime.indexOf(calculateDate(i,j).setHours(20, 0, 0, 0)) == -1" >
-                        <input type="radio" class="btn-check" name="options" 
-                              :id="calculateDate(i,j).setHours(20, 0, 0, 0)"
-                              :value="calculateDate(i,j).setHours(20, 0, 0, 0)" v-model="this.tempOrder.user.address"> 
-                        <label class="btn btn-sm btn-outline-primary session-btn" :for="calculateDate(i,j).setHours(20, 0, 0, 0)">20:00</label>
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <CalendarComponent @selectSession="selectSession" @closeLoader="closeLoader" />
             </div>
             <div class="mb-3">
               <label for="sessionTime" class="form-label text-white">時段<span>*</span></label>
@@ -166,6 +89,7 @@
 import order_bg from '@/assets/images/tarot-stack.jpg'
 import banner_bg from '@/assets/images/meditation-banner.jpg'
 import LoaderComponent from '@/components/LoaderComponent.vue'
+import CalendarComponent from '@/components/CalendarComponent.vue'
 
 const { VITE_URL, VITE_PATH } = import.meta.env
 
@@ -176,20 +100,6 @@ export default {
       banner_bg,
       order_bg,
       service: {},
-      months: [
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-        'July',
-        'August',
-        'September',
-        'October',
-        'November',
-        'December'
-      ],
       tempOrder: {
         user:{
           name:'',
@@ -199,25 +109,27 @@ export default {
         },
         message: ''
       },
-      today: {
-        year: 0,
-        month: 0,
-        date: 0,
-        day: 0
-      },
-      calendar: {
-        year: 0,
-        month: 0,
-        date: 0,
-        day: 0
-      },
-      orders: [],
-      nestedOrders:[],
-      total_pages:0
+      selectedTime:'',
+      // today: {
+      //   year: 0,
+      //   month: 0,
+      //   date: 0,
+      //   day: 0
+      // },
+      // calendar: {
+      //   year: 0,
+      //   month: 0,
+      //   date: 0,
+      //   day: 0
+      // },
+      // orders: [],
+      // nestedOrders:[],
+      // total_pages:0
     }
     },
   components: {
-    LoaderComponent
+    LoaderComponent,
+    CalendarComponent
   },
   methods: {
     getService(){
@@ -230,75 +142,84 @@ export default {
         console.log(err)
       })
     },
-    getBooked(){
-      this.isLoading = true
-      this.$http.get(`${VITE_URL}/api/${VITE_PATH}/orders`)
-        .then((res) => {
-          this.total_pages = res.data.pagination.total_pages
-          this.processBooked()
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-        .finally(()=>{
-          setTimeout(() => {
-            this.isLoading = false            
-          }, 1000);
-        })
-    },
-    async processBooked() {
-      for(let i=1; i<= this.total_pages; i++){
-        await this.getBookedPages(i)
-      }
-      this.orders = this.orders.sort(
-        (a, b) => a.user.address - b.user.address
-      )
-    },
-    async getBookedPages(page){
-      return new Promise((resolve)=>{
-        this.$http.get(`${VITE_URL}/api/${VITE_PATH}/orders?page=${page}`)
-          .then((res) => {
-            if(page==1){
-              this.orders = res.data.orders
-            } else {
-              this.orders = this.orders.concat(res.data.orders)
-            }
-            resolve();
-          })
-          .catch((err) => {
-            console.log(err)
-          })
-      })
-    },
-    setToday() {
-      const date = new Date()
-      this.today.year = this.calendar.year = date.getFullYear()
-      this.today.month = this.calendar.month = date.getMonth() // 0~11
-      this.today.date = this.calendar.date = date.getDate()
-      this.today.day = this.calendar.day = date.getDay()
-    },
-    adjustYear(fix) {
-      this.calendar.year += fix
-    },
-    adjustMonth(fix) {
-      let month = this.calendar.month + fix
-      if (month > 11) {
-        this.adjustYear(1)
-        this.calendar.month = 0
-      } else if (month < 0) {
-        this.adjustYear(-1)
-        this.calendar.month = 11
-      } else {
-        this.calendar.month = month
-      }
-    },
-    calculateDate(i,j){
-      let date =  new Date(
-        this.calendarMonth[(i - 1) * 7 + j - 1].year,
-        this.calendarMonth[(i - 1) * 7 + j - 1].month,
-        this.calendarMonth[(i - 1) * 7 + j - 1].date
-      )
-      return date
+    // getBooked(){
+    //   this.isLoading = true
+    //   this.$http.get(`${VITE_URL}/api/${VITE_PATH}/orders`)
+    //     .then((res) => {
+    //       this.total_pages = res.data.pagination.total_pages
+    //       this.processBooked()
+    //     })
+    //     .catch((err) => {
+    //       console.log(err)
+    //     })
+    //     .finally(()=>{
+    //       setTimeout(() => {
+    //         this.isLoading = false            
+    //       }, 1000);
+    //     })
+    // },
+    // async processBooked() {
+    //   for(let i=1; i<= this.total_pages; i++){
+    //     await this.getBookedPages(i)
+    //   }
+    //   this.orders = this.orders.sort(
+    //     (a, b) => a.user.address - b.user.address
+    //   )
+    // },
+    // async getBookedPages(page){
+    //   return new Promise((resolve)=>{
+    //     this.$http.get(`${VITE_URL}/api/${VITE_PATH}/orders?page=${page}`)
+    //       .then((res) => {
+    //         if(page==1){
+    //           this.orders = res.data.orders
+    //         } else {
+    //           this.orders = this.orders.concat(res.data.orders)
+    //         }
+    //         resolve();
+    //       })
+    //       .catch((err) => {
+    //         console.log(err)
+    //       })
+    //   })
+    // },
+    // setToday() {
+    //   const date = new Date()
+    //   this.today.year = this.calendar.year = date.getFullYear()
+    //   this.today.month = this.calendar.month = date.getMonth() // 0~11
+    //   this.today.date = this.calendar.date = date.getDate()
+    //   this.today.day = this.calendar.day = date.getDay()
+    // },
+    // adjustYear(fix) {
+    //   this.calendar.year += fix
+    // },
+    // adjustMonth(fix) {
+    //   let month = this.calendar.month + fix
+    //   if (month > 11) {
+    //     this.adjustYear(1)
+    //     this.calendar.month = 0
+    //   } else if (month < 0) {
+    //     this.adjustYear(-1)
+    //     this.calendar.month = 11
+    //   } else {
+    //     this.calendar.month = month
+    //   }
+    // },
+    // calculateDate(i,j){
+    //   let date =  new Date(
+    //     this.calendarMonth[(i - 1) * 7 + j - 1].year,
+    //     this.calendarMonth[(i - 1) * 7 + j - 1].month,
+    //     this.calendarMonth[(i - 1) * 7 + j - 1].date
+    //   )
+    //   return date
+    // },
+    selectSession(timestamp){
+      this.tempOrder.user.address = timestamp
+      const f = new Intl.DateTimeFormat('zh-TW', {
+        dateStyle: 'full',
+        timeStyle: 'short',
+        hour12: false
+      });
+      this.selectedTime = timestamp ? f.format((parseInt(timestamp))) : ''
     },
     addToCart(value, {resetForm}){
       const id = this.$route.params.id
@@ -329,9 +250,10 @@ export default {
           ${this.service.title}
           `,
           footer: '到時見囉！'    
+        }).then(()=>{
+          resetForm()
+          this.$router.push('/services')
         })
-        resetForm()
-        this.$router.push('/services')
       })
       .catch((err) => {
         console.log(err)
@@ -340,6 +262,9 @@ export default {
     isPhone (value) {
       const phoneNumber = /^(09)[0-9]{8}$/
       return phoneNumber.test(value) ? true : '需要正確的手機號碼'
+    },
+    closeLoader(){
+      this.isLoading = false
     }
   },
   computed:{
@@ -382,19 +307,19 @@ export default {
       }
       return time
     },
-    selectedTime(){
-      const f = new Intl.DateTimeFormat('zh-TW', {
-        dateStyle: 'full',
-        timeStyle: 'short',
-        hour12: false
-      });
-      return this.tempOrder.user.address ? f.format((parseInt(this.tempOrder.user.address))) : ''
-    }
+    // selectedTime(){
+    //   const f = new Intl.DateTimeFormat('zh-TW', {
+    //     dateStyle: 'full',
+    //     timeStyle: 'short',
+    //     hour12: false
+    //   });
+    //   return this.tempOrder.user.address ? f.format((parseInt(this.tempOrder.user.address))) : ''
+    // }
   },
   mounted(){
     this.isLoading = true
-    this.setToday()
-    this.getBooked()
+    // this.setToday()
+    // this.getBooked()
     this.getService()
   }
 }

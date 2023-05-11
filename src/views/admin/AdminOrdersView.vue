@@ -366,7 +366,7 @@ export default {
     },
     addToCart(){
       const data = {
-        product_id: this.tempOrder.product.id,
+        product_id: this.tempOrder.products.product.id,
         qty: 1
       }
       this.$http.post(`${VITE_URL}/api/${VITE_PATH}/cart`, { data })
@@ -380,10 +380,10 @@ export default {
     addOrder(){
       const data = {
         user:{
-          name: this.tempOrder.name,
-          email: this.tempOrder.email,
-          tel: this.tempOrder.phone,
-          address: this.tempOrder.time.toString()
+          name: this.tempOrder.user.name,
+          email: this.tempOrder.user.email,
+          tel: this.tempOrder.user.tel,
+          address: this.tempOrder.user.address.toString()
         },
         message:this.tempOrder.message
       }

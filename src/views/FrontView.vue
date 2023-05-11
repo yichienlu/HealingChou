@@ -116,8 +116,11 @@ export default {
     setTimeout(()=>{
       this.isLoading = false
     },1000)
-
     window.addEventListener('scroll', this.scrollFunction)
+    
+  },
+  beforeUnmount() {
+    window.removeEventListener('scroll', this.scrollFunction)
   }
 }
 </script>
