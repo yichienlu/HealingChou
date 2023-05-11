@@ -293,5 +293,4 @@ export default {
   color: #bbb;
   background-color: #ddd8;
 }
-
 </style>

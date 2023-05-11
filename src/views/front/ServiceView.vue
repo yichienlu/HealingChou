@@ -110,23 +110,8 @@ export default {
         message: ''
       },
       selectedTime:'',
-      // today: {
-      //   year: 0,
-      //   month: 0,
-      //   date: 0,
-      //   day: 0
-      // },
-      // calendar: {
-      //   year: 0,
-      //   month: 0,
-      //   date: 0,
-      //   day: 0
-      // },
-      // orders: [],
-      // nestedOrders:[],
-      // total_pages:0
     }
-    },
+  },
   components: {
     LoaderComponent,
     CalendarComponent
@@ -142,76 +127,6 @@ export default {
         console.log(err)
       })
     },
-    // getBooked(){
-    //   this.isLoading = true
-    //   this.$http.get(`${VITE_URL}/api/${VITE_PATH}/orders`)
-    //     .then((res) => {
-    //       this.total_pages = res.data.pagination.total_pages
-    //       this.processBooked()
-    //     })
-    //     .catch((err) => {
-    //       console.log(err)
-    //     })
-    //     .finally(()=>{
-    //       setTimeout(() => {
-    //         this.isLoading = false            
-    //       }, 1000);
-    //     })
-    // },
-    // async processBooked() {
-    //   for(let i=1; i<= this.total_pages; i++){
-    //     await this.getBookedPages(i)
-    //   }
-    //   this.orders = this.orders.sort(
-    //     (a, b) => a.user.address - b.user.address
-    //   )
-    // },
-    // async getBookedPages(page){
-    //   return new Promise((resolve)=>{
-    //     this.$http.get(`${VITE_URL}/api/${VITE_PATH}/orders?page=${page}`)
-    //       .then((res) => {
-    //         if(page==1){
-    //           this.orders = res.data.orders
-    //         } else {
-    //           this.orders = this.orders.concat(res.data.orders)
-    //         }
-    //         resolve();
-    //       })
-    //       .catch((err) => {
-    //         console.log(err)
-    //       })
-    //   })
-    // },
-    // setToday() {
-    //   const date = new Date()
-    //   this.today.year = this.calendar.year = date.getFullYear()
-    //   this.today.month = this.calendar.month = date.getMonth() // 0~11
-    //   this.today.date = this.calendar.date = date.getDate()
-    //   this.today.day = this.calendar.day = date.getDay()
-    // },
-    // adjustYear(fix) {
-    //   this.calendar.year += fix
-    // },
-    // adjustMonth(fix) {
-    //   let month = this.calendar.month + fix
-    //   if (month > 11) {
-    //     this.adjustYear(1)
-    //     this.calendar.month = 0
-    //   } else if (month < 0) {
-    //     this.adjustYear(-1)
-    //     this.calendar.month = 11
-    //   } else {
-    //     this.calendar.month = month
-    //   }
-    // },
-    // calculateDate(i,j){
-    //   let date =  new Date(
-    //     this.calendarMonth[(i - 1) * 7 + j - 1].year,
-    //     this.calendarMonth[(i - 1) * 7 + j - 1].month,
-    //     this.calendarMonth[(i - 1) * 7 + j - 1].date
-    //   )
-    //   return date
-    // },
     selectSession(timestamp){
       this.tempOrder.user.address = timestamp
       const f = new Intl.DateTimeFormat('zh-TW', {
@@ -307,77 +222,15 @@ export default {
       }
       return time
     },
-    // selectedTime(){
-    //   const f = new Intl.DateTimeFormat('zh-TW', {
-    //     dateStyle: 'full',
-    //     timeStyle: 'short',
-    //     hour12: false
-    //   });
-    //   return this.tempOrder.user.address ? f.format((parseInt(this.tempOrder.user.address))) : ''
-    // }
   },
   mounted(){
     this.isLoading = true
-    // this.setToday()
-    // this.getBooked()
     this.getService()
   }
 }
 </script>
 
 <style lang="scss">
-.calendar{
-  background-color: #fff5;
-}
-
-.day {
-  font-size: 0.3rem;
-  width: calc(100% / 7);
-}
-.day button, .day .session-btn {
-  font-size: 0.3rem;
-  padding: 2px;
-  margin-bottom: 5px;
-}
-.day .session-btn:hover {
-  background-color: #fff5;
-}
-.day .btn-check:checked+.session-btn {
-  background-color: var(--bs-primary);
-}
-.weekDay,
-.week {
-  border-bottom: 1px solid #ddd;
-}
-.weekDay > div {
-  flex: 1 1 0%;
-  line-height: 30px;
-}
-.week {
-  border-right: 1px solid #ddd;
-}
-.week > div {
-  position: relative;
-  flex: 1 1 0%;
-  min-height: 90px;
-  line-height: 1.5;
-  border-left: 1px solid #ddd;
-  padding: 10px 0;
-}
-.today {
-  color: #000000;
-  background-color: #ece4d888;
-}
-.sunday {
-  color:#A00
-}
-.saturday {
-  color: #080
-}
-.other {
-  color: #bbb;
-  background-color: #ddd8;
-}
 .service-form {
   .form-control.is-invalid{
     border-color: #F55
