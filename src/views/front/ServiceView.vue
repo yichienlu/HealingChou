@@ -182,50 +182,14 @@ export default {
       this.isLoading = false
     }
   },
-  computed:{
-    calendarFirstDay() {
-      const mDate = new Date(this.calendar.year, this.calendar.month, 1)
-      const date = new Date(
-        this.calendar.year,
-        this.calendar.month,
-        1 - mDate.getDay()
-      )
-      return {
-        year: date.getFullYear(),
-        month: date.getMonth(),
-        date: date.getDate(),
-        day: date.getDay()
-      }
-    },
-    calendarMonth() {
-      const data = []
-      let date
-      for (let i = 0; i < 42; i++) {
-        date = new Date(
-          this.calendarFirstDay.year,
-          this.calendarFirstDay.month,
-          this.calendarFirstDay.date + i
-        )
-        data.push({
-          year: date.getFullYear(),
-          month: date.getMonth(),
-          date: date.getDate(),
-          day: date.getDay()
-        })
-      }
-      return data
-    },
-    bookedTime() {
-      const time = []
-      for (const item of this.orders) {
-        time.push(item.user.address * 1)
-      }
-      return time
-    },
-  },
   mounted(){
     this.isLoading = true
     this.getService()
+    if(!this.service.origin_price){
+      setTimeout(() => {
+        this.isLoading = false            
+      }, 1000);
+    }
   }
 }
 </script>
