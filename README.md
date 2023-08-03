@@ -31,31 +31,6 @@
 - 由 53 Art Woker Studio 設計
 - 連結：https://www.figma.com/file/pWBGZX61mjQ2BPyEdWI310/%E8%88%9F%E8%88%9F%E7%99%82%E5%BF%83%E5%AE%A4?node-id=10-12&t=yq7hu1PS7SrSSymX-0
 
-<hr />
-
-## 頁面/功能展示
-
-### Preloader
-
-### 首頁
-
-### 服務/課程列表
-
-### 服務/課程內容
-
-#### 預約表單
-
-### 部落格列表
-
-### 部落格內文
-
-#### 其他文章
-
-### 後台管理
-
-
-#### 首頁
-#### 
 
 <hr />
 
